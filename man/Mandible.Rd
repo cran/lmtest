@@ -1,6 +1,6 @@
 \name{Mandible}
 \alias{Mandible}
-\title{ Mandible }
+\title{Mandible Data}
 \usage{data(Mandible)}
 \description{
 Mandible Data.

@@ -88,10 +88,8 @@ reset(modelBordoChoudri, type="princomp", data=currencysubstitution)
 
 ## Harvey-Collier
 harvtest(modelBordoChoudri, order.by = ~ I(Iu-Ic), data=currencysubstitution)
-harvtest(modelBordoChoudri, order.by = ~ Ic, data=currencysubstitution,
- tol=1e-10)
-harvtest(modelBordoChoudri, order.by = ~ logY, data=currencysubstitution,
- tol=1e-10)
+harvtest(modelBordoChoudri, order.by = ~ Ic, data=currencysubstitution)
+harvtest(modelBordoChoudri, order.by = ~ logY, data=currencysubstitution)
 
 ## Rainbow
 raintest(modelBordoChoudri, order.by = "mahalanobis", data=currencysubstitution)

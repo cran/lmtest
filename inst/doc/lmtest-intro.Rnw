@@ -10,7 +10,10 @@
 \begin{document}
 
 \SweaveOpts{engine=R,eps=FALSE}
-%% \VignetteIndexEntry{Diagnostic Checking in Regression Relationships}
+%\VignetteIndexEntry{Diagnostic Checking in Regression Relationships}
+%\VignetteDepends{lmtest, strucchange}
+%\VignetteKeywords{diagnostic checking, structural change, autocorrelation, heteroskedasticity}
+%\VignettePackage{lmtest}
 
 <<preliminaries,echo=FALSE>>=
 library(lmtest)

@@ -81,7 +81,7 @@ reset(modelCH, type="princomp", data=bondyield)
 harvtest(modelCH, order.by= ~ MOOD, data=bondyield)
 harvtest(modelCH, order.by= ~ EPI, data=bondyield)
 harvtest(modelCH, order.by= ~ EXP, data=bondyield)
-harvtest(modelCH, order.by= ~ RUS, data=bondyield, tol=1e-10)
+harvtest(modelCH, order.by= ~ RUS, data=bondyield)
 
 ## Rainbow
 raintest(modelCH, order.by = "mahalanobis", data=bondyield)
@@ -104,9 +104,9 @@ reset(modelYM, power=2, type="regressor", data=bondyield)
 reset(modelYM, type="princomp", data=bondyield)
 
 ## Harvey-Collier
-harvtest(modelYM, order.by= ~ MOOD, data=bondyield, tol=1e-10)
-harvtest(modelYM, order.by= ~ Y, data=bondyield, tol=1e-10)
-harvtest(modelYM, order.by= ~ K, data=bondyield, tol=1e-10)
+harvtest(modelYM, order.by= ~ MOOD, data=bondyield)
+harvtest(modelYM, order.by= ~ Y, data=bondyield)
+harvtest(modelYM, order.by= ~ K, data=bondyield)
 
 ## Rainbow
 raintest(modelYM, order.by = "mahalanobis", data=bondyield)

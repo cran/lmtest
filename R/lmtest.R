@@ -13,7 +13,7 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
   dw <- sum(diff(res)^2)/sum(res^2)
   A <- diag(c(1,rep(2, n-2), 1))
   A[abs(row(A)-col(A))==1] <- -1
-  Q1 <- solve(crossprod(X), tol=tol)
+  Q1 <- chol2inv(qr.R(qr(X)))
   if(exact)
   {
     MA <- diag(rep(1,n)) - X %*% Q1 %*% t(X)
@@ -197,7 +197,7 @@ hmctest <- function(formula, point=0.5, order.by=NULL, simulate.p=TRUE,
   return(RVAL)
 }
 
-harvtest <- function(formula, order.by=NULL, tol=1e-7, data=list())
+harvtest <- function(formula, order.by=NULL, data=list())
 {
   dname <- paste(deparse(substitute(formula)))
   mf <- model.frame(formula, data = data)
@@ -206,14 +206,14 @@ harvtest <- function(formula, order.by=NULL, tol=1e-7, data=list())
   k <- ncol(X)
   n <- nrow(X)
 
-  rec.res <- function(X, y, tol = 1e-7)
+  rec.res <- function(X, y)
   {
       n <- nrow(X)
       q <- ncol(X)
       w <- rep(0,(n-q))
       Xr1 <- X[1:q,,drop = FALSE]
       xr <- as.vector(X[q+1,])
-      X1 <- solve(t(Xr1)%*%Xr1, tol=tol)
+      X1 <- chol2inv(qr.R(qr(Xr1)))
       fr <- as.vector((1 + (t(xr) %*% X1 %*% xr)))
       betar <- X1 %*%t(Xr1)%*% y[1:q]
       w[1] <- (y[q+1] - t(xr) %*% betar)/sqrt(fr)
@@ -237,7 +237,7 @@ harvtest <- function(formula, order.by=NULL, tol=1e-7, data=list())
     y <- y[order(x)]
   }
 
-  resr <- rec.res(X,y, tol=tol)
+  resr <- rec.res(X,y)
   sigma <- sqrt(var(resr)*(length(resr)-1)/(n-k-1))
   resr <- resr / sigma
   harv <- abs(sum(resr)/sqrt(n-k))/sqrt(var(resr))
@@ -287,7 +287,7 @@ raintest <- function(formula, fraction=0.5, order.by=NULL, center=NULL,
   if(order.by == "mahalanobis")
   {
     if(is.null(center)) center <- apply(X,2,mean)
-    o <- order(mahalanobis(X,center,crossprod(X)))
+    o <- order(mahalanobis(X,center, chol2inv(qr.R(qr(X))), inverted = TRUE))
     X <- as.matrix(X[o,])
     y <- y[o]
     from <- 1
@@ -382,19 +382,19 @@ bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
   resi <- lm.fit(X,y)$residuals
 
   Z <- sapply(order, function(x) c(rep(0, x), resi[1:(n-x)]))
-  umod <- lm(resi ~ X + Z)
+  auxfit <- lm.fit(cbind(X,Z), resi)
 
   switch(match.arg(type),
 
   "Chisq" = {
-    bg <- n * summary(umod)$r.squared
+    bg <- n * sum(auxfit$fitted^2)/sum(resi^2)
     p.val <- pchisq(bg, m, lower.tail = FALSE)
     df <- m
     names(df) <- "df"
   },
 
   "F" = {
-    uresi <- residuals(umod)
+    uresi <- auxfit$residuals
     rresi <- lm.fit(X,resi)$residuals
     bg <- ((sum(rresi^2) - sum(uresi^2))/m) / (sum(uresi^2) / (n-k-m))
     p.val <- pf(bg, df1 = m, df2 = n-k, lower.tail = FALSE)

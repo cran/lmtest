@@ -4,7 +4,7 @@
 \description{Harvey-Collier test for linearity.}
 
 \usage{
-harvtest(formula, order.by = NULL, tol = 1e-7, data = list())
+harvtest(formula, order.by = NULL, data = list())
 }
 
 \arguments{
@@ -14,9 +14,6 @@ harvtest(formula, order.by = NULL, tol = 1e-7, data = list())
     are ordered by the size of \code{x}. If set to \code{NULL} (the
     default) the observations are assumed to be ordered (e.g. a
     time series).}
- \item{tol}{tolerance when \code{solve} is used: the tolerance for detecting
-            linear dependencies in the columns the matrices passed to
-             \code{solve}. }
  \item{data}{an optional data frame containing the variables in the model.
     By default the variables are taken from the environment which
     \code{harvtest} is called from.}

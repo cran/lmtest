@@ -64,7 +64,7 @@ reset(modelAllen, type = "princomp", data = moneydemand)
 harvtest(modelAllen, order.by = ~logYp, data = moneydemand)
 harvtest(modelAllen, order.by = ~Rs, data = moneydemand)
 harvtest(modelAllen, order.by = ~Rl, data = moneydemand)
-harvtest(modelAllen, order.by = ~logSpp, data = moneydemand, tol = 1e-10)
+harvtest(modelAllen, order.by = ~logSpp, data = moneydemand)
 
 ## Rainbow test
 raintest(modelAllen, order.by = "mahalanobis", data = moneydemand)
