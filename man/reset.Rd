@@ -47,4 +47,4 @@ y <- M + rnorm(30,0,2);
 formular <- y ~ M;
 rain <- reset(formular,1);
 
-\keyword{linear models}
+\keyword{htest}

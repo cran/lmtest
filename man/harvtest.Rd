@@ -39,4 +39,4 @@ formular <- y ~ x;
 harv <- harvtest(formular);
 qt(0.95, harv$parameter[1]);
 }
-\keyword{linear models}ÿ
+\keyword{htest}

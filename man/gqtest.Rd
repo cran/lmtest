@@ -42,4 +42,4 @@ formular <- y ~ x;
 gq <- gqtest(formular, 10);
 qf(0.95, gq$parameter[1], gq$parameter[2]);
 }
-\keyword{linear models}
+\keyword{htest}

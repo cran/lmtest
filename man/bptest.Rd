@@ -43,4 +43,4 @@ bp <- bptest(y~x-1);
 # calculate quantil
 qchisq(0.95, bp$parameter[1]);
 }
-\keyword{linear models}
+\keyword{htest}

@@ -40,4 +40,4 @@ for(i in (2:30))
 y <- x + ut;
 dw <- dwtest(y ~ x);
 }
-\keyword{linear models}
+\keyword{htest}

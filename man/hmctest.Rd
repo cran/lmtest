@@ -35,4 +35,4 @@ y <- x^2 + err;
 formular <- y ~ x;
 hmc <- hmctest(formular, 10);
 }
-\keyword{linear models}
+\keyword{htest}

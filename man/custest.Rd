@@ -33,4 +33,4 @@ rw <- custest(y ~x -1);
 # plot random walk
 plot(rw);
 }
-\keyword{linear models}
+\keyword{htest}

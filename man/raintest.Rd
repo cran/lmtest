@@ -45,4 +45,4 @@ formular <- y ~ x;
 rain <- raintest(formular);
 qf(0.95, rain$parameter[1], rain$parameter[2]);
 }
-\keyword{linear models}
+\keyword{htest}
