@@ -18,7 +18,7 @@ called from}
 RESET-Test is popular means of diagnostic for correctness of functional
 form. The basic assumption is that under the alternative, the model can be
 written by the regression
-eqn{ y = X\beta + Z\gamma + u}{y=X * beta + Z * gamma}
+\eqn{ y = X\beta + Z\gamma + u}{y=X * beta + Z * gamma}
 \code{g} is the number of regressors in \code{X}. Ramsey's RESET is
 equivalent  to the standard F-Test. 
 The test statistic under \eqn{H_0} follows a F distribution with df1 and df2 degree

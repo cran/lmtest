@@ -1,7 +1,7 @@
 \name{hmctest}
 \title{Harrison-McCabe-Test}
 \usage{
-raintest(formula, T,  data=list())
+hmctest(formula, T,  data=list())
 }
 \alias{hmctest}
 \arguments{
@@ -33,6 +33,6 @@ x <- c(1:30);
 err <- c(rnorm(10,0,1), rnorm(20,0,10));
 y <- x^2 + err;
 formular <- y ~ x;
-hmc <- hmctest(formular);
+hmc <- hmctest(formular, 10);
 }
 \keyword{linear models}
