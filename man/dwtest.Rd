@@ -18,7 +18,7 @@ disturbances.
  A list with class \code{"htest"} containing the following components:
   \item{statistic}{the value of the test statistic.}
   \item{p.value}{the null distribution depends on X and is hardly
-trackaable, so p.value is NA}
+trackable, so p.value is NA}
   \item{method}{a character string indicating what type of test was
     performed.} 
   \item{data.name}{a character string giving the name(s) of the data.}

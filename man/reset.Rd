@@ -34,8 +34,8 @@ of freedom.
 }
 \references{Kraemer, W., Sonnberger, H. (1986): The linear regression model
 under test}
-\author{Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>}
-\author{Frederik von Ameln <vonameln@amadeus.statistik.uni-dortmund.de>}
+\author{Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de> and 
+Frederik von Ameln <vonameln@amadeus.statistik.uni-dortmund.de>}
 
 \seealso{\code{\link{lm}}}
 
