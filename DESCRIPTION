@@ -1,9 +1,10 @@
 Package: lmtest
-Title: Testing linear models
-Version: 0.1-8
+Title: Testing Linear Models
+Version: 0.1-9
 Author: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>
  Frederik von Ameln <vonameln@amadeus.statistik.uni-dortmund.de>
+Maintainer: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>
 Description: A collection of tests on the assumptions of linear regression
- models from the book: "The linear regression model under test"   
+ models.
 Depends:
 License: GPL
