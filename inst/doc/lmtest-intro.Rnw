@@ -17,7 +17,6 @@ library(lmtest)
 options(SweaveHooks=list(twofig=function() {par(mfrow=c(1,2))},
                          twofig2=function() {par(mfrow=c(2,1))},
                          onefig=function() {par(mfrow=c(1,1))}))
-library(strucchange)
 @
 
 \title{Diagnostic Checking in Regression Relationships}
@@ -235,9 +234,16 @@ and the Rainbow test gives
 <<mandible-tests4>>=
 raintest(length ~ age + I(age^2), order.by = ~ age, data = mandible)
 @
+<<mandible-supF,echo=FALSE,results=hide>>=
+if(require(strucchange)) {
+  supF.pval <- round(sctest(length ~ age + I(age^2), data = mandible, to = 0.9, type = "supF")$p.value, digits = 3)
+} else {
+  warning("`strucchange' not available: p value set to NA")
+  supF.pval <- NA
+}
+@
 and finally an sup$F$ test from the \texttt{strucchange} package would also reject the
-null hypothesis of stability at 10\% level ($p =
-\Sexpr{round(sctest(length ~ age + I(age^2), data = mandible, to = 0.9, type = "supF")$p.value, digits = 3)}$)
+null hypothesis of stability at 10\% level ($p = \Sexpr{supF.pval}$)
 in favour of a breakpoint after about 90\% of the
 observations. All three
 tests probably reflect that there is more variability in the edges (especially the

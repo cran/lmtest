@@ -1,7 +1,7 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-2
-Date: $Date: 2002/10/28 10:07:32 $
+Version: 0.9-3
+Date: $Date: 2003/02/19 15:54:30 $
 Author: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>,
  Achim Zeileis <zeileis@ci.tuwien.ac.at>, David Mitchell
 Maintainer: Achim Zeileis <zeileis@ci.tuwien.ac.at>
