@@ -1,6 +1,6 @@
 Package: lmtest
 Title: Testing Linear Models
-Version: 0.2-1
+Version: 0.2-2
 Author: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>
  Frederik von Ameln <vonameln@amadeus.statistik.uni-dortmund.de>
 Maintainer: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>

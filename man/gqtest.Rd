@@ -35,11 +35,11 @@ under test}
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30);
-err <- c(rnorm(10,0,1), rnorm(20,0,10));
-y <- x + err;
-formular <- y ~ x;
-gq <- gqtest(formular, 10);
-qf(0.95, gq$parameter[1], gq$parameter[2]);
+x <- c(1:30)
+err <- c(rnorm(10,0,1), rnorm(20,0,10))
+y <- x + err
+formular <- y ~ x
+gq <- gqtest(formular, 10)
+qf(0.95, gq$parameter[1], gq$parameter[2])
 }
 \keyword{htest}

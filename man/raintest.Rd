@@ -39,10 +39,10 @@ Frederik von Ameln <vonameln@amadeus.statistik.uni-dortmund.de>}
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30);
-y <- x^2 + rnorm(30,0,2);
-formular <- y ~ x;
-rain <- raintest(formular);
-qf(0.95, rain$parameter[1], rain$parameter[2]);
+x <- c(1:30)
+y <- x^2 + rnorm(30,0,2)
+formular <- y ~ x
+rain <- raintest(formular)
+qf(0.95, rain$parameter[1], rain$parameter[2])
 }
 \keyword{htest}

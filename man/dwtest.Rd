@@ -30,14 +30,14 @@ under test}
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30);
-ut <- c(1:30);
+x <- c(1:30)
+ut <- c(1:30)
 # creating a ARMA(1) process
 for(i in (2:30))
 {
-	ut[i] <- 1 * ut[i-1] + rnorm(1,0,2);
+	ut[i] <- 1 * ut[i-1] + rnorm(1,0,2)
 }
-y <- x + ut;
-dw <- dwtest(y ~ x);
+y <- x + ut
+dw <- dwtest(y ~ x)
 }
 \keyword{htest}

@@ -33,10 +33,10 @@ under test}
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30);
-y <- x^2 + rnorm(30,0,2);
-formular <- y ~ x;
-harv <- harvtest(formular);
-qt(0.95, harv$parameter[1]);
+x <- c(1:30)
+y <- x^2 + rnorm(30,0,2)
+formular <- y ~ x
+harv <- harvtest(formular)
+qt(0.95, harv$parameter[1])
 }
 \keyword{htest}

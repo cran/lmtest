@@ -25,12 +25,12 @@ under test}
 
 \examples{
 # generate regressor
-x <- c(1:30);
+x <- c(1:30)
 # generate a structural change
-y <- c(1*x[1:10], 3*x[11:30]) + rnorm(30,0,1);
+y <- c(1*x[1:10], 3*x[11:30]) + rnorm(30,0,1)
 # perform CUSUM-Test
-rw <- custest(y ~x -1);
+rw <- custest(y ~x -1)
 # plot random walk
-plot(rw);
+plot(rw)
 }
 \keyword{htest}

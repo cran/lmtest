@@ -32,15 +32,15 @@ under test}
 \seealso{\code{\link{lm}}}
 
 \examples{
-# generate a regressor;
-x <- sort(runif(50,-10,10));
+# generate a regressor
+x <- sort(runif(50,-10,10))
 # generate heteroskedastic disturbances
-err <- c(rnorm(25,0,1),rnorm(25,0,10));
+err <- c(rnorm(25,0,1),rnorm(25,0,10))
 # generate a linear relationship
-y <- 2*x + err;
+y <- 2*x + err
 # perform Breusch-Pagan
-bp <- bptest(y~x-1);
+bp <- bptest(y~x-1)
 # calculate quantil
-qchisq(0.95, bp$parameter[1]);
+qchisq(0.95, bp$parameter[1])
 }
 \keyword{htest}

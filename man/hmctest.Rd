@@ -29,10 +29,10 @@ under test}
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30);
-err <- c(rnorm(10,0,1), rnorm(20,0,10));
-y <- x^2 + err;
-formular <- y ~ x;
-hmc <- hmctest(formular, 10);
+x <- c(1:30)
+err <- c(rnorm(10,0,1), rnorm(20,0,10))
+y <- x^2 + err
+formular <- y ~ x
+hmc <- hmctest(formular, 10)
 }
 \keyword{htest}

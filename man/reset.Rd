@@ -40,11 +40,12 @@ Frederik von Ameln <vonameln@amadeus.statistik.uni-dortmund.de>}
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30);
-z <- x^2;
-M <- cbind(x,z);
-y <- M + rnorm(30,0,2);
-formular <- y ~ M;
-rain <- reset(formular,1);
+x <- c(1:30)
+z <- x^2
+M <- cbind(x,z)
+y <- M + rnorm(30,0,2)
+formular <- y ~ M
+rain <- reset(formular,1)
+}
 
 \keyword{htest}
