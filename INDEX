@@ -1,0 +1,8 @@
+raintest	Rainbow-Test
+bptest		Breusch-Pagan-Test
+dwtest		Durbin-Watson-Test
+gqtest		Goldfeld-Quandt-Test
+harvtest	Harvey-Collier-Test
+hmctest		Harrison-McCabe-Test
+custest		CUSUM-Test
+reset		RESET-Test
