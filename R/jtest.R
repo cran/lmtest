@@ -1,6 +1,6 @@
 ## see Greene (2003), Section 8.3.3., p.154
 
-jtest <- function(formula1, formula2, data = list(), vcov = NULL, ...)
+jtest <- function(formula1, formula2, data = list(), vcov. = NULL, ...)
 {
   ## merge two models (if possible) and compute
   ## response y and regressor matrices X and Z
@@ -52,8 +52,12 @@ jtest <- function(formula1, formula2, data = list(), vcov = NULL, ...)
     }
     if(!identical(y, y2)) warning("different dependent variables specified")
   }
-  ## check vcov
-  if(!is.null(vcov) && !is.function(vcov)) stop("`vcov' needs to be a function")
+  ## for pretty printing
+  m1 <- paste(m1, collapse = "\n")
+  m2 <- paste(m2, collapse = "\n")
+
+  ## check vcov.
+  if(!is.null(vcov.) && !is.function(vcov.)) stop("`vcov.' needs to be a function")
 
   ## fit auxiliary models:
   y.hat1 <- lm.fit(X, y)$fitted
@@ -63,8 +67,8 @@ jtest <- function(formula1, formula2, data = list(), vcov = NULL, ...)
   auxmodX <- lm(y ~ 0 + auxX)
   auxmodZ <- lm(y ~ 0 + auxZ)
 
-  rvalX <- coeftest(auxmodX, vcov = vcov, ...)
-  rvalZ <- coeftest(auxmodZ, vcov = vcov, ...)
+  rvalX <- coeftest(auxmodX, vcov. = vcov., ...)
+  rvalZ <- coeftest(auxmodZ, vcov. = vcov., ...)
   rvalX <- rvalX[nrow(rvalX), ]
   rvalZ <- rvalZ[nrow(rvalZ), ]
   

@@ -1,7 +1,7 @@
 ## See Greene (2003), Section 8.3.2, p.154
 ## original reference: Davidson-MacKinnon 1993, p.384-7 ex Greene
 
-encomptest <- function(formula1, formula2, data = list(), vcov = NULL, ...)
+encomptest <- function(formula1, formula2, data = list(), vcov. = NULL, ...)
 {
   ## merge two models (if possible) and compute
   ## response y and regressor matrices X and Z
@@ -11,14 +11,19 @@ encomptest <- function(formula1, formula2, data = list(), vcov = NULL, ...)
     if(length(formula) > 2) formula[[2]] <- NULL
     formula[[2]] <- as.call(list(as.name("+"), as.name("."), formula[[2]]))
     formula <- update(formula1, formula)
-    mf <- model.frame(formula, data = data)
-    formula <- formula1
-    formula[[3]] <- as.name(".")
-    fm1 <- lm(formula1, data = mf)
-    fm2 <- lm(formula2, data = mf)
-    fm <- lm(formula, data = mf)
+    mf <- model.frame(formula, data = data, ...)
+
+    ## cannot compute directly on mf because of (potential)
+    ## transformations in the variables, try matching via row.names.
+    ## formula <- formula1
+    ## formula[[3]] <- as.name(".") 
+    if(is.data.frame(data)) data <- data[row.names(mf),]
+       
+    fm1 <- lm(formula1, data = data)
+    fm2 <- lm(formula2, data = data)
+    fm <- lm(formula, data = data)
   } else {
-    fm1 <- if(inherits(formula1, "formula")) lm(formula1, data = data) else formula1
+    fm1 <- if(inherits(formula1, "formula")) lm(formula1, data = data, ...) else formula1
     if(inherits(formula2, "formula")) {
       fm2 <- update(fm1, formula2)
     } else {
@@ -36,22 +41,22 @@ encomptest <- function(formula1, formula2, data = list(), vcov = NULL, ...)
     fm <- as.formula(paste(". ~ . +", fm))
     fm <- update(fm1, fm)
   }
-  m1 <- deparse(formula(fm1))
-  m2 <- deparse(formula(fm2))
-  m <- deparse(formula(fm))
+  m1 <- paste("Model 1:", paste(deparse(formula(fm1)), collapse = "\n"))
+  m2 <- paste("Model 2:", paste(deparse(formula(fm2)), collapse = "\n"))
+  m  <- paste("Model E:", paste(deparse(formula(fm )), collapse = "\n"))
 
-  ## check vcov
-  if(!is.null(vcov) && !is.function(vcov)) stop("`vcov' needs to be a function")
+  ## check vcov.
+  if(!is.null(vcov.) && !is.function(vcov.)) stop("`vcov.' needs to be a function")
 
-  rval1 <- as.data.frame(waldtest(fm, fm1, vcov = vcov, ...))
-  rval2 <- as.data.frame(waldtest(fm, fm2, vcov = vcov, ...))
+  rval1 <- as.data.frame(waldtest(fm, fm1, vcov = vcov., ...))
+  rval2 <- as.data.frame(waldtest(fm, fm2, vcov = vcov., ...))
   rval <- rbind(rval1[2,], rval2[2,])
   rval[,1] <- c(rval1[1,1], rval2[1,1])
   rownames(rval) <- c("M1 vs. ME", "M2 vs. ME")
 
   ## put results together
   title <- "Encompassing test\n"
-  topnote <- paste("Model ", c(1:2, "E"),": ", c(m1, m2, m), sep="", collapse="\n")
+  topnote <- paste(c(m1, m2, m), collapse="\n")
   rval <- structure(rval, heading = c(title, topnote), class = c("anova", "data.frame"))
   return(rval)
 }

@@ -4,7 +4,7 @@ An earlier version was written by Torsten Hothorn and Frederik von Ameln.
 
 It implements a wide variety of tests typically encountered in econometric
 analysis. This collection of tests is complemented by the tests available
-in the packages `car' and `lmtest'.
+in the packages `car' and `strucchange'.
 
 The work on the package was inspired by the book "The Linear Regression Model
 Under Test" by Kraemer and Sonnberger (1986). We tried to reproduce the

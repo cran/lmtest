@@ -8,7 +8,7 @@
 }
 
 \usage{
- encomptest(formula1, formula2, data = list(), vcov = NULL, \dots)
+ encomptest(formula1, formula2, data = list(), vcov. = NULL, \dots)
 }
 
 \arguments{
@@ -19,7 +19,7 @@
   \item{data}{an optional data frame containing the variables in the
     model. By default the variables are taken from the environment
     which \code{encomptest} is called from.}
-  \item{vcov}{a function for estimating the covariance matrix of the regression
+  \item{vcov.}{a function for estimating the covariance matrix of the regression
     coefficients, e.g., \code{\link[sandwich]{vcovHC}}.}
   \item{\dots}{further arguments passed to \code{\link{waldtest}}.}
 }

@@ -1,0 +1,16 @@
+Changes in Version 0.9-14
+
+  o now a default method for waldtest() is provided (replacing the
+    lm method). It works for "lm", "glm" and "survreg" objects.    
+    Furtheremore, it is object-oriented and generally works if the
+    following methods are available: terms(), formula(), coef() (which
+    needs to be named, matching the names in terms() and vcov()),
+    vcov() (which can alternatively be user-supplied), df.residual(),
+    residuals() and update() (unless only fitted objects are supplied).
+    
+  o the default coeftest() was enhanced, works now out of the box for
+    "mle" objects, a "survreg" method is added (needed because coef()
+    and vcov() do not necessarily match for "survreg" objects).
+    
+  o the vcov argument was changed (almost) everywhere to vcov. to 
+    avoid name clashes with the vcov() function.

@@ -52,6 +52,9 @@ coxtest <- function(formula1, formula2, data = list())
     }
     if(!identical(y, y2)) warning("different dependent variables specified")
   }
+  ## for pretty printing
+  m1 <- paste(m1, collapse = "\n")
+  m2 <- paste(m2, collapse = "\n")
 
   ## Steps in Greene (2003) p.156-7
   # 1.
