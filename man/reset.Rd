@@ -1,7 +1,7 @@
 \name{reset}
 \title{Reset-Test}
 \usage{
-rest(formula, g, data=list())
+reset(formula, g, data=list())
 }
 \alias{reset}
 \arguments{
