@@ -1,8 +1,13 @@
 'lmtest' is an R package of tests on the standard assumptions of linear
-models and is Copyright (C) 1999 by Torsten Hothorn
-<hothorn@amadeus.statistik.uni-dortmund.de> and Frederik von Ameln
-<vonameln@amadeus.statistik.uni-dortmund.de>
+models by Achim Zeileis and Torsten Hothorn.
+An earlier version was written by Torsten Hothorn and Frederik von Ameln.
 
+It implements a couple of tests from the book "The linear regression model under
+test" by Kraemer and Sonnberger (1986). The structural change tests described in
+that book can be found (among others) in the package 'strucchange'. We tried
+to reproduce the examples given in the book, but that was not always possible
+or differes more or less seriously. However, many results can be (almost)
+reproduced, see the examples for the data sets for details.
 
 `lmtest' is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free

@@ -1,8 +1,14 @@
-bptest                   Breusch-Pagan-Test
-custest                  CUSUM-Test
-dwtest                   Durbin-Watson-Test
-gqtest                   Goldfeld-Quandt-Test
-harvtest                 Harvey-Collier-Test
-hmctest                  Harrison-McCabe-Test
-raintest                 Rainbow-Test
-reset                    Reset-Test
+bondyield                Bond Yield
+bptest                   Breusch-Pagan Test
+currencysubstitution     Currency Substitution
+dwtest                   Durbin-Watson Test
+gqtest                   Goldfeld-Quandt Test
+growthofmoney            Growth of Money Supply
+harvtest                 Harvey-Collier Test
+hmctest                  Harrison-McCabe test
+moneydemand              Demand for Money
+raintest                 Rainbow Test
+reset                    RESET Test
+unemployment             Unemployment Data
+valueofstocks            Value of Stocks
+wages                    Wages

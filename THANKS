@@ -1,0 +1,16 @@
+
+The authors would like to thank the following people for their help and
+assistance:
+
+Walter Kraemer <walterk@statistik.uni-dortmund.de> for 
+  providing free copies of "The Linear Regression Model under Test", 
+
+Marcel Mackiewicz <Marcel.Mackiewicz@imbe.imed.uni-erlangen.de> for 
+  scanning the datasets,
+
+Uwe Ligges <ligges@statistik.uni-dortmund.de> and
+Jeffrey Racine <jracine@coba.usf.edu> for critically testing a
+  pre-release version and
+
+Andrea Peters <andrea.peters@imbe.imed.uni-erlangen.de> for her comments on
+  the documentation of `lmtest'.

@@ -1,42 +1,74 @@
 \name{harvtest}
-\title{Harvey-Collier-Test}
-\usage{
-harvtest(formula, data=list())
-}
 \alias{harvtest}
+\title{Harvey-Collier Test}
+\description{Harvey-Collier test for linearity.}
+
+\usage{
+harvtest(formula, order.by = NULL, tol = 1e-7, data = list())
+}
+
 \arguments{
- \item{formula}{a symbolic describtion for the model to be tested}
+ \item{formula}{a symbolic describtion for the model to be tested.}
+ \item{order.by}{formula. A formula with a single explanatory
+    variable like \code{~ x}. The observations in the model
+    are ordered by the size of \code{x}. If set to \code{NULL} (the
+    default) the observations are assumed to be ordered (e.g. a
+    time series).}
+ \item{tol}{tolerance when \code{solve} is used: the tolerance for detecting
+            linear dependencies in the columns the matrices passed to
+             \code{solve}. }
  \item{data}{an optional data frame containing the variables in the model.
-By default the variables are taken from the environment which 'harvtest' is
-called from}
+    By default the variables are taken from the environment which
+    \code{harvtest} is called from.}
 }
-\description{
- \code{harvtest} performs the Harvey-Collier-Test for linearity.
-}
+
 \details{
-The Harvey-Collier-Tests examines if the true relationship is linear versus a
-convex or concave relationship under the alternative. The test statistic under
-null hypothesis follows a t distribution with df degree of freedom.
+The Harvey-Collier test performs a t-test (with \code{parameter} degrees of
+freedom) on the recursive residuals. If the true relationship is not linear but
+convex or concave the mean of the recursive residuals should differ
+from 0 significantly.
+
+Examples can not only be found on this page, but also on the help pages of the
+data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{wages}}.
 }
+
 \value{
  A list with class \code{"htest"} containing the following components:
   \item{statistic}{the value of the test statistic.}
   \item{p.value}{the p-value of the test.}
+  \item{parameter}{degrees of freedom.}
   \item{method}{a character string indicating what type of test was
-    performed.} 
+    performed.}
   \item{data.name}{a character string giving the name(s) of the data.}
 }
-\references{Kraemer, W., Sonnberger, H. (1986): The linear regression model
-under test}
-\author{Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>}
+
+\references{
+
+A. Harvey & P. Collier (1977),
+Testing for Functional Misspecification in Regression Analysis.
+\emph{Journal of Econometrics} \bold{6}, 103--119
+
+W. Kraemer & H. Sonnberger (1986),
+\emph{The Linear Regression Model under Test}. Heidelberg: Physica
+
+
+}
 
 \seealso{\code{\link{lm}}}
 
 \examples{
-x <- c(1:30)
-y <- x^2 + rnorm(30,0,2)
-formular <- y ~ x
-harv <- harvtest(formular)
-qt(0.95, harv$parameter[1])
+# generate a regressor and dependent variable
+x <- 1:50
+y1 <- 1 + x + rnorm(50)
+y2 <- y1 + 0.3*x^2
+
+## perform Harvey-Collier test
+harv <- harvtest(y1 ~ x)
+harv
+## calculate critical value vor 0.05 level
+qt(0.95, harv$parameter)
+harvtest(y2 ~ x)
 }
 \keyword{htest}
