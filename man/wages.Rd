@@ -17,7 +17,8 @@ Wages Data.
 
 }
 \source{The data was originally studied by Nicols (1983), the data set is given
-in Kraemer and Sonnberger (1986). Below we replicate a few examples from their book.
+in Krämer and Sonnberger (1986). Below we replicate a few examples from their
+ book.
 Some of these results differ more or less seriously and are sometimes
 parameterized differently.
 }
@@ -27,7 +28,7 @@ D.A. Nicols (1983),
 Macroeconomic Determinants of Wage Adjustments in White Collar Occupations.
 \emph{Review of Economics and Statistics} \bold{65}, 203--213
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

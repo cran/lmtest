@@ -19,8 +19,9 @@ Unemployment Data.
 }
 \source{
 The data was originally studied by Rea (1983), the data set is given in
-Kraemer and Sonnberger (1986). Below we replicate a few examples 
-from their book. Some of these results differ more or less seriously and are sometimes
+Krämer and Sonnberger (1986). Below we replicate a few examples 
+from their book. Some of these results differ more or less seriously and are
+ sometimes
 parameterized differently.
 }
 \references{
@@ -30,7 +31,7 @@ The Explanatory Power of Alternative Theories of Inflation and Unemployment,
 1895-1979.
 \emph{Review of Economics and Statistics} \bold{65}, 183--195
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

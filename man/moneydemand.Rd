@@ -20,7 +20,7 @@ the rate of price changes.}
 }
 \source{
 The data was originally studied by Allen (1982), the data set is given in
-Kraemer and Sonnberger (1986). Below we replicate a few examples 
+Krämer and Sonnberger (1986). Below we replicate a few examples 
 from the book.
 Some of these results differ more or less seriously and are sometimes
 parameterized differently.
@@ -32,7 +32,7 @@ S.D. Allen (1982),
 Kleins's Price Variability Terms in the U.S. Demand for Money.
 \emph{Journal of Money, Credit and Banking} \bold{14}, 525--530
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

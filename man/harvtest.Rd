@@ -8,7 +8,7 @@ harvtest(formula, order.by = NULL, tol = 1e-7, data = list())
 }
 
 \arguments{
- \item{formula}{a symbolic describtion for the model to be tested.}
+ \item{formula}{a symbolic description for the model to be tested.}
  \item{order.by}{formula. A formula with a single explanatory
     variable like \code{~ x}. The observations in the model
     are ordered by the size of \code{x}. If set to \code{NULL} (the
@@ -30,7 +30,8 @@ from 0 significantly.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
-\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}},
+ \code{\link{unemployment}},
 \code{\link{wages}}.
 }
 
@@ -50,7 +51,7 @@ A. Harvey & P. Collier (1977),
 Testing for Functional Misspecification in Regression Analysis.
 \emph{Journal of Econometrics} \bold{6}, 103--119
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

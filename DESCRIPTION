@@ -1,10 +1,11 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-0
-Date: 2001-12-01
-Author: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>
- Achim Zeileis <zeileis@ci.tuwien.ac.at>
+Version: 0.9-2
+Date: $Date: 2002/10/28 10:07:32 $
+Author: Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>,
+ Achim Zeileis <zeileis@ci.tuwien.ac.at>, David Mitchell
 Maintainer: Achim Zeileis <zeileis@ci.tuwien.ac.at>
 Description: A collection of tests, data sets and examples
- for testing the assumptions of linear regression models.
+ for diagnostic checking in linear regression models.
+Depends: R (>= 1.4.0)
 License: GPL

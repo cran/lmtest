@@ -20,7 +20,7 @@ bonds,}
 }
 \source{
 The data was originally studied by Cook and Hendershott (1978) and Yawitz and
-Marshall (1981), the data set is given in Kraemer and Sonnberger (1986). Below
+Marshall (1981), the data set is given in Krämer and Sonnberger (1986). Below
 we replicate a few examples given in their book. 
 Some of these results differ more or
 less seriously and are sometimes parameterized differently.
@@ -35,7 +35,7 @@ J.B. Yawitz & W. J. Marshall (1981),
 Measuring the Effect of Callability on Bond Yields.
 \emph{Journal of Money, Credit and Banking} \bold{13}, 60--71
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

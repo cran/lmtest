@@ -1,14 +1,17 @@
-bondyield                Bond Yield
-bptest                   Breusch-Pagan Test
-currencysubstitution     Currency Substitution
-dwtest                   Durbin-Watson Test
-gqtest                   Goldfeld-Quandt Test
-growthofmoney            Growth of Money Supply
-harvtest                 Harvey-Collier Test
-hmctest                  Harrison-McCabe test
-moneydemand              Demand for Money
-raintest                 Rainbow Test
-reset                    RESET Test
-unemployment             Unemployment Data
-valueofstocks            Value of Stocks
-wages                    Wages
+Mandible                Mandible 
+bgtest                  Breusch-Godfrey Test
+bondyield               Bond Yield 
+bptest                  Breusch-Pagan Test
+currencysubstitution    Currency Substitution 
+dwtest                  Durbin-Watson Test
+gqtest                  Goldfeld-Quandt Test
+growthofmoney           Growth of Money Supply 
+harvtest                Harvey-Collier Test
+hmctest                 Harrison-McCabe test
+jocci                   U.S. Macroeconomic Time Series
+moneydemand             Demand for Money 
+raintest                Rainbow Test
+reset                   RESET Test
+unemployment            Unemployment Data
+valueofstocks           Value of Stocks 
+wages                   Wages 

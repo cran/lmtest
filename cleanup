@@ -16,6 +16,14 @@ for f in ./tests/*~; do
     rm -f $f
 done
 
+for f in ./src/*~; do
+    rm -f $f
+done
+
+for f in ./src/*.*o; do
+    rm -f $f
+done
+
 for f in ./tests/*.ps; do
     rm -f $f
 done

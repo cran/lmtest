@@ -1,18 +1,15 @@
 \name{bptest}
 \alias{bptest}
-\alias{bptest.lm}
-\alias{bptest.formula}
 \title{Breusch-Pagan Test}
-\description{Generic function performing the Breusch-Pagan
-test for heteroskedasticity.}
+\description{Performs the Breusch-Pagan test for heteroskedasticity.}
 \usage{
-bptest(object, varformula, studentize = TRUE, data = list())
+bptest(formula, varformula = NULL, studentize = TRUE, data = list())
 }
 \arguments{
- \item{object}{either a formula or an \code{lm} object containing the
-    model to be tested.}
+ \item{formula}{a symbolic description for the model to be tested.}
  \item{varformula}{a formula describing only the potential explanatory variables
-   for the variance (no dependent variable needed).}
+   for the variance (no dependent variable needed). By default the same
+   explanatory variables are taken as in the main regression model.}
  \item{studentize}{logical. If set to \code{TRUE} Koenker's studentized
    version of the test statistic will be used.}
  \item{data}{an optional data frame containing the variables in the model.
@@ -22,7 +19,7 @@ called from.}
 \details{The Breusch-Pagan test fits a linear regression model to the residuals
 of a linear regression model
 (by default the same explanatory variables are taken as in the main regression
-model if the formula interface is used) and rejects if too much of the variance
+model) and rejects if too much of the variance
 is explained by the additional explanatory variables.
 
 Under \eqn{H_0} the test statistic of the Breusch-Pagan test follows a
@@ -31,7 +28,8 @@ the constant in the model) degrees of freedom.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
-\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}},
+ \code{\link{unemployment}},
 \code{\link{wages}}.
 }
 
@@ -46,15 +44,12 @@ data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 }
 
 \references{
-
 T.S. Breusch & A.R. Pagan (1979),
 A Simple Test for Heteroscedasticity and Random Coefficient Variation.
 \emph{Econometrica} \bold{47}, 1287--1294
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
-
-
 }
 
 \seealso{\code{\link{lm}}}
@@ -71,7 +66,7 @@ y2 <- 1 + x + err2
 ## perform Breusch-Pagan test
 bp <- bptest(y1 ~ x)
 bp
-## calculate critical value vor 0.05 level
+## calculate critical value for 0.05 level
 qchisq(0.95, bp$parameter)
 bptest(y2 ~ x)
 }

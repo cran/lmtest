@@ -17,8 +17,9 @@ Value of Stocks Data
   }
 
 }
-\source{The data was originally studied by Woglom (1981), the data set is given in
-Kraemer and Sonnberger (1986).
+\source{The data was originally studied by Woglom (1981), the data set is given
+ in
+Krämer and Sonnberger (1986).
 }
 \references{
 
@@ -27,7 +28,7 @@ A Reexamination of the Role of Stocks in the Consumption Function and the
 Transmission Mechanism.
 \emph{Journal of Money, Credit and Banking} \bold{13}, 215--220
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model Under Test}. Heidelberg: Physica
 
 

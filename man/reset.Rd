@@ -10,7 +10,7 @@ reset(formula, power = 2:3, type = c("fitted", "regressor",
 }
 
 \arguments{
- \item{formula}{a symbolic describtion for the model to be tested.}
+ \item{formula}{a symbolic description for the model to be tested.}
  \item{power}{integers. A vector of positive integers indicating
     the powers of the variables that should be included. By default
     it is tested for a quadratic or cubic influence of the fitted response.}
@@ -36,7 +36,8 @@ distribution with \code{parameter} degrees of freedom.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
-\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}},
+ \code{\link{unemployment}},
 \code{\link{wages}}.
 }
 
@@ -56,7 +57,7 @@ Analysis.
 \emph{Journal of the Royal Statistical Society, Series B} \bold{31},
 350--371
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

@@ -18,7 +18,7 @@ dollar balances and canadian holdings of U.S. dollar balances,}
 }
 \source{
 The data was originally studied by Miles (1978), the data set is given in
-Kraemer and Sonnberger (1986). Below we replicate a few examples 
+Krämer and Sonnberger (1986). Below we replicate a few examples 
 from their book.
 Some of these results differ more or less seriously and are sometimes
 parameterized differently.
@@ -29,7 +29,7 @@ M. Miles (1978),
 Currency Substitution, Flexible Exchange Rates, and Monetary Independence.
 \emph{American Economic Review} \bold{68}, 428--436
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

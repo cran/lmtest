@@ -10,7 +10,7 @@ raintest(formula, fraction = 0.5, order.by = NULL, center = NULL,
 }
 
 \arguments{
- \item{formula}{a symbolic describtion for the model to be tested.}
+ \item{formula}{a symbolic description for the model to be tested.}
  \item{fraction}{numeric. The percentage of observations in the subset is
    determined by
    \code{fraction*n} if \code{n} is the number of observations
@@ -45,7 +45,8 @@ significantly inferious to the fit of the subsample. The test statistic under
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
-\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}},
+ \code{\link{unemployment}},
 \code{\link{wages}}.
 }
 
@@ -66,7 +67,7 @@ The Rainbow Test for Lack of Fit in Regression.
 \emph{Communications in Statistics - Theory and Methods} \bold{11},
 1801--1815
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

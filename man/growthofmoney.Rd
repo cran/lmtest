@@ -18,7 +18,8 @@ rate for the preceding period.}
 }
 \source{
 The data was originally studied by Hetzel (1981), the data set is given in
-Kraemer and Sonnberger (1986). Below we replicate a few examples from their book.
+Krämer and Sonnberger (1986). Below we replicate a few examples from their
+ book.
 Some of these results differ more or less seriously and are sometimes
 parameterized differently.
 }
@@ -28,7 +29,7 @@ R.L. Hetzel (1981),
 The Federal Reserve System and Control of the Money Supply in the 1970's.
 \emph{Journal of Money, Credit and Banking} \bold{13}, 31--43
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

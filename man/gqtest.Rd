@@ -6,7 +6,7 @@
 gqtest(formula, point = 0.5, order.by = NULL, data = list())
 }
 \arguments{
- \item{formula}{a symbolic describtion for the model to be tested}
+ \item{formula}{a symbolic description for the model to be tested}
  \item{point}{numerics. If \code{point} is smaller than 1 it is
      interpreted as percentages of data, i.e. \code{n*point} is
      taken to be the (potential) breakpoint in the variances, if
@@ -29,7 +29,8 @@ distribution with the degrees of freedom as given in \code{parameter}.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
-\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}},
+ \code{\link{unemployment}},
 \code{\link{wages}}.
 }
 \value{
@@ -47,7 +48,7 @@ S.M. Goldfeld & R.E. Quandt (1965),
 Some Tests for Homoskedasticity.
 \emph{Journal of the American Statistical Association} \bold{60}, 539--547
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

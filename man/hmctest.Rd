@@ -8,7 +8,7 @@ hmctest(formula, point = 0.5, order.by = NULL, simulate.p = TRUE, nsim = 1000,
 }
 
 \arguments{
- \item{formula}{a symbolic describtion for the model to be tested}
+ \item{formula}{a symbolic description for the model to be tested}
  \item{point}{numeric. If \code{point} is smaller than 1 it is
      interpreted as percentages of data, i.e. \code{n*point} is
      taken to be the (potential) breakpoint in the variances, if
@@ -30,14 +30,18 @@ hmctest(formula, point = 0.5, order.by = NULL, simulate.p = TRUE, nsim = 1000,
     is called from.}
 }
 
-\details{The Harrison-McCabe test statistic is the fraction of the residual sum of
-squares that relates to the fraction of the data before the breakpoint. Under \eqn{H_0}
-the test statistic should be close to the size of this fraction, e.g. in the default
+\details{The Harrison-McCabe test statistic is the fraction of the residual sum
+ of
+squares that relates to the fraction of the data before the breakpoint. Under
+ \eqn{H_0}
+the test statistic should be close to the size of this fraction, e.g. in the
+ default
 case close to 0.5. The null hypothesis is reject if the statistic is too small.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
-\code{\link{growthofmoney}}, \code{\link{moneydemand}}, \code{\link{unemployment}},
+\code{\link{growthofmoney}}, \code{\link{moneydemand}},
+ \code{\link{unemployment}},
 \code{\link{wages}}.}
 
 \value{
@@ -55,7 +59,7 @@ M.J. Harrison & B.P.M McCabe (1979),
 A Test for Heteroscedasticity based on Ordinary Least Squares Residuals.
 \emph{Journal of the American Statistical Association} \bold{74}, 494--499
 
-W. Kraemer & H. Sonnberger (1986),
+W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
 

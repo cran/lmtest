@@ -1,7 +1,8 @@
-dwtest <- function(formula, iterations=15, exact = NULL,
-  tol=1e-10, data=list())
+dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
+  iterations = 15, exact = NULL, tol = 1e-10, data = list())
 {
   dname <- paste(deparse(substitute(formula)))
+  alternative <- match.arg(alternative)
   mf <- model.frame(formula, data = data)
   y <- model.response(mf)
   X <- model.matrix(formula, data = data)
@@ -21,8 +22,13 @@ dwtest <- function(formula, iterations=15, exact = NULL,
     if(any(Im(ev)>tol)) warning("imaginary parts of eigenvalues discarded")
     ev <- Re(ev)
     ev <- ev[ev>tol]
-    pval <- .Fortran("pan", as.double(c(dw,ev)), as.integer(length(ev)),
-             as.double(0), as.integer(iterations), x=double(1))$x
+    pdw <- function(dw) .Fortran("pan", as.double(c(dw,ev)), as.integer(length(ev)),
+             as.double(0), as.integer(iterations), x=double(1), PACKAGE = "lmtest")$x
+    pval <- switch(alternative,
+      "two.sided" = (2*min(pdw(dw), 1-pdw(dw))),
+      "less" = (1 - pdw(dw)),
+      "greater" = pdw(dw))
+
     if((pval > 1) | (pval < 0))
     {
       warning("exact p value cannot be computed (not in [0,1]), approximate p value will be used")
@@ -37,58 +43,26 @@ dwtest <- function(formula, iterations=15, exact = NULL,
          diag(XAXQ %*% XAXQ))
     dmean <- P/(n-k)
     dvar <- 2/((n-k)*(n-k+2)) * (Q - P*dmean)
-    pval <- pnorm(dw, mean=dmean, sd=sqrt(dvar))
+    pval <- switch(alternative,
+      "two.sided" = (2*pnorm(abs(dw-dmean), sd=sqrt(dvar), lower.tail = FALSE)),
+      "less" = pnorm(dw, mean = dmean, sd = sqrt(dvar), lower.tail = FALSE),
+      "greater" = pnorm(dw, mean = dmean, sd = sqrt(dvar)))
   }
+
+  alternative <- switch(alternative,
+    "two.sided" = "true autocorelation is not 0",
+    "less" = "true autocorrelation is less than 0",
+    "greater" = "true autocorrelation is greater than 0")
+
   names(dw) <- "DW"
   RVAL <- list(statistic = dw, method = "Durbin-Watson test",
-    p.value= pval, data.name=dname)
+    alternative = alternative, p.value= pval, data.name=dname)
   class(RVAL) <- "htest"
   return(RVAL)
 }
 
-bptest <- function(object, varformula, studentize=TRUE, data=list())
-{
-    UseMethod("bptest")
-}
-
-bptest.lm <- function(object, varformula, studentize=TRUE, data=list())
-{
-  dname <- paste(deparse(substitute(object)))
-  resi <- residuals(object)
-  Z <- model.matrix(varformula, data = data)
-  n <- length(resi)
-  sigma2 <- sum(resi^2)/n
-
-  if(studentize)
-  {
-    w <- resi^2 - sigma2
-    fv <- lm.fit(Z,w)$fitted
-    bp <- n * sum(fv^2)/sum(w^2)
-    method <- "studentized Breusch-Pagan test"
-  }
-  else
-  {
-    f <- resi^2/sigma2 -1
-    fv <- lm.fit(Z,f)$fitted
-    bp <- 0.5 * sum(fv^2)
-    method <- "Breusch-Pagan test"
-  }
-
-  names(bp) <- "BP"
-  df <- ncol(Z)-1
-  names(df) <- "df";
-  RVAL <- list(statistic = bp,
-      parameter = df,
-      method = method,
-      p.value= 1-pchisq(bp,df),
-      data.name=dname)
-
-  class(RVAL) <- "htest"
-  return(RVAL)
-}
-
-bptest.formula <- function(formula, varformula=NULL, studentize=TRUE,
- data=list())
+bptest <- function(formula, varformula = NULL, studentize = TRUE,
+ data = list())
 {
   dname <- paste(deparse(substitute(formula)))
   mf <- model.frame(formula, data = data)
@@ -168,7 +142,8 @@ gqtest <- function(formula, point=0.5, order.by=NULL, data=list())
   return(RVAL)
 }
 
-hmctest <- function(formula, point=0.5, order.by=NULL, simulate.p=TRUE, nsim=1000,
+hmctest <- function(formula, point=0.5, order.by=NULL, simulate.p=TRUE,
+ nsim=1000,
   plot = FALSE, data=list()) {
   dname <- paste(deparse(substitute(formula)))
   mf <- model.frame(formula, data = data)
@@ -236,14 +211,20 @@ harvtest <- function(formula, order.by=NULL, tol=1e-7, data=list())
       n <- nrow(X)
       q <- ncol(X)
       w <- rep(0,(n-q))
-      for(r in ((q+1):n))
+      Xr1 <- X[1:q,,drop = FALSE]
+      xr <- as.vector(X[q+1,])
+      X1 <- solve(t(Xr1)%*%Xr1, tol=tol)
+      fr <- as.vector((1 + (t(xr) %*% X1 %*% xr)))
+      betar <- X1 %*%t(Xr1)%*% y[1:q]
+      w[1] <- (y[q+1] - t(xr) %*% betar)/sqrt(fr)
+
+      for(r in ((q+2):n))
       {
-          Xr1 <- as.matrix(X[1:(r-1),])
-          xr <- as.vector(X[r,])
-          X1 <- solve(crossprod(Xr1), tol=tol)
-          fr <- sqrt(1 + (t(xr) %*% X1 %*% xr))
-          wr <- t(xr)%*% X1 %*%t(Xr1)%*% y[1:(r-1)]
-          w[r-q] <- (y[r] - wr)/fr
+          X1 <- X1 - (X1 %*% outer(xr, xr) %*% X1)/fr
+  	  betar <- betar + X1 %*% xr * w[r-q-1]*sqrt(fr)
+  	  xr <- as.vector(X[r,])
+          fr <- as.vector((1 + (t(xr) %*% X1 %*% xr)))
+          w[r-q] <- (y[r] - t(xr) %*% betar)/sqrt(fr)
       }
       return(w)
   }
@@ -386,4 +367,48 @@ reset <- function(formula, power=2:3, type=c("fitted", "regressor",
   class(RVAL) <- "htest"
   return(RVAL)
 }
+
+bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
+{
+  dname <- paste(deparse(substitute(formula)))
+  mf <- model.frame(formula, data = data)
+  y <- model.response(mf)
+  modelterms <- terms(formula, data = data)
+  X <- model.matrix(modelterms, data = data)
+  n <- nrow(X)
+  k <- ncol(X)
+  order <- 1:order
+  m <- length(order)
+  resi <- lm.fit(X,y)$residuals
+
+  Z <- sapply(order, function(x) c(rep(0, x), resi[1:(n-x)]))
+  umod <- lm(resi ~ X + Z)
+
+  switch(match.arg(type),
+
+  "Chisq" = {
+    bg <- n * summary(umod)$r.squared
+    p.val <- pchisq(bg, m, lower.tail = FALSE)
+    df <- m
+    names(df) <- "df"
+  },
+
+  "F" = {
+    uresi <- residuals(umod)
+    rresi <- lm.fit(X,resi)$residuals
+    bg <- ((sum(rresi^2) - sum(uresi^2))/m) / (sum(uresi^2) / (n-k-m))
+    p.val <- pf(bg, df1 = m, df2 = n-k, lower.tail = FALSE)
+    df <- c(m, n-k)
+    names(df) <- c("df1", "df2")
+  })
+
+  names(bg) <- "LM test"
+  RVAL <- list(statistic = bg, parameter = df,
+               method = paste("Breusch-Godfrey test for serial correlation of order", max(order)),
+               p.value = p.val,
+               data.name =   dname)
+  class(RVAL) <- "htest"
+  return(RVAL)
+}
+
 
