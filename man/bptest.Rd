@@ -1,7 +1,7 @@
 \name{bptest}
 \title{Breusch-Pagan-Test}
 \usage{
-raintest(formula, data=list())
+bptest(formula, data=list())
 }
 \alias{bptest}
 \arguments{
@@ -27,7 +27,7 @@ of freedom.
 }
 \references{Kraemer, W., Sonnberger, H. (1986): The linear regression model
 under test}
-\author{Torsten Hothorn <hothorn@amadeus.statistik.uni-dortmund.de>}
+\author{Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>}
 
 \seealso{\code{\link{lm}}}
 

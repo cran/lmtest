@@ -1,7 +1,7 @@
 \name{dwtest}
 \title{Durbin-Watson-Test}
 \usage{
-raintest(formula, data=list())
+dwtest(formula, data=list())
 }
 \alias{dwtest}
 \arguments{
@@ -17,14 +17,15 @@ disturbances.
 \value{
  A list with class \code{"htest"} containing the following components:
   \item{statistic}{the value of the test statistic.}
-  \item{p.value}{the p-value of the test}
+  \item{p.value}{the null distribution depends on X and is hardly
+trackaable, so p.value is NA}
   \item{method}{a character string indicating what type of test was
     performed.} 
   \item{data.name}{a character string giving the name(s) of the data.}
 }
 \references{Kraemer, W., Sonnberger, H. (1986): The linear regression model
 under test}
-\author{Torsten Hothorn <hothorn@amadeus.statistik.uni-dortmund.de>}
+\author{Torsten Hothorn <Torsten.Hothorn@rzmail.uni-dortmund.de>}
 
 \seealso{\code{\link{lm}}}
 

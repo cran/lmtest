@@ -6,7 +6,7 @@ dwtest <- function(formula, data=list())
 	names(dw) <- "DW";
 	RVAL <- list(statistic = dw, 
 			method = "Durbin-Watson-Test",
-			p.value= 0,
+			p.value= NA,
 			data.name=" ");
 	class(RVAL) <- "htest";
 

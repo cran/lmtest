@@ -1,7 +1,7 @@
 \name{custest}
 \title{CUSUM-Test}
 \usage{
-raintest(formula, data=list())
+custest(formula, data=list())
 }
 \alias{custest}
 \arguments{
@@ -19,7 +19,7 @@ test is based on recursive residuals and returns a random walk.
 }
 \references{Kraemer, W., Sonnberger, H. (1986): The linear regression model
 under test}
-\author{Torsten Hothorn <hothorn@amadeus.statistik.uni-dortmund.de>}
+\author{Torsten Hothorn <Torsten.Hothorn@rzmail.uni-erlangen.de>}
 
 \seealso{\code{\link{lm}}}
 
