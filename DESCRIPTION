@@ -1,7 +1,7 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-8
-Date: 2004-11-02
+Version: 0.9-9
+Date: 2004-11-29
 Author: Torsten Hothorn, Achim Zeileis, David Mitchell
 Maintainer: Achim Zeileis <Achim.Zeileis@wu-wien.ac.at>
 Description: A collection of tests, data sets and examples
@@ -9,4 +9,4 @@ Description: A collection of tests, data sets and examples
 Depends: R (>= 1.9.0)
 Suggests: strucchange, sandwich
 License: GPL
-Packaged: Tue Nov  2 15:00:07 2004; zeileis
+Packaged: Mon Nov 29 12:23:21 2004; zeileis

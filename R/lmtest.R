@@ -22,11 +22,11 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
   k <- ncol(X)
   res <- lm.fit(X,y)$residuals
   dw <- sum(diff(res)^2)/sum(res^2)
-  A <- diag(c(1,rep(2, n-2), 1))
-  A[abs(row(A)-col(A))==1] <- -1
   Q1 <- chol2inv(qr.R(qr(X)))
   if(exact)
   {
+    A <- diag(c(1,rep(2, n-2), 1))
+    A[abs(row(A)-col(A))==1] <- -1
     MA <- diag(rep(1,n)) - X %*% Q1 %*% t(X)
     MA <- MA %*% A
     ev <- eigen(MA)$values[1:(n-k)]
@@ -48,10 +48,12 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
   }
   if(!exact)
   {
-    XAXQ <- t(X) %*% A %*% X %*% Q1
+    AX <- matrix(as.vector(filter(X, c(-1, 2, -1))), ncol = k)
+    AX[1,] <- X[1,] - X[2,]
+    AX[n,] <- X[n,] - X[(n-1),]
+    XAXQ <- t(X) %*% AX %*% Q1
     P <- 2*(n-1) - sum(diag(XAXQ))
-    Q <- 2*(3*n - 4) - 2* sum(diag(t(X) %*% A %*% A %*% X %*% Q1)) + sum(
-         diag(XAXQ %*% XAXQ))
+    Q <- 2*(3*n - 4) - 2* sum(diag(crossprod(AX) %*% Q1)) + sum(diag(XAXQ %*% XAXQ))
     dmean <- P/(n-k)
     dvar <- 2/((n-k)*(n-k+2)) * (Q - P*dmean)
     pval <- switch(alternative,
