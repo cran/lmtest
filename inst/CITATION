@@ -9,7 +9,7 @@ citEntry(entry="Article",
 	 volume       = "2",
 	 number       = "3",
 	 pages        = "7--10",
-         url          = "http://cran.R-project.org/doc/Rnews/",
+         url          = "http://CRAN.R-project.org/doc/Rnews/",
          
          textVersion = 
          paste("Achim Zeileis, Torsten Hothorn (2002).", 

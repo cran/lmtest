@@ -1,6 +1,7 @@
 \name{currencysubstitution}
 \alias{currencysubstitution}
-\non_function{}
+\docType{data}
+\encoding{latin1}
 \title{ Currency Substitution }
 \usage{data(currencysubstitution)}
 \description{

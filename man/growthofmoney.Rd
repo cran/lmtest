@@ -1,7 +1,8 @@
 \name{growthofmoney}
 \alias{growthofmoney}
-\non_function{}
-\title{ Growth of Money Supply }
+\docType{data}
+\encoding{latin1}
+\title{Growth of Money Supply}
 \usage{data(growthofmoney)}
 \description{
 Growth of Money Supply Data.

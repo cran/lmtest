@@ -1,5 +1,6 @@
 \name{reset}
 \alias{reset}
+\encoding{latin1}
 \title{RESET Test}
 
 \description{Ramsey's RESET test for functional relation.}

@@ -1,7 +1,8 @@
 \name{moneydemand}
 \alias{moneydemand}
-\non_function{}
-\title{ Demand for Money  }
+\docType{data}
+\encoding{latin1}
+\title{Money Demand}
 \usage{data(moneydemand)}
 \description{
 Money Demand Data.

@@ -1,5 +1,6 @@
 \name{gqtest}
 \alias{gqtest}
+\encoding{latin1}
 \title{Goldfeld-Quandt Test}
 \description{Goldfeld-Quandt test for heteroskedasticity.}
 \usage{

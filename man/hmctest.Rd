@@ -1,5 +1,6 @@
 \name{hmctest}
 \alias{hmctest}
+\encoding{latin1}
 \title{Harrison-McCabe test}
 \description{Harrison-McCabe test for heteroskedasticity.}
 \usage{

@@ -1,5 +1,6 @@
 \name{bptest}
 \alias{bptest}
+\encoding{latin1}
 \title{Breusch-Pagan Test}
 \description{Performs the Breusch-Pagan test for heteroskedasticity.}
 \usage{

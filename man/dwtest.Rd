@@ -1,5 +1,6 @@
 \name{dwtest}
 \alias{dwtest}
+\encoding{latin1}
 \title{Durbin-Watson Test}
 \description{
  Performs the Durbin-Watson test for autocorrelation of disturbances.

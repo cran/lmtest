@@ -1,6 +1,7 @@
 \name{unemployment}
 \alias{unemployment}
-\non_function{}
+\docType{data}
+\encoding{latin1}
 \title{Unemployment Data}
 \usage{data(unemployment)}
 \description{

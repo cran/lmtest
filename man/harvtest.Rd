@@ -1,5 +1,6 @@
 \name{harvtest}
 \alias{harvtest}
+\encoding{latin1}
 \title{Harvey-Collier Test}
 \description{Harvey-Collier test for linearity.}
 

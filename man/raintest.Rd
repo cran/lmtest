@@ -1,5 +1,6 @@
 \name{raintest}
 \alias{raintest}
+\encoding{latin1}
 \title{Rainbow Test}
 
 \description{Rainbow test for linearity.}

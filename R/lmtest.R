@@ -95,6 +95,14 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
     Z <- if(is.null(varformula)) X
            else model.matrix(varformula, data = data)
   }  
+
+  ## only use complete cases that are in both models
+  if(!(all(c(row.names(X) %in% row.names(Z), row.names(Z) %in% row.names(X))))) {
+    allnames <- row.names(X)[row.names(X) %in% row.names(Z)]
+    X <- X[allnames,]
+    Z <- Z[allnames,]
+    y <- y[allnames]
+  }
    
   k <- ncol(X)
   n <- nrow(X)

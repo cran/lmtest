@@ -1,6 +1,7 @@
 \name{bondyield}
 \alias{bondyield}
-\non_function{}
+\docType{data}
+\encoding{latin1}
 \title{ Bond Yield  }
 \usage{data(bondyield)}
 \description{

@@ -1,6 +1,7 @@
 \name{valueofstocks}
 \alias{valueofstocks}
-\non_function{}
+\docType{data}
+\encoding{latin1}
 \title{ Value of Stocks  }
 \usage{data(valueofstocks)}
 \description{

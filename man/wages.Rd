@@ -1,7 +1,8 @@
 \name{wages}
 \alias{wages}
-\non_function{}
-\title{ Wages  }
+\docType{data}
+\encoding{latin1}
+\title{Wages}
 \usage{data(wages)}
 \description{
 Wages Data.
