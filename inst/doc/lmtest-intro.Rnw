@@ -241,7 +241,7 @@ raintest(length ~ age + I(age^2), order.by = ~ age, data = mandible)
 if(require(strucchange)) {
   supF.pval <- round(sctest(length ~ age + I(age^2), data = mandible, to = 0.9, type = "supF")$p.value, digits = 3)
 } else {
-  warning("`strucchange' not available: p value set to NA")
+#  warning("`strucchange' not available: p value set to NA")
   supF.pval <- NA
 }
 @
