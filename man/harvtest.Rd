@@ -8,11 +8,12 @@ harvtest(formula, order.by = NULL, data = list())
 }
 
 \arguments{
- \item{formula}{a symbolic description for the model to be tested.}
- \item{order.by}{formula. A formula with a single explanatory
-    variable like \code{~ x}. The observations in the model
-    are ordered by the size of \code{x}. If set to \code{NULL} (the
-    default) the observations are assumed to be ordered (e.g. a
+  \item{formula}{a symbolic description for the model to be tested
+    (or a fitted \code{"lm"} object).}
+ \item{order.by}{Either a vector \code{z} or a formula with a single explanatory
+    variable like \code{~ z}. The observations in the model
+    are ordered by the size of \code{z}. If set to \code{NULL} (the
+    default) the observations are assumed to be ordered (e.g., a
     time series).}
  \item{data}{an optional data frame containing the variables in the model.
     By default the variables are taken from the environment which

@@ -9,7 +9,8 @@
 bgtest(formula, order = 1, type = c("Chisq", "F"), data = list())
 }
 \arguments{
-  \item{formula}{a symbolic description for the model to be tested.}
+  \item{formula}{a symbolic description for the model to be tested
+    (or a fitted \code{"lm"} object).}
   \item{order}{integer. maximal order of serial correlation to be tested.}
   \item{type}{the type of test statistic to be returned. Either
     \code{"Chisq"} for the Chi-squared test statistic or
@@ -64,10 +65,8 @@ bgtest(formula, order = 1, type = c("Chisq", "F"), data = list())
      ## Compare with Durbin-Watson test results:
      dwtest(y1 ~ x)
 
-     if(library(ts, logical = TRUE)) {
      y2 <- filter(y1, 0.5, method = "recursive")
-     bgtest(y2 ~ x) }
-
+     bgtest(y2 ~ x)
 
 }
 \keyword{htest}

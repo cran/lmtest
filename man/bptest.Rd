@@ -6,7 +6,8 @@
 bptest(formula, varformula = NULL, studentize = TRUE, data = list())
 }
 \arguments{
- \item{formula}{a symbolic description for the model to be tested.}
+  \item{formula}{a symbolic description for the model to be tested
+    (or a fitted \code{"lm"} object).}
  \item{varformula}{a formula describing only the potential explanatory variables
    for the variance (no dependent variable needed). By default the same
    explanatory variables are taken as in the main regression model.}
@@ -52,7 +53,7 @@ W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 }
 
-\seealso{\code{\link{lm}}}
+\seealso{\code{\link{lm}}, \code{\link[car]{ncv.test}}}
 
 \examples{
 ## generate a regressor
@@ -64,10 +65,7 @@ err2 <- rnorm(100)
 y1 <- 1 + x + err1
 y2 <- 1 + x + err2
 ## perform Breusch-Pagan test
-bp <- bptest(y1 ~ x)
-bp
-## calculate critical value for 0.05 level
-qchisq(0.95, bp$parameter)
+bptest(y1 ~ x)
 bptest(y2 ~ x)
 }
 \keyword{htest}

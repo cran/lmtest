@@ -8,16 +8,17 @@ hmctest(formula, point = 0.5, order.by = NULL, simulate.p = TRUE, nsim = 1000,
 }
 
 \arguments{
- \item{formula}{a symbolic description for the model to be tested}
+  \item{formula}{a symbolic description for the model to be tested
+    (or a fitted \code{"lm"} object).}
  \item{point}{numeric. If \code{point} is smaller than 1 it is
      interpreted as percentages of data, i.e. \code{n*point} is
      taken to be the (potential) breakpoint in the variances, if
      \code{n} is the number of observations in the model. If \code{point}
      is greater than 1 it is interpreted to be the index of the breakpoint.}
- \item{order.by}{formula. A formula with a single explanatory
-    variable like \code{~ x}. The observations in the model
-    are ordered by the size of \code{x}. If set to \code{NULL} (the
-    default) the observations are assumed to be ordered (e.g. a
+ \item{order.by}{Either a vector \code{z} or a formula with a single explanatory
+    variable like \code{~ z}. The observations in the model
+    are ordered by the size of \code{z}. If set to \code{NULL} (the
+    default) the observations are assumed to be ordered (e.g., a
     time series).}
   \item{simulate.p}{logical. If \code{TRUE} a p value will be assessed
     by simulation, otherwise the p value is \code{NA}.}

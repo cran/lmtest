@@ -3,9 +3,20 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
 {
   dname <- paste(deparse(substitute(formula)))
   alternative <- match.arg(alternative)
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+   
   n <- nrow(X)
   if(is.null(exact)) exact <- (n < 100)
   k <- ncol(X)
@@ -62,19 +73,32 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
 }
 
 bptest <- function(formula, varformula = NULL, studentize = TRUE,
- data = list())
+  data = list())
 {
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+	   formula$x
+	 else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+	   formula$y
+	 else model.response(model.frame(formula))
+    Z <- if(is.null(varformula)) X
+           else model.matrix(varformula, data = data)
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+    Z <- if(is.null(varformula)) X
+           else model.matrix(varformula, data = data)
+  }  
+   
   k <- ncol(X)
   n <- nrow(X)
 
   resi <- lm.fit(X,y)$residuals
   sigma2 <- sum(resi^2)/n
-  if(is.null(varformula)) varformula <- formula
-  Z <- model.matrix(varformula, data = data)
 
   if(studentize)
   {
@@ -104,12 +128,23 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
   return(RVAL)
 }
 
-gqtest <- function(formula, point=0.5, order.by=NULL, data=list())
+gqtest <- function(formula, point = 0.5, order.by = NULL, data = list())
 {
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+
   k <- ncol(X)
   n <- nrow(X)
   if(point < 1) point <- floor(point*n)
@@ -117,10 +152,14 @@ gqtest <- function(formula, point=0.5, order.by=NULL, data=list())
 
   if(!is.null(order.by))
   {
-    x <- model.matrix(order.by, data = data)
-    x <- as.vector(x[,ncol(x)])
-    X <- as.matrix(X[order(x),])
-    y <- y[order(x)]
+    if(inherits(order.by, "formula")) {
+      z <- model.matrix(order.by, data = data)
+      z <- as.vector(z[,ncol(z)])
+    } else {
+      z <- order.by
+    }
+    X <- as.matrix(X[order(z),])
+    y <- y[order(z)]
   }
 
   rss1 <- sum(lm.fit(as.matrix(X[1:point,]),y[1:point])$residuals^2)
@@ -142,13 +181,24 @@ gqtest <- function(formula, point=0.5, order.by=NULL, data=list())
   return(RVAL)
 }
 
-hmctest <- function(formula, point=0.5, order.by=NULL, simulate.p=TRUE,
- nsim=1000,
-  plot = FALSE, data=list()) {
+hmctest <- function(formula, point = 0.5, order.by = NULL, simulate.p = TRUE,
+  nsim = 1000, plot = FALSE, data = list())
+{
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+  
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+
   k <- ncol(X)
   n <- nrow(X)
   if(point < 1) point <- floor(point*n)
@@ -156,11 +206,16 @@ hmctest <- function(formula, point=0.5, order.by=NULL, simulate.p=TRUE,
 
   if(!is.null(order.by))
   {
-    x <- model.matrix(order.by, data = data)
-    x <- as.vector(x[,ncol(x)])
-    X <- as.matrix(X[order(x),])
-    y <- y[order(x)]
+    if(inherits(order.by, "formula")) {
+      z <- model.matrix(order.by, data = data)
+      z <- as.vector(z[,ncol(z)])
+    } else {
+      z <- order.by
+    }
+    X <- as.matrix(X[order(z),])
+    y <- y[order(z)]
   }
+
 
   resi <- lm.fit(X,y)$residuals
   hmc <- sum(resi[1:point]^2)/sum(resi^2)
@@ -200,9 +255,20 @@ hmctest <- function(formula, point=0.5, order.by=NULL, simulate.p=TRUE,
 harvtest <- function(formula, order.by=NULL, data=list())
 {
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+
   k <- ncol(X)
   n <- nrow(X)
 
@@ -231,10 +297,14 @@ harvtest <- function(formula, order.by=NULL, data=list())
 
   if(!is.null(order.by))
   {
-    x <- model.matrix(order.by, data = data)
-    x <- as.vector(x[,ncol(x)])
-    X <- as.matrix(X[order(x),])
-    y <- y[order(x)]
+    if(inherits(order.by, "formula")) {
+      z <- model.matrix(order.by, data = data)
+      z <- as.vector(z[,ncol(z)])
+    } else {
+      z <- order.by
+    }
+    X <- as.matrix(X[order(z),])
+    y <- y[order(z)]
   }
 
   resr <- rec.res(X,y)
@@ -258,26 +328,25 @@ raintest <- function(formula, fraction=0.5, order.by=NULL, center=NULL,
  data=list())
 {
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+
   k <- ncol(X)
   n <- nrow(X)
 
   if(is.null(order.by))
   {
-    if(is.null(center)) center <- 0.5
-    if(center > 1) center <- center/n
-    from <- ceiling(quantile(1:n, probs=(center-fraction/2)))
-    to <- from + floor(fraction*n) - 1
-  }
-  else
-  if(!is.null(class(order.by)) && class(order.by)=="formula")
-  {
-    x <- model.matrix(order.by, data = data)
-    x <- as.vector(x[,ncol(x)])
-    X <- as.matrix(X[order(x),])
-    y <- y[order(x)]
     if(is.null(center)) center <- 0.5
     if(center > 1) center <- center/n
     from <- ceiling(quantile(1:n, probs=(center-fraction/2)))
@@ -294,7 +363,20 @@ raintest <- function(formula, fraction=0.5, order.by=NULL, center=NULL,
     to <- floor(fraction*n)
   }
   else
-    stop("order.by must be a formula, \"mahalanobis\" or NULL")
+  {
+    if(inherits(order.by, "formula")) {
+      z <- model.matrix(order.by, data = data)
+      z <- as.vector(z[,ncol(z)])
+    } else {
+      z <- order.by
+    }
+    X <- as.matrix(X[order(z),])
+    y <- y[order(z)]
+    if(is.null(center)) center <- 0.5
+    if(center > 1) center <- center/n
+    from <- ceiling(quantile(1:n, probs=(center-fraction/2)))
+    to <- from + floor(fraction*n) - 1
+  }
 
   subX <- as.matrix(X[from:to,])
   suby <- y[from:to]
@@ -322,9 +404,20 @@ reset <- function(formula, power=2:3, type=c("fitted", "regressor",
   "princomp"), data=list())
 {
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  X <- model.matrix(formula, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+
   k <- ncol(X)
   n <- nrow(X)
   type <- match.arg(type)
@@ -371,10 +464,20 @@ reset <- function(formula, power=2:3, type=c("fitted", "regressor",
 bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
 {
   dname <- paste(deparse(substitute(formula)))
-  mf <- model.frame(formula, data = data)
-  y <- model.response(mf)
-  modelterms <- terms(formula, data = data)
-  X <- model.matrix(modelterms, data = data)
+
+  if(!"formula" %in% class(formula)) {
+    X <- if(is.matrix(formula$x))
+           formula$x
+         else model.matrix(terms(formula), model.frame(formula))
+    y <- if(is.vector(formula$y))
+           formula$y
+         else model.response(model.frame(formula))
+  } else {
+    mf <- model.frame(formula, data = data)
+    y <- model.response(mf)
+    X <- model.matrix(formula, data = data)
+  }  
+
   n <- nrow(X)
   k <- ncol(X)
   order <- 1:order
@@ -410,5 +513,3 @@ bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
   class(RVAL) <- "htest"
   return(RVAL)
 }
-
-

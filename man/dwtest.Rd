@@ -9,7 +9,8 @@ dwtest(formula, alternative = c("greater", "two.sided", "less"),
        iterations = 15, exact = NULL, tol = 1e-10, data = list())
 }
 \arguments{
- \item{formula}{a symbolic description for the model to be tested.}
+  \item{formula}{a symbolic description for the model to be tested
+    (or a fitted \code{"lm"} object).}
  \item{alternative}{a character string specifying the alternative hypothesis.}
  \item{iterations}{an integer specifying the number of iterations
     when calculating the p-value with the "pan" algorithm.}
@@ -102,10 +103,9 @@ y1 <- 1 + x + err1
 ## perform Durbin-Watson test
 dwtest(y1 ~ x)
 
-if(library(ts, logical = TRUE)) {
 err2 <- filter(err1, 0.9, method="recursive")
 y2 <- 1 + x + err2
-dwtest(y2 ~ x) }
+dwtest(y2 ~ x)
 
 }
 \keyword{htest}

@@ -10,7 +10,8 @@ reset(formula, power = 2:3, type = c("fitted", "regressor",
 }
 
 \arguments{
- \item{formula}{a symbolic description for the model to be tested.}
+  \item{formula}{a symbolic description for the model to be tested
+    (or a fitted \code{"lm"} object).}
  \item{power}{integers. A vector of positive integers indicating
     the powers of the variables that should be included. By default
     it is tested for a quadratic or cubic influence of the fitted response.}
