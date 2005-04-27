@@ -4,7 +4,8 @@
 \title{Goldfeld-Quandt Test}
 \description{Goldfeld-Quandt test for heteroskedasticity.}
 \usage{
-gqtest(formula, point = 0.5, order.by = NULL, data = list())
+gqtest(formula, point = 0.5, fraction = 0, alternative = c("greater", "two.sided", "less"),
+  order.by = NULL, data = list())
 }
 \arguments{
   \item{formula}{a symbolic description for the model to be tested
@@ -14,6 +15,11 @@ gqtest(formula, point = 0.5, order.by = NULL, data = list())
      taken to be the (potential) breakpoint in the variances, if
      \code{n} is the number of observations in the model. If \code{point}
      is greater than 1 it is interpreted to be the index of the breakpoint.}
+ \item{fraction}{numeric. The number of central observations to be omitted.
+    If \code{fraction} is smaller than 1, it is chosen to be \code{fraction*n}
+    if \code{n} is the number of observations in the model.}
+ \item{alternative}{a character string specifying the alternative hypothesis.
+    The default is to test for increasing variances.}
  \item{order.by}{Either a vector \code{z} or a formula with a single explanatory
     variable like \code{~ z}. The observations in the model
     are ordered by the size of \code{z}. If set to \code{NULL} (the
@@ -52,7 +58,6 @@ Some Tests for Homoskedasticity.
 
 W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
-
 
 }
 

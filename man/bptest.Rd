@@ -50,6 +50,9 @@ T.S. Breusch & A.R. Pagan (1979),
 A Simple Test for Heteroscedasticity and Random Coefficient Variation.
 \emph{Econometrica} \bold{47}, 1287--1294
 
+R. Koenker (1981), A Note on Studentizing a Test for Heteroscedasticity.
+\emph{Journal of Econometrics} \bold{17}, 107--112.
+
 W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 }

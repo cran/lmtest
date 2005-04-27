@@ -4,7 +4,7 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
   dname <- paste(deparse(substitute(formula)))
   alternative <- match.arg(alternative)
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
@@ -79,7 +79,7 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
 {
   dname <- paste(deparse(substitute(formula)))
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
 	   formula$x
 	 else model.matrix(terms(formula), model.frame(formula))
@@ -138,11 +138,13 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
   return(RVAL)
 }
 
-gqtest <- function(formula, point = 0.5, order.by = NULL, data = list())
+gqtest <- function(formula, point = 0.5, fraction = 0,
+  alternative = c("greater", "two.sided", "less"), order.by = NULL, data = list())
 {
   dname <- paste(deparse(substitute(formula)))
+  alternative <- match.arg(alternative)
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
@@ -157,8 +159,16 @@ gqtest <- function(formula, point = 0.5, order.by = NULL, data = list())
 
   k <- ncol(X)
   n <- nrow(X)
-  if(point < 1) point <- floor(point*n)
-  if (point > n - k | point < k) stop("inadmissable breakpoint")
+  if(point > 1) {
+    if(fraction < 1) fraction <- floor(fraction * n)
+    point1 <- point - ceiling(fraction/2)
+    point2 <- point + ceiling(fraction/2 + 0.01)
+  } else {
+    if(fraction >= 1) fraction <- fraction/n
+    point1 <- floor((point-fraction/2) * n)
+    point2 <- ceiling((point+fraction/2) * n + 0.01)
+  }
+  if (point2 > n-k+1 | point1 < k) stop("inadmissable breakpoint/too many central observations omitted")
 
   if(!is.null(order.by))
   {
@@ -172,13 +182,24 @@ gqtest <- function(formula, point = 0.5, order.by = NULL, data = list())
     y <- y[order(z)]
   }
 
-  rss1 <- sum(lm.fit(as.matrix(X[1:point,]),y[1:point])$residuals^2)
-  rss2 <- sum(lm.fit(as.matrix(X[(point+1):n,]),y[(point+1):n])$residuals^2)
+  rss1 <- sum(lm.fit(as.matrix(X[1:point1,]),y[1:point1])$residuals^2)
+  rss2 <- sum(lm.fit(as.matrix(X[point2:n,]),y[point2:n])$residuals^2)
+  mss <- c(rss1/(point1-k), rss2/(n-point2+1-k))
 
-  gq <- (rss2/(n-point-k))/(rss1/(point-k))
-  df <- c(n-point-k, point-k)
+  gq <- mss[2]/mss[1]
+  df <- c(n-point2+1-k, point1-k)
   names(df) <- c("df1", "df2")
-  PVAL <- 1-pf(gq, df[1], df[2])
+
+  PVAL <- switch(alternative,
+    "two.sided" = (2*min(pf(gq, df[1], df[2]), pf(gq, df[1], df[2], lower.tail = FALSE))),
+    "less" = pf(gq, df[1], df[2]),
+    "greater" = pf(gq, df[1], df[2], lower.tail = FALSE))
+
+  alternative <- switch(alternative,
+    "two.sided" = "variance changes from segment 1 to 2",
+    "less" = "variance decreases from segment 1 to 2",
+    "greater" = "variance increases from segment 1 to 2")
+
   method <- "Goldfeld-Quandt test"
   names(gq) <- "GQ"
   RVAL <- list(statistic = gq,
@@ -196,7 +217,7 @@ hmctest <- function(formula, point = 0.5, order.by = NULL, simulate.p = TRUE,
 {
   dname <- paste(deparse(substitute(formula)))
   
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
@@ -266,7 +287,7 @@ harvtest <- function(formula, order.by=NULL, data=list())
 {
   dname <- paste(deparse(substitute(formula)))
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
@@ -334,12 +355,12 @@ harvtest <- function(formula, order.by=NULL, data=list())
   return(RVAL)
 }
 
-raintest <- function(formula, fraction=0.5, order.by=NULL, center=NULL,
- data=list())
+raintest <- function(formula, fraction = 0.5, order.by = NULL, center = NULL,
+ data = list())
 {
   dname <- paste(deparse(substitute(formula)))
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
@@ -415,7 +436,7 @@ reset <- function(formula, power=2:3, type=c("fitted", "regressor",
 {
   dname <- paste(deparse(substitute(formula)))
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
@@ -475,7 +496,7 @@ bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
 {
   dname <- paste(deparse(substitute(formula)))
 
-  if(!"formula" %in% class(formula)) {
+  if(!inherits(formula, "formula")) {
     X <- if(is.matrix(formula$x))
            formula$x
          else model.matrix(terms(formula), model.frame(formula))
