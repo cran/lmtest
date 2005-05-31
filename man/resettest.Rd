@@ -1,4 +1,5 @@
-\name{reset}
+\name{resettest}
+\alias{resettest}
 \alias{reset}
 \encoding{latin1}
 \title{RESET Test}
@@ -6,7 +7,7 @@
 \description{Ramsey's RESET test for functional relation.}
 
 \usage{
-reset(formula, power = 2:3, type = c("fitted", "regressor",
+resettest(formula, power = 2:3, type = c("fitted", "regressor",
   "princomp"), data = list())
 }
 
@@ -21,7 +22,7 @@ reset(formula, power = 2:3, type = c("fitted", "regressor",
     component of the regressor matrix should be included in the
     extended model.}
  \item{data}{an optional data frame containing the variables in the model.
-    By default the variables are taken from the environment which \code{reset}
+    By default the variables are taken from the environment which \code{resettest}
     is called from.}
 }
 
@@ -35,6 +36,10 @@ regressor variables or the first principal component of \code{X}. A standard
 F-Test is then applied to determin whether these additional variables have
 significant influence. The test statistic under \eqn{H_0} follows an F
 distribution with \code{parameter} degrees of freedom.
+
+This function was called \code{reset} in previous versions of the package. This
+interface is currently still included, but a warning is issued. Please use
+\code{resettest} instead.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
@@ -62,10 +67,7 @@ Analysis.
 W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 
-
 }
-
-
 
 \seealso{\code{\link{lm}}}
 
@@ -73,8 +75,8 @@ W. Krämer & H. Sonnberger (1986),
 x <- c(1:30)
 y1 <- 1 + x + x^2 + rnorm(30)
 y2 <- 1 + x + rnorm(30)
-reset(y1 ~ x , power=2, type="regressor")
-reset(y2 ~ x , power=2, type="regressor")
+resettest(y1 ~ x , power=2, type="regressor")
+resettest(y2 ~ x , power=2, type="regressor")
 }
 
 \keyword{htest}

@@ -1,29 +1,31 @@
-
 The authors would like to thank the following people for their help and
 assistance:
+
+Roger Koenker <roger@ysidro.econ.uiuc.edu> for providing the
+  chicken-and-egg data.
 
 Walter Kraemer <walterk@statistik.uni-dortmund.de> for
   providing free copies of "The Linear Regression Model under Test",
 
-David Mitchell <David.Mitchell@dotars.gov.au> for providing the intial
-  version of the code for the Breusch-Godfrey test.
+Uwe Ligges <ligges@statistik.uni-dortmund.de> and
+for critically testing pre-release versions,
 
 Marcel Mackiewicz <Marcel.Mackiewicz@imbe.imed.uni-erlangen.de> for
   scanning the datasets,
+
+Giovanni Millo <Giovanni_Millo@generali.com> for providing the intial
+  versions for nested and non-nested model comparison tests and most
+  helpful discussions.
+
+David Mitchell <David.Mitchell@dotars.gov.au> for providing the intial
+  version of the code for the Breusch-Godfrey test.
+
+Andrea Peters <andrea.peters@imbe.imed.uni-erlangen.de> for her comments on
+  the documentation of `lmtest' and
 
 Jeffrey Racine <jracine@maxwell.syr.edu> for testing the package and 
   providing helpful feedback that lead to considerable improvement of 
   the code,
 
-Uwe Ligges <ligges@statistik.uni-dortmund.de> and
-for critically testing pre-release versions,
-
-Andrea Peters <andrea.peters@imbe.imed.uni-erlangen.de> for her comments on
-  the documentation of `lmtest' and
-
 Mark W. Watson <mwatson@princeton.edu> for providing the U.S. macroeconomic
   time series data.
-
-Giovanni Millo <Giovanni_Millo@generali.com> for providing the intial
-  versions for nested and non-nested model comparison tests and most
-  helpful discussions.

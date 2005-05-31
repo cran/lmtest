@@ -74,8 +74,8 @@
 }
 
 \value{
- An object of class \code{"anova"} which contains the residual degrees of freedom
- in the encompassing model, the difference in degrees of freedom, Wald statistic
+ An object of class \code{"anova"} which contains the residual degrees of freedom,
+ the difference in degrees of freedom, Wald statistic
  (either \code{"F"} or \code{"Chisq"}) and corresponding p value.
 }
 
