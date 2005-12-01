@@ -35,7 +35,7 @@ coeftest.default <- function(x, vcov = NULL, df = NULL, ...)
 
 coeftest.breakpointsfull <- function(x, vcov = NULL, df = NULL, ...)
 {
-  stopifnot(require(strucchange))
+  stopifnot(require("strucchange"))
   
   est <- coef(x, ...)
   rnames <- as.vector(t(outer(rownames(est), colnames(est), paste)))

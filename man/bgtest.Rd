@@ -2,16 +2,21 @@
 \alias{bgtest}
 \title{Breusch-Godfrey Test}
 \description{
- \code{bgtest} performs the Breusch-Godfrey test for higher order
+ \code{bgtest} performs the Breusch-Godfrey test for higher-order
  serial correlation.
 }
 \usage{
-bgtest(formula, order = 1, type = c("Chisq", "F"), data = list())
+bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list())
 }
 \arguments{
   \item{formula}{a symbolic description for the model to be tested
     (or a fitted \code{"lm"} object).}
   \item{order}{integer. maximal order of serial correlation to be tested.}
+ \item{order.by}{Either a vector \code{z} or a formula with a single explanatory
+    variable like \code{~ z}. The observations in the model
+    are ordered by the size of \code{z}. If set to \code{NULL} (the
+    default) the observations are assumed to be ordered (e.g., a
+    time series).}
   \item{type}{the type of test statistic to be returned. Either
     \code{"Chisq"} for the Chi-squared test statistic or
     \code{"F"} for the F test statistic.}
@@ -58,9 +63,9 @@ bgtest(formula, order = 1, type = c("Chisq", "F"), data = list())
 
      y1 <- 1 + x + rnorm(100)
 
-     ## Perform Breusch-Godfrey test for first order serial correlation:
+     ## Perform Breusch-Godfrey test for first-order serial correlation:
      bgtest(y1 ~ x)
-     ## or for fourth order serial correlation
+     ## or for fourth-order serial correlation
      bgtest(y1 ~ x, order = 4)
      ## Compare with Durbin-Watson test results:
      dwtest(y1 ~ x)

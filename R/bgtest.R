@@ -1,4 +1,4 @@
-bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
+bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list())
 {
   dname <- paste(deparse(substitute(formula)))
 
@@ -14,6 +14,18 @@ bgtest <- function(formula, order = 1, type = c("Chisq", "F"), data = list())
     y <- model.response(mf)
     X <- model.matrix(formula, data = data)
   }  
+
+  if(!is.null(order.by))
+  {
+    if(inherits(order.by, "formula")) {
+      z <- model.matrix(order.by, data = data)
+      z <- as.vector(z[,ncol(z)])
+    } else {
+      z <- order.by
+    }
+    X <- as.matrix(X[order(z),])
+    y <- y[order(z)]
+  }
 
   n <- nrow(X)
   k <- ncol(X)

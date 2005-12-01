@@ -1,4 +1,4 @@
-dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
+dwtest <- function(formula, order.by = NULL, alternative = c("greater", "two.sided", "less"),
   iterations = 15, exact = NULL, tol = 1e-10, data = list())
 {
   dname <- paste(deparse(substitute(formula)))
@@ -17,9 +17,22 @@ dwtest <- function(formula, alternative = c("greater", "two.sided", "less"),
     X <- model.matrix(formula, data = data)
   }  
    
+  if(!is.null(order.by))
+  {
+    if(inherits(order.by, "formula")) {
+      z <- model.matrix(order.by, data = data)
+      z <- as.vector(z[,ncol(z)])
+    } else {
+      z <- order.by
+    }
+    X <- as.matrix(X[order(z),])
+    y <- y[order(z)]
+  }
+
   n <- nrow(X)
   if(is.null(exact)) exact <- (n < 100)
   k <- ncol(X)
+    
   res <- lm.fit(X,y)$residuals
   dw <- sum(diff(res)^2)/sum(res^2)
   Q1 <- chol2inv(qr.R(qr(X)))

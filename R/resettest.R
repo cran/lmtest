@@ -4,12 +4,13 @@ resettest <- function(formula, power=2:3,
   dname <- paste(deparse(substitute(formula)))
 
   if(!inherits(formula, "formula")) {
+    mf <- model.frame(formula)
     X <- if(is.matrix(formula$x))
            formula$x
-         else model.matrix(terms(formula), model.frame(formula))
+         else model.matrix(terms(formula), mf)
     y <- if(is.vector(formula$y))
            formula$y
-         else model.response(model.frame(formula))
+         else model.response(mf)
   } else {
     mf <- model.frame(formula, data = data)
     y <- model.response(mf)
@@ -53,7 +54,7 @@ resettest <- function(formula, power=2:3,
   RVAL <- list(statistic = reset,
 	parameter = df,
 	method = "RESET test",
-	p.value= as.vector(1-pf(reset, df1, df2)),
+	p.value= as.vector(pf(reset, df1, df2, lower.tail = FALSE)),
 	data.name=dname)
   class(RVAL) <- "htest"
   return(RVAL)
@@ -116,7 +117,7 @@ reset <- function(formula, power=2:3, type=c("fitted", "regressor",
   RVAL <- list(statistic = reset,
 	parameter = df,
 	method = "RESET test",
-	p.value= as.vector(1-pf(reset, df1, df2)),
+	p.value= as.vector(pf(reset, df1, df2, lower.tail = FALSE)),
 	data.name=dname)
   class(RVAL) <- "htest"
   return(RVAL)

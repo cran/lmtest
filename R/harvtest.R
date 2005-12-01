@@ -63,7 +63,7 @@ harvtest <- function(formula, order.by=NULL, data=list())
   RVAL <- list(statistic = harv,
       parameter = df,
       method = "Harvey-Collier test",
-      p.value= 2 * (1-pt(harv, n-k-1)),
+      p.value= 2 * pt(harv, n-k-1,lower.tail=FALSE),
       data.name=dname)
 
   class(RVAL) <- "htest"

@@ -67,7 +67,7 @@ raintest <- function(formula, fraction = 0.5, order.by = NULL, center = NULL,
   RVAL <- list(statistic = rain,
       parameter = df,
       method = "Rainbow test",
-      p.value= as.vector(1-pf(rain, df[1], df[2])),
+      p.value= as.vector(pf(rain, df[1], df[2], lower.tail = FALSE)),
       data.name=dname)
 
   class(RVAL) <- "htest"

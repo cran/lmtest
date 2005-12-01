@@ -7,20 +7,15 @@
 \definecolor{Blue}{rgb}{0,0,0.8}
 
 
+\usepackage{/usr/lib/R/share/texmf/Sweave}
 \begin{document}
 
-\SweaveOpts{engine=R,eps=FALSE}
+
 %\VignetteIndexEntry{Diagnostic Checking in Regression Relationships}
 %\VignetteDepends{lmtest, strucchange}
 %\VignetteKeywords{diagnostic checking, structural change, autocorrelation, heteroskedasticity}
 %\VignettePackage{lmtest}
 
-<<preliminaries,echo=FALSE,results=hide>>=
-library(lmtest)
-options(SweaveHooks=list(twofig=function() {par(mfrow=c(1,2))},
-                         twofig2=function() {par(mfrow=c(2,1))},
-                         onefig=function() {par(mfrow=c(1,1))}))
-@
 
 \title{Diagnostic Checking in Regression Relationships}
 \author{\hfill Achim Zeileis$^\dag$ \hfill Torsten Hothorn$^\ddag$ \hfill \hfill \\
@@ -103,34 +98,47 @@ together with a residual plot of the AR(6) model in Figure~\ref{macro-jocci}.
 \setkeys{Gin}{width=0.8\textwidth}
 \begin{figure}[htbp]
 \begin{center}
-<<macro-jocci,fig=TRUE,twofig=TRUE,echo=FALSE,height=4,width=8>>=
-data(jocci)
-plot(jocci[,"dy"], ylab = "jocci (log first differences)")
-ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 +dy6
-jocci.fm <- lm(ar6.model, data = jocci)
-plot(time(jocci), residuals(jocci.fm), xlab = "Time", ylab = "AR(6) residuals")
-@
+\includegraphics{lmtest-intro-macro-jocci}
 \caption{\label{macro-jocci} The jocci series and AR(6) residual plot}
 \end{center}
 \end{figure}
 
 Not surprisingly, an autoregressive model is necessary as the series itself
 contains serial correlation, which can be shown by the Durbin-Watson test
-<<macro-corr1>>=
-data(jocci)
-dwtest(dy ~ 1, data = jocci)
-@
+\begin{Schunk}
+\begin{Sinput}
+> data(jocci)
+> dwtest(dy ~ 1, data = jocci)
+\end{Sinput}
+\begin{Soutput}
+	Durbin-Watson test
+
+data:  dy ~ 1 
+DW = 1.0581, p-value < 2.2e-16
+alternative hypothesis: true autocorrelation is greater than 0 
+\end{Soutput}
+\end{Schunk}
 or the Breusch-Godfrey test
 which also leads to a highly significant result. In the AR(6) model
 given by
-<<macro-model>>=
-ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 +dy6
-@
+\begin{Schunk}
+\begin{Sinput}
+> ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 + dy6
+\end{Sinput}
+\end{Schunk}
 where the variables on the right hand side denote the lagged variables,
 there is no remaining serial correlation in the residuals:
-<<macro-corr2>>=
-bgtest(ar6.model, data = jocci)
-@
+\begin{Schunk}
+\begin{Sinput}
+> bgtest(ar6.model, data = jocci)
+\end{Sinput}
+\begin{Soutput}
+	Breusch-Godfrey test for serial correlation of order 1
+
+data:  ar6.model 
+LM test = 0.2, df = 1, p-value = 0.6547
+\end{Soutput}
+\end{Schunk}
 The Durbin-Watson test is biased in dynamic models and should therefore not be applied.
 
 
@@ -140,10 +148,19 @@ in \texttt{lmtest}: the Breusch-Pagan test fits a linear regression model
 to the residuals and rejects if too much of the variance is explained by the
 auxiliary explanatory variables, which are here
 the squared lagged values:
-<<macro-hetsked1>>=
-var.model <- ~ I(dy1^2) + I(dy2^2) + I(dy3^2) + I(dy4^2) + I(dy5^2) + I(dy6^2)
-bptest(ar6.model, var.model, data = jocci)
-@
+\begin{Schunk}
+\begin{Sinput}
+> var.model <- ~I(dy1^2) + I(dy2^2) + I(dy3^2) + I(dy4^2) + I(dy5^2) + 
++     I(dy6^2)
+> bptest(ar6.model, var.model, data = jocci)
+\end{Sinput}
+\begin{Soutput}
+	studentized Breusch-Pagan test
+
+data:  ar6.model 
+BP = 22.3771, df = 6, p-value = 0.001034
+\end{Soutput}
+\end{Schunk}
 The Goldfeld-Quandt test \verb/gqtest()/ and the Harrison-McCabe test \verb/hmctest()/
 also give highly significant $p$ values.
 Whereas the Breusch-Pagan test and the Harrison-McCabe test do not assume a
@@ -170,16 +187,14 @@ and a quadratic model \verb/length ~ age + I(age^2)/.
 \setkeys{Gin}{width=0.6\textwidth}
 \begin{figure}[htbp]
 \begin{center}
-<<mandible-data,fig=TRUE,onefig=TRUE,echo=FALSE,height=4,width=6>>=
-data(Mandible)
-mandible <- log(Mandible)
-attach(mandible)
-plot(mandible)
-fm <- lm(length ~ age)
-fm2 <- lm(length ~ age + I(age^2))
-lines(age, fitted(fm), col = 2)
-lines(age, fitted(fm2), col = 4)
-@
+\begin{Schunk}
+\begin{Soutput}
+	The following object(s) are masked from package:base :
+
+	 length 
+\end{Soutput}
+\end{Schunk}
+\includegraphics{lmtest-intro-mandible-data}
 \caption{\label{mandible-data} The mandible data}
 \end{center}
 \end{figure}
@@ -192,11 +207,7 @@ some tests for nonlinearity and misspecified functional form.
 \setkeys{Gin}{width=0.8\textwidth}
 \begin{figure}[htbp]
 \begin{center}
-<<mandible-res,fig=TRUE,twofig=TRUE,echo=FALSE,height=4,width=8>>=
-plot(age, residuals(fm), ylab = "residuals (linear model)")
-plot(age, residuals(fm2), ylab = "residuals (quadratic model)")
-detach(mandible)
-@
+\includegraphics{lmtest-intro-mandible-res}
 \caption{\label{mandible-res} Residual plots for mandible models}
 \end{center}
 \end{figure}
@@ -207,46 +218,64 @@ of the recursive residuals (standardized one step prediction errors),
 and the Rainbow test. Both try to detect
 nonlinearities when the data is ordered with respect to a specific
 variable.
-<<mandible-tests1,eval=FALSE>>=
-data(Mandible)
-mandible <- log(Mandible)
-harvtest(length ~ age, order.by = ~ age, data = mandible)
-raintest(length ~ age, order.by = ~ age, data = mandible)
-@
+\begin{Schunk}
+\begin{Sinput}
+> data(Mandible)
+> mandible <- log(Mandible)
+> harvtest(length ~ age, order.by = ~age, data = mandible)
+> raintest(length ~ age, order.by = ~age, data = mandible)
+\end{Sinput}
+\end{Schunk}
 Both lead to highly significant results, suggesting that the model
 is not linear in \texttt{age}. Another appropriate procedure is
 the RESET test, which tests whether some
 auxiliary variables improve the fit significantly. By default
 the second and third powers of the fitted values are chosen:
-<<mandible-tests2>>=
-resettest(length ~ age, data = mandible)
-@
+\begin{Schunk}
+\begin{Sinput}
+> resettest(length ~ age, data = mandible)
+\end{Sinput}
+\begin{Soutput}
+	RESET test
+
+data:  length ~ age 
+RESET = 26.1288, df1 = 2, df2 = 163, p-value = 1.436e-10
+\end{Soutput}
+\end{Schunk}
 In our situation it would also be natural to consider powers of
 the regressor \texttt{age} as auxiliary variables
-<<mandible-tests3>>=
-resettest(length ~ age, power = 2, type = "regressor", data = mandible)
-@
+\begin{Schunk}
+\begin{Sinput}
+> resettest(length ~ age, power = 2, type = "regressor", data = mandible)
+\end{Sinput}
+\begin{Soutput}
+	RESET test
+
+data:  length ~ age 
+RESET = 52.5486, df1 = 1, df2 = 164, p-value = 1.567e-11
+\end{Soutput}
+\end{Schunk}
 which also gives a highly significant $p$ value (higher powers do not
 have a significant influence). These results correspond to the better
 fit of the quadratic model which can both be seen in Figure~\ref{mandible-data}
 and \ref{mandible-res}. Although its residual plot does not look too
 suspicious several tests are able to reveal irregularities in this model
 as well. The Breusch-Pagan tests gives a $p$ value of
-\Sexpr{round(bptest(length ~ age + I(age^2), data = mandible)$p.value, digits = 3)}
+0.043
 and the Rainbow test gives
-<<mandible-tests4>>=
-raintest(length ~ age + I(age^2), order.by = ~ age, data = mandible)
-@
-<<mandible-supF,echo=FALSE,results=hide>>=
-if(require(strucchange)) {
-  supF.pval <- round(sctest(length ~ age + I(age^2), data = mandible, to = 0.9, type = "supF")$p.value, digits = 3)
-} else {
-#  warning("`strucchange' not available: p value set to NA")
-  supF.pval <- NA
-}
-@
+\begin{Schunk}
+\begin{Sinput}
+> raintest(length ~ age + I(age^2), order.by = ~age, data = mandible)
+\end{Sinput}
+\begin{Soutput}
+	Rainbow test
+
+data:  length ~ age + I(age^2) 
+Rain = 1.5818, df1 = 84, df2 = 80, p-value = 0.01995
+\end{Soutput}
+\end{Schunk}
 and finally an sup$F$ test from the \texttt{strucchange} package would also reject the
-null hypothesis of stability at 10\% level ($p = \Sexpr{supF.pval}$)
+null hypothesis of stability at 10\% level ($p = 0.064$)
 in favour of a breakpoint after about 90\% of the
 observations. All three
 tests probably reflect that there is more variability in the edges (especially the

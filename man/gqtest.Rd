@@ -2,7 +2,7 @@
 \alias{gqtest}
 \encoding{latin1}
 \title{Goldfeld-Quandt Test}
-\description{Goldfeld-Quandt test for heteroskedasticity.}
+\description{Goldfeld-Quandt test against heteroskedasticity.}
 \usage{
 gqtest(formula, point = 0.5, fraction = 0, alternative = c("greater", "two.sided", "less"),
   order.by = NULL, data = list())
@@ -10,12 +10,12 @@ gqtest(formula, point = 0.5, fraction = 0, alternative = c("greater", "two.sided
 \arguments{
   \item{formula}{a symbolic description for the model to be tested
     (or a fitted \code{"lm"} object).}
- \item{point}{numerics. If \code{point} is smaller than 1 it is
+ \item{point}{numerical. If \code{point} is smaller than 1 it is
      interpreted as percentages of data, i.e. \code{n*point} is
      taken to be the (potential) breakpoint in the variances, if
      \code{n} is the number of observations in the model. If \code{point}
      is greater than 1 it is interpreted to be the index of the breakpoint.}
- \item{fraction}{numeric. The number of central observations to be omitted.
+ \item{fraction}{numerical. The number of central observations to be omitted.
     If \code{fraction} is smaller than 1, it is chosen to be \code{fraction*n}
     if \code{n} is the number of observations in the model.}
  \item{alternative}{a character string specifying the alternative hypothesis.
@@ -38,8 +38,7 @@ distribution with the degrees of freedom as given in \code{parameter}.
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \code{\link{growthofmoney}}, \code{\link{moneydemand}},
- \code{\link{unemployment}},
-\code{\link{wages}}.
+ \code{\link{unemployment}}, \code{\link{wages}}.
 }
 \value{
  A list with class \code{"htest"} containing the following components:

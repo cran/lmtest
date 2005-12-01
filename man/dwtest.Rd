@@ -6,12 +6,17 @@
  Performs the Durbin-Watson test for autocorrelation of disturbances.
 }
 \usage{
-dwtest(formula, alternative = c("greater", "two.sided", "less"),
+dwtest(formula, order.by = NULL, alternative = c("greater", "two.sided", "less"),
        iterations = 15, exact = NULL, tol = 1e-10, data = list())
 }
 \arguments{
   \item{formula}{a symbolic description for the model to be tested
     (or a fitted \code{"lm"} object).}
+ \item{order.by}{Either a vector \code{z} or a formula with a single explanatory
+    variable like \code{~ z}. The observations in the model
+    are ordered by the size of \code{z}. If set to \code{NULL} (the
+    default) the observations are assumed to be ordered (e.g., a
+    time series).}
  \item{alternative}{a character string specifying the alternative hypothesis.}
  \item{iterations}{an integer specifying the number of iterations
     when calculating the p-value with the "pan" algorithm.}
@@ -26,12 +31,13 @@ dwtest(formula, alternative = c("greater", "two.sided", "less"),
     is called from.}
 }
 \details{The Durbin-Watson test has the null hypothesis that the autocorrelation
-of the disturbances is 0; it can be tested against the alternative that it is
-greater than, not equal to, or less than 0 respectively. This can be specified
+of the disturbances is 0. It is possible to test against the alternative that it is
+greater than, not equal to, or less than 0, respectively. This can be specified
 by the \code{alternative} argument.
 
-The null distribution of the Durbin-Watson test statistic is a linear
-combination of chi-squared distributions. The p value is computed using a
+Under the assumption of normally distributed disturbances, the null distribution 
+of the Durbin-Watson statistic is the distribution of a linear
+combination of chi-squared variables. The p-value is computed using a
 Fortran version of the Applied Statistics Algorithm AS 153 by Farebrother
 (1980, 1984). This algorithm is called "pan" or "gradsol". For large sample
 sizes the algorithm might fail to compute the p value; in that case a warning
@@ -42,8 +48,7 @@ statistic.
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \code{\link{growthofmoney}}, \code{\link{moneydemand}},
- \code{\link{unemployment}},
-\code{\link{wages}}.
+\code{\link{unemployment}}, \code{\link{wages}}.
 
 For an overview on R and econometrics see Racine & Hyndman (2002).
 }

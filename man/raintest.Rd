@@ -22,7 +22,7 @@ raintest(formula, fraction = 0.5, order.by = NULL, center = NULL,
     are ordered by the size of \code{z}. If set to \code{NULL} (the
     default) the observations are assumed to be ordered (e.g., a
     time series). If set to \code{"mahalanobis"} then the observations
-    are ordered by their Mahalanobis distance of the data.}
+    are ordered by their Mahalanobis distances from the mean regressor.}
  \item{center}{numeric. If \code{center} is smaller than 1 it is
      interpreted as percentages of data, i.e. the subset is chosen that
      \code{n*fraction} observations are around observation number
@@ -42,14 +42,13 @@ raintest(formula, fraction = 0.5, order.by = NULL, center = NULL,
  relationship is
 non-linear, a good linear fit can be achieved on a subsample in the "middle" of
 the data. The null hypothesis is rejected whenever the overall fit is
-significantly inferious to the fit of the subsample. The test statistic under
+significantly worse than the fit for the subsample. The test statistic under
 \eqn{H_0} follows an F distribution with \code{parameter} degrees of freedom.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \code{\link{growthofmoney}}, \code{\link{moneydemand}},
- \code{\link{unemployment}},
-\code{\link{wages}}.
+ \code{\link{unemployment}}, \code{\link{wages}}.
 }
 
 \value{
@@ -71,7 +70,6 @@ The Rainbow Test for Lack of Fit in Regression.
 
 W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
-
 
 }
 

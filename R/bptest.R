@@ -55,7 +55,7 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
   RVAL <- list(statistic = bp,
       parameter = df,
       method = method,
-      p.value= 1-pchisq(bp,df),
+      p.value= pchisq(bp,df,lower.tail=FALSE),
       data.name=dname)
 
   class(RVAL) <- "htest"

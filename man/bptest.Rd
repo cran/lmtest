@@ -2,7 +2,7 @@
 \alias{bptest}
 \encoding{latin1}
 \title{Breusch-Pagan Test}
-\description{Performs the Breusch-Pagan test for heteroskedasticity.}
+\description{Performs the Breusch-Pagan test against heteroskedasticity.}
 \usage{
 bptest(formula, varformula = NULL, studentize = TRUE, data = list())
 }
@@ -31,8 +31,7 @@ the constant in the model) degrees of freedom.
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \code{\link{growthofmoney}}, \code{\link{moneydemand}},
- \code{\link{unemployment}},
-\code{\link{wages}}.
+ \code{\link{unemployment}}, \code{\link{wages}}.
 }
 
 \value{
