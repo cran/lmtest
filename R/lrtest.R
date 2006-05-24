@@ -1,31 +1,26 @@
-waldtest <- function(object, ...) {
-  UseMethod("waldtest")
+lrtest <- function(object, ...) {
+  UseMethod("lrtest")
 }
 
-waldtest.formula <- function(object, ..., data = list()) {
+lrtest.formula <- function(object, ..., data = list()) {
   object <- if(length(data) < 1) eval(call("lm", formula = as.formula(deparse(substitute(object))),
     environment(object)))
   else eval(call("lm", formula = as.formula(deparse(substitute(object))),
     data = as.name(deparse(substitute(data))), environment(data)))
-  waldtest.default(object, ...)
+  lrtest.default(object, ...)
 }
 
-waldtest.survreg <- function(object, ..., test = c("Chisq", "F"))
-  waldtest.default(object, ..., test = match.arg(test))
-  
-waldtest.default <- function(object, ..., vcov = NULL, test = c("F", "Chisq"), name = NULL)
+lrtest.default <- function(object, ..., name = NULL)
 {
   ## methods needed:
-  ## - terms()
-  ## - update()
-  ## - formula()
-  ## - residuals() -> only for determining number of observations
-  ## - df.residual()
-  ## - coef() -> needs to be named, matching names in terms() and vcov()
-  ## - vcov(), potentially user-supplied
+  ## - logLik()
 
-  ## avoid name clashes of vcov argument and vcov() function
-  vcov. <- vcov
+  ## - terms()  -> for updating only
+  ## - update()
+
+  ## - formula() -> for determining `name' (can be user-supplied)
+  ## - residuals() -> only for determining number of observations
+
   ## model class
   cls <- class(object)[1]
 
@@ -70,33 +65,6 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("F", "Chisq"), n
       "\", updated model is of class \"", class(update)[1], "\"", sep = ""))
     return(update)
   }
-  ## 4. compare two fitted model objects
-  modelCompare <- function(fm, fm.up, vfun = NULL) {
-    q <- length(coef(fm)) - length(coef(fm.up))
-
-    if(q > 0) {
-      fm0 <- fm.up
-      fm1 <- fm
-    } else {
-      fm0 <- fm
-      fm1 <- fm.up
-    }
-    k <- length(coef(fm1))
-    n <- nobs(fm1)
-
-    ## determine omitted variables
-    if(!all(tlab(fm0) %in% tlab(fm1))) stop("models are not nested")
-    ovar <- which(!(names(coef(fm1)) %in% names(coef(fm0))))
-
-    ## get covariance matrix estimate
-    vc <- if(is.null(vfun)) vcov(fm1)
-          else if(is.function(vfun)) vfun(fm1)
-	  else vfun
-
-    ## compute Chisq statistic
-    stat <- t(coef(fm1)[ovar]) %*% solve(vc[ovar,ovar]) %*% coef(fm1)[ovar]
-    return(c(-q, stat))
-  }
 
   ## recursively fit all objects (if necessary)
   objects <- list(object, ...)
@@ -138,28 +106,20 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("F", "Chisq"), n
     }
   }
 
-  ## check vcov.
-  if(nmodels > 2 && !is.null(vcov.) && !is.function(vcov.))
-    stop("to compare more than 2 models `vcov.' needs to be a function")
-
   ## setup ANOVA matrix
-  test <- match.arg(test)
-  rval <- matrix(rep(NA, 4 * nmodels), ncol = 4)
-  colnames(rval) <- c("Res.Df", "Df", test, paste("Pr(>", test, ")", sep = ""))
+  rval <- matrix(rep(NA, 5 * nmodels), ncol = 5)
+  colnames(rval) <- c("#Df", "LogLik", "Df", "Chisq", "Pr(>Chisq)")
   rownames(rval) <- 1:nmodels
-  rval[,1] <- as.numeric(sapply(objects, df.residual))
-  for(i in 2:nmodels) rval[i, 2:3] <- modelCompare(objects[[i-1]], objects[[i]], vfun = vcov.)
-  if(test == "Chisq") {
-    rval[,4] <- pchisq(rval[,3], round(abs(rval[,2])), lower.tail = FALSE)
-  } else {
-    df <- rval[,1]
-    for(i in 2:nmodels) if(rval[i,2] < 0) df[i] <- rval[i-1,1]
-    rval[,3] <- rval[,3]/abs(rval[,2])
-    rval[,4] <- pf(rval[,3], abs(rval[,2]), df, lower.tail = FALSE)
-  }
+  
+  logL <- lapply(objects, logLik)
+  rval[,1] <- as.numeric(sapply(logL, function(x) attr(x, "df")))  
+  rval[,2] <- sapply(logL, as.numeric)
+  rval[2:nmodels, 3] <- rval[2:nmodels, 1] - rval[1:(nmodels-1), 1]
+  rval[2:nmodels, 4] <- 2 * abs(rval[2:nmodels, 2] - rval[1:(nmodels-1), 2])
+  rval[,5] <- pchisq(rval[,4], round(abs(rval[,3])), lower.tail = FALSE)
 
   variables <- lapply(objects, name)
-  title <- "Wald test\n"
+  title <- "Likelihood ratio test\n"
   topnote <- paste("Model ", format(1:nmodels),": ", variables, sep="", collapse="\n")
 
   structure(as.data.frame(rval), heading = c(title, topnote),

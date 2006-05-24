@@ -2,6 +2,7 @@
 \alias{coeftest}
 \alias{coeftest.default}
 \alias{coeftest.survreg}
+\alias{coeftest.glm}
 \alias{coeftest.breakpointsfull}
 \alias{print.coeftest}
 \title{Testing Estimated Coefficients}
@@ -48,7 +49,7 @@ a covariance matrix. For illustrations see below.
 
 The degrees of freedom \code{df} determine whether a normal
 approximation is used or a t distribution with \code{df} degrees
-of freedoms is used. The default method uses \code{x$df.residual}
+of freedoms is used. The default method uses \code{df.residual(x)}
 and if this is \code{NULL} a z test is performed.
 }
 

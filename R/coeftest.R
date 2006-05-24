@@ -19,7 +19,7 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
   }  
   tval <- as.vector(est)/se
 
-  if(is.null(df)) df <- x$df.residual
+  if(is.null(df)) df <- df.residual(x)
   if(is.null(df)) df <- 0
 
   if(is.finite(df) && df > 0) {
@@ -34,27 +34,24 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
   rval <- cbind(est, se, tval, pval)
   colnames(rval) <- cnames
   class(rval) <- "coeftest"
-  attr(rval, "method") <- paste(mthd, "test of coefficients of",
-    dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
+  attr(rval, "method") <- paste(mthd, "test of coefficients")
+  ##  dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
   return(rval)
 } 
 
+coeftest.glm <- function(x, vcov. = NULL, df = Inf, ...)
+  coeftest.default(x, vcov. = vcov., df = df, ...)  
+
 coeftest.survreg <- function(x, vcov. = NULL, df = Inf, ...)
 {
-  if(is.finite(df) && df > 0) mthd <- "t"
-    else mthd <- "z"
-  mthd <- paste(mthd, "test of coefficients of",
-    dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
   if(is.null(vcov.)) v <- vcov(x) else {
       if(is.function(vcov.)) v <- vcov.(x)
-        else v <- vcov.
+  	else v <- vcov.
   }
   if(length(x$coefficients) < NROW(x$var)) {
     x$coefficients <- c(x$coefficients, "Log(scale)" = log(x$scale))
   }
-  rval <- coeftest.default(x, vcov. = v, df = df, ...)  
-  attr(rval, "method") <- mthd
-  return(rval)
+  coeftest.default(x, vcov. = v, df = df, ...)  
 } 
 
 coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
@@ -89,8 +86,8 @@ coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
   colnames(rval) <- cnames
   rownames(rval) <- rnames
   class(rval) <- "coeftest"
-  attr(rval, "method") <- paste(mthd, "test of coefficients of",
-    dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
+  attr(rval, "method") <- paste(mthd, "test of coefficients")
+  ##  dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
   return(rval)
 } 
 

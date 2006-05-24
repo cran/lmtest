@@ -1,3 +1,13 @@
+Changes in Version 0.9-15
+
+  o new generic with flexible default method for lrtest(),
+    implementing asymptotic likelihood ratio tests. This works
+    if a logLik() method is provided and suitable methods for
+    updating models and checking consistency.
+    
+  o simplified print output in coeftest()
+  
+
 Changes in Version 0.9-14
 
   o now a default method for waldtest() is provided (replacing the
