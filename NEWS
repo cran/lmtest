@@ -1,3 +1,10 @@
+Changes in Version 0.9-16
+
+  o updated all .rda data sets to RDX2
+
+  o enhanced sanity checking in dwtest()
+
+
 Changes in Version 0.9-15
 
   o new generic with flexible default method for lrtest(),
