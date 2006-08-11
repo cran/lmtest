@@ -1,0 +1,31 @@
+useDynLib("lmtest")
+
+export(
+  "bgtest",
+  "bptest",
+  "coeftest",
+  "coeftest.default",
+  "coxtest",
+  "dwtest",
+  "encomptest",
+  "gqtest",
+  "grangertest",
+  "grangertest.default",
+  "harvtest",
+  "hmctest",
+  "jtest",
+  "lrtest",
+  "lrtest.default",
+  "raintest",
+  "resettest",
+  "reset",
+  "waldtest",
+  "waldtest.default")
+
+S3method("coeftest", "glm")
+S3method("coeftest", "survreg")
+S3method("coeftest", "breakpointsfull")
+S3method("grangertest", "formula")
+S3method("lrtest", "formula")
+S3method("waldtest", "formula")
+S3method("waldtest", "survreg")

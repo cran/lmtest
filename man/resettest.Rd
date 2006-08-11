@@ -37,9 +37,8 @@ F-Test is then applied to determine whether these additional variables have
 significant influence. The test statistic under \eqn{H_0} follows an F
 distribution with \code{parameter} degrees of freedom.
 
-This function was called \code{reset} in previous versions of the package. This
-interface is currently still included, but a warning is issued. Please use
-\code{resettest} instead.
+This function was called \code{reset} in previous versions of the package. Please
+use \code{resettest} instead.
 
 Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},

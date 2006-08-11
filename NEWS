@@ -1,3 +1,10 @@
+Changes in Version 0.9-17
+
+  o added NAMESPACE
+
+  o improved dependency declaration in DESCRIPTION
+
+
 Changes in Version 0.9-16
 
   o updated all .rda data sets to RDX2
