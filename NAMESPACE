@@ -25,6 +25,7 @@ export(
 S3method("coeftest", "glm")
 S3method("coeftest", "survreg")
 S3method("coeftest", "breakpointsfull")
+S3method("print", "coeftest")
 S3method("grangertest", "formula")
 S3method("lrtest", "formula")
 S3method("waldtest", "formula")
