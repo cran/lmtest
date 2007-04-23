@@ -7,13 +7,10 @@ waldtest.formula <- function(object, ..., data = list()) {
     environment(object)))
   else eval(call("lm", formula = as.formula(deparse(substitute(object))),
     data = as.name(deparse(substitute(data))), environment(data)))
-  waldtest.default(object, ...)
+  waldtest.lm(object, ...)
 }
 
-waldtest.survreg <- function(object, ..., test = c("Chisq", "F"))
-  waldtest.default(object, ..., test = match.arg(test))
-  
-waldtest.default <- function(object, ..., vcov = NULL, test = c("F", "Chisq"), name = NULL)
+waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), name = NULL)
 {
   ## methods needed:
   ## - terms()
@@ -164,4 +161,9 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("F", "Chisq"), n
 
   structure(as.data.frame(rval), heading = c(title, topnote),
 	    class = c("anova", "data.frame"))
+}
+
+waldtest.lm <- function(object, ..., test = c("F", "Chisq"))
+{
+  waldtest.default(object, ..., test = match.arg(test))
 }

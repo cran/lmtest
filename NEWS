@@ -1,3 +1,14 @@
+Changes in Version 0.9-19
+
+  o changed the default behaviour of waldtest.default():
+    Chisq test (instead of F test) is now used by default
+    which is more sensible for most models (with linear
+    models as a notable exception).
+
+  o added waldtest.lm() method that switches the default
+    test back to F test (instead of Chisq test).
+
+
 Changes in Version 0.9-18
 
   o forgot to export print() method for "coeftest" objects

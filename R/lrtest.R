@@ -61,7 +61,7 @@ lrtest.default <- function(object, ..., name = NULL)
       update <- as.formula(paste(". ~ . -", paste(update, collapse = " - ")))
     }
     if(inherits(update, "formula")) update <- update(fm, update)
-    if(!inherits(update, cls)) stop(paste("original model was of class \"", cls,
+    if(!inherits(update, cls)) warning(paste("original model was of class \"", cls,
       "\", updated model is of class \"", class(update)[1], "\"", sep = ""))
     return(update)
   }
@@ -80,15 +80,6 @@ lrtest.default <- function(object, ..., name = NULL)
   
   ## updating
   for(i in 2:nmodels) objects[[i]] <- modelUpdate(objects[[i-1]], objects[[i]])
-
-  ## check responses
-  responses <- as.character(lapply(objects, function(x) deparse(terms(x)[[2]])))
-  sameresp <- responses == responses[1]
-  if(!all(sameresp)) {
-    objects <- objects[sameresp]
-    warning("models with response ", deparse(responses[!sameresp]),
-	    " removed because response differs from ", "model 1")
-  }
 
   ## check sample sizes
   ns <- sapply(objects, nobs)

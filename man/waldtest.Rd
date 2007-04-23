@@ -2,7 +2,7 @@
 \alias{waldtest}
 \alias{waldtest.formula}
 \alias{waldtest.default}
-\alias{waldtest.survreg}
+\alias{waldtest.lm}
 \title{Wald Test of Nested Models}
 
 \description{
@@ -15,11 +15,11 @@
  waldtest(object, \dots)
 
  \method{waldtest}{default}(object, \dots, vcov = NULL,
-   test = c("F", "Chisq"), name = NULL) 
+   test = c("Chisq", "F"), name = NULL) 
 
  \method{waldtest}{formula}(object, \dots, data = list())
 
- \method{waldtest}{survreg}(object, \dots, test = c("Chisq", "F"))
+ \method{waldtest}{lm}(object, \dots, test = c("F", "Chisq"))
 }
 
 \arguments{
@@ -29,9 +29,9 @@
     coefficients, e.g., \code{\link[sandwich]{vcovHC}}. If only two models
     are compared it can also be the covariance matrix of the more general
     model.}
-  \item{test}{character specifying wether to compute the finite sample
-    F statistic (with approximate F distribution) or the large sample
-    Chi-squared statistic (with asymptotic Chi-squared distribution).}
+  \item{test}{character specifying wether to compute the large sample
+    Chi-squared statistic (with asymptotic Chi-squared distribution) or the finite sample
+    F statistic (with approximate F distribution).}
   \item{name}{a function for extracting a suitable name/description from
     a fitted model object. By default the name is queried by calling
     \code{\link{formula}}.}
@@ -84,15 +84,15 @@
   a fitted model object can be specified (by default this is taken to be the result of
   a call to \code{\link{formula}}).
   
-  The \code{"formula"} method fits a \code{\link{lm}} first and then calls the default 
-  method. The \code{"survreg"} method just calls the default method, but sets the default
-  test to be Chi-squared.
+  The \code{"formula"} method fits a \code{\link{lm}} first and then calls the \code{"lm"}
+  method. The \code{"lm"} method just calls the default method, but sets the default
+  test to be the F test.
 }
 
 \value{
  An object of class \code{"anova"} which contains the residual degrees of freedom,
  the difference in degrees of freedom, Wald statistic
- (either \code{"F"} or \code{"Chisq"}) and corresponding p value.
+ (either \code{"Chisq"} or \code{"F"}) and corresponding p value.
 }
 
 \seealso{\code{\link{coeftest}}, \code{\link[stats]{anova}}, \code{\link[car]{linear.hypothesis}}}
