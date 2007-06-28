@@ -1,5 +1,12 @@
 Changes in Version 0.9-19
 
+  o fixed error in Mandible data. Mandible[158,2] was 34 but
+    should really be 37 (see Table 1 in Royston & Altman 1994).
+    Spotted by Christian Ritz.
+
+
+Changes in Version 0.9-19
+
   o changed the default behaviour of waldtest.default():
     Chisq test (instead of F test) is now used by default
     which is more sensible for most models (with linear
