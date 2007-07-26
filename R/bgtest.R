@@ -47,11 +47,10 @@ bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), 
 
   "F" = {
     uresi <- auxfit$residuals
-    rresi <- lm.fit(X,resi)$residuals
-    bg <- ((sum(rresi^2) - sum(uresi^2))/m) / (sum(uresi^2) / (n-k-m))
-    p.val <- pf(bg, df1 = m, df2 = n-k, lower.tail = FALSE)
-    df <- c(m, n-k)
+    bg <- ((sum(resi^2) - sum(uresi^2))/m) / (sum(uresi^2) / (n-k-m))
+    df <- c(m, n-k-m)
     names(df) <- c("df1", "df2")
+    p.val <- pf(bg, df1 = df[1], df2 = df[2], lower.tail = FALSE)
   })
 
   names(bg) <- "LM test"
