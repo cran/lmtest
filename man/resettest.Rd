@@ -47,12 +47,11 @@ data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 }
 
 \value{An object of class \code{"htest"} containing:
-\itemize
-\item{statistic}{the test statistic.}
-\item{p.value}{the corresponding p-value.}
-\item{parameter}{degrees of freedom.}
-\item{method}{a character string with the method used.}
-\item{data.name}{a character string with the data name.}
+  \item{statistic}{the test statistic.}
+  \item{p.value}{the corresponding p-value.}
+  \item{parameter}{degrees of freedom.}
+  \item{method}{a character string with the method used.}
+  \item{data.name}{a character string with the data name.}
 }
 \references{
 

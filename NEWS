@@ -1,4 +1,17 @@
-Changes in Version 0.9-19
+Changes in Version 0.9-22
+
+  o included lmtest.bib in inst/doc for vignette.
+
+  o removed \itemize in .Rd files for new R-devel.
+
+
+Changes in Version 0.9-21
+
+  o corrected degrees of freedom for bgtest(..., type = "F")
+    (bug spotted by Oscar Becerra).
+    
+
+Changes in Version 0.9-20
 
   o fixed error in Mandible data. Mandible[158,2] was 34 but
     should really be 37 (see Table 1 in Royston & Altman 1994).
