@@ -80,7 +80,7 @@ R53: 84V33 p366- 369).
 
 R. W. Farebrother (1984),
 [AS R53] A Remark on Algorithms AS 106 (77V26 p92-98), AS 153 (80V29 p224-227)
-  and AS 155: The Distribution of a Linear Combination of $\chi^2$ Random
+  and AS 155: The Distribution of a Linear Combination of \eqn{\chi^2} Random
   Variables (80V29 p323-333)
 \emph{Applied Statistics} \bold{33}, 366--369.
 

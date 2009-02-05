@@ -1,7 +1,7 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-22
-Date: 2008-12-09
+Version: 0.9-23
+Date: 2009-02-05
 Author: Torsten Hothorn, Achim Zeileis, Giovanni Millo, David Mitchell
 Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
 Description: A collection of tests, data sets and examples
@@ -11,5 +11,5 @@ LazyData: yes
 Depends: R (>= 2.1.0), stats, zoo
 Suggests: car, strucchange, sandwich, dynlm, survival
 Imports: stats, graphics
-License: GPL
-Packaged: Tue Dec  9 16:09:45 2008; zeileis
+License: GPL-2
+Packaged: Thu Feb  5 15:22:34 2009; zeileis
