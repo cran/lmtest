@@ -5,7 +5,7 @@ jtest <- function(formula1, formula2, data = list(), vcov. = NULL, ...)
   ## merge two models (if possible) and compute
   ## response y and regressor matrices X and Z
   ## 1. If formulas are available: build big model first
-  if(inherits(formula2, "formula") && inherits(formula2, "formula")) {
+  if(inherits(formula1, "formula") && inherits(formula2, "formula")) {
     formula <- formula2
     if(length(formula) > 2) formula[[2]] <- NULL
     formula[[2]] <- as.call(list(as.name("+"), as.name("."), formula[[2]]))

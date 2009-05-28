@@ -1,15 +1,17 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-23
-Date: 2009-02-05
+Version: 0.9-24
+Date: 2009-05-28
 Author: Torsten Hothorn, Achim Zeileis, Giovanni Millo, David Mitchell
 Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
-Description: A collection of tests, data sets and examples
- for diagnostic checking in linear regression models.
+Description: A collection of tests, data sets and examples for
+        diagnostic checking in linear regression models.
 LazyLoad: yes
 LazyData: yes
 Depends: R (>= 2.1.0), stats, zoo
 Suggests: car, strucchange, sandwich, dynlm, survival
 Imports: stats, graphics
 License: GPL-2
-Packaged: Thu Feb  5 15:22:34 2009; zeileis
+Packaged: 2009-05-28 09:29:38 UTC; zeileis
+Repository: CRAN
+Date/Publication: 2009-05-28 15:46:12

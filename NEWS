@@ -1,3 +1,10 @@
+Changes in Version 0.9-24
+
+  o Added new specification test: PE test for linear vs.
+    log-linear specification in linear regressions is
+    now available as petest().
+
+
 Changes in Version 0.9-23
 
   o enhanced documentation for new Rd parser.
