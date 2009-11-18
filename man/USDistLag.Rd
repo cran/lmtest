@@ -1,6 +1,6 @@
 \name{USDistLag}
 \alias{USDistLag}
-\title{US Macroecnomic Data}
+\title{US Macroeconomic Data}
 \description{
 US macroeconomic data for fitting a distributed lag model.
 }

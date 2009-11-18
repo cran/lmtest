@@ -1,3 +1,8 @@
+Changes in Version 0.9-25
+
+  o enhanced documentation for new Rd parser.
+
+
 Changes in Version 0.9-24
 
   o Added new specification test: PE test for linear vs.

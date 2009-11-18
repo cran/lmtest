@@ -15,8 +15,8 @@ bonds,}
     \item{MOOD}{measure of consumer sentiment,}
     \item{EPI}{index of employment pressure,}
     \item{EXP}{interest rate expectations,}
-    \item{Y}{artifical time series based on RAARUS,}
-    \item{K}{artifical time series based on RAARUS.}
+    \item{Y}{artificial time series based on RAARUS,}
+    \item{K}{artificial time series based on RAARUS.}
   }
 }
 \source{

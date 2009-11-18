@@ -5,13 +5,13 @@
 \title{ Currency Substitution }
 \usage{data(currencysubstitution)}
 \description{
-Currency Subsitution Data.
+Currency Substitution Data.
 }
 \format{
  A multivariate quarterly time series from 1960(4) to 1975(4) with variables
  \describe{
-    \item{logCUS}{logarithm of the ratio of canadian holdings of Canadian
-dollar balances and canadian holdings of U.S. dollar balances,}
+    \item{logCUS}{logarithm of the ratio of Canadian holdings of Canadian
+dollar balances and Canadian holdings of U.S. dollar balances,}
     \item{Iu}{yield on U.S. Treasury bills,}
     \item{Ic}{yield on Canadian Treasury bills,}
     \item{logY}{logarithm of Canadian real gross national product.}

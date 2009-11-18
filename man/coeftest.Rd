@@ -32,7 +32,7 @@ The generic function \code{coeftest} currently has a default
 method (which works in particular for \code{"lm"} and
 \code{"glm"} objects) and a method for objects of class
 \code{"breakpointsfull"}
-(as computed by \code{\link[strucchange]{breakpointsfull}}).
+(as computed by \code{\link[strucchange]{breakpoints.formula}}).
 
 The default method assumes that a \code{coef} methods exists,
 such that \code{coef(x)} yields the estimated coefficients.

@@ -29,7 +29,7 @@
     coefficients, e.g., \code{\link[sandwich]{vcovHC}}. If only two models
     are compared it can also be the covariance matrix of the more general
     model.}
-  \item{test}{character specifying wether to compute the large sample
+  \item{test}{character specifying whether to compute the large sample
     Chi-squared statistic (with asymptotic Chi-squared distribution) or the finite sample
     F statistic (with approximate F distribution).}
   \item{name}{a function for extracting a suitable name/description from
@@ -74,10 +74,10 @@
   The default method is already very general and applicable to a broad range of fitted
   model objects, including \code{\link{lm}} and \code{\link{glm}} objects. It can be
   easily made applicable to other model classes as well by providing suitable methods
-  to the standard generics \code{\link{terms}} (for deterimining the variables in the model
+  to the standard generics \code{\link{terms}} (for determining the variables in the model
   along with their names), \code{\link{update}} (unless only fitted model objects are passed
   to \code{waldtest}, as mentioned above), \code{\link{residuals}} (only used for determining
-  the number of observations), \code{\link{df.residual}} (needed for the F statisic),
+  the number of observations), \code{\link{df.residual}} (needed for the F statistic),
   \code{\link{coef}} (for extracting the coefficients; needs to be named matching the names
   in \code{terms}), \code{\link{vcov}} (can be user-supplied; needs to be named matching the
   names in \code{terms}). Furthermore, some means of determining a suitable \code{name} for

@@ -23,7 +23,7 @@ hmctest(formula, point = 0.5, order.by = NULL, simulate.p = TRUE, nsim = 1000,
     time series).}
   \item{simulate.p}{logical. If \code{TRUE} a p value will be assessed
     by simulation, otherwise the p value is \code{NA}.}
-  \item{nsim}{integer. Determins how many runs are used to simulate the
+  \item{nsim}{integer. Determines how many runs are used to simulate the
     p value.}
   \item{plot}{logical. If \code{TRUE} the test statistic for all possible
     breakpoints is plotted.}

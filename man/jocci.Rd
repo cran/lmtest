@@ -38,7 +38,7 @@ The description from Stock & Watson (1996) for the time series
 (with the transformation used):
   \describe{
     \item{fyff}{interest rate (first differences),}
-    \item{gmdc}{pce, impl pr defl: pce (1987 = 100) (log first differences),}
+    \item{gmdc}{pce, implicit price deflator: pce (1987 = 100) (log first differences),}
     \item{ip}{index of industrial production (log first differences),}
     \item{jocci}{department of commerce commodity price index (log first differences),}
     \item{lhur}{unemployment rate: all workers, 16 years & over (\%, sa) (first differences),}

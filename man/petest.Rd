@@ -50,6 +50,9 @@
 }
 
 \references{
+W.H. Greene (2003). \emph{Econometric Analysis}, 5th edition.
+Upper Saddle River, NJ: Prentice Hall.
+
 J. MacKinnon, H. White, R. Davidson (1983). Tests for Model Specification in the
 Presence of Alternative Hypotheses: Some Further Results.
 \emph{Journal of Econometrics}, \bold{21}, 53-70.
@@ -73,6 +76,16 @@ summary(hp_log)
 
 ## PE test
 petest(hp_lin, hp_log)
+
+
+## Greene (2003), Example 9.8
+data("USMacroG", package = "AER")
+
+## Greene (2003), Table 9.2
+usm_lin <- lm(m1 ~ tbill + gdp, data = USMacroG)
+usm_log <- lm(log(m1) ~ log(tbill) + log(gdp), data = USMacroG)
+petest(usm_lin, usm_log)
+## matches results from Greene's errata
 }
 }
 

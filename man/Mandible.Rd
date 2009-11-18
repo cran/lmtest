@@ -13,8 +13,8 @@ Mandible Data.
   }
 }
 \source{
-  The data was originally published by Chitty et al., 1993, and analysed in
-Royston and Altman, 1994 (the data is given there). Only measurments with
+  The data was originally published by Chitty et al., 1993, and analyzed in
+Royston and Altman, 1994 (the data is given there). Only measurements with
 \code{age <= 28} were used in this analysis.
 }
 \references{

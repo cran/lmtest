@@ -29,7 +29,7 @@
 
 \details{
   \code{lrtest} is intended to be a generic function for comparisons
-  of models via asympotic likelihood ratio tests. The default method consecutively compares
+  of models via asymptotic likelihood ratio tests. The default method consecutively compares
   the fitted model object \code{object} with the models passed in \code{\dots}.
   Instead of passing the fitted model objects in \code{\dots}, several other
   specifications are possible. The updating mechanism is the same as for \code{\link{waldtest}}:
