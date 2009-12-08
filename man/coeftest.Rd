@@ -3,6 +3,7 @@
 \alias{coeftest.default}
 \alias{coeftest.survreg}
 \alias{coeftest.glm}
+\alias{coeftest.mlm}
 \alias{coeftest.breakpointsfull}
 \alias{print.coeftest}
 \title{Testing Estimated Coefficients}

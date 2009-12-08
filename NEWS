@@ -1,3 +1,9 @@
+Changes in Version 0.9-26
+
+  o added coeftest() method for "mlm" objects
+    (needed for matching coef() output to vcov() method)
+
+
 Changes in Version 0.9-25
 
   o enhanced documentation for new Rd parser.

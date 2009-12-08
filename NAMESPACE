@@ -26,6 +26,7 @@ export(
   "waldtest.default")
 
 S3method("coeftest", "glm")
+S3method("coeftest", "mlm")
 S3method("coeftest", "survreg")
 S3method("coeftest", "breakpointsfull")
 S3method("print", "coeftest")
