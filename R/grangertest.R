@@ -22,9 +22,9 @@ grangertest.default <- function(x, y, order = 1, na.action = na.omit, ...)
   ## either x is a 2-column time series
   ## or x and y are univariate time series
   if((NCOL(x) == 2) && missing(y)) {
-    x <- as.zoo(x)
     xnam <- colnames(x)[1]
     ynam <- colnames(x)[2]
+    x <- as.zoo(x)
     y <- x[,2]
     x <- x[,1]
   } else {
