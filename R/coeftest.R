@@ -80,7 +80,7 @@ coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
   rnames <- as.vector(t(outer(rownames(est), colnames(est), paste)))
   est <- as.vector(t(est))
   
-  se <- vcov.breakpointsfull(x, vcov. = vcov., ...)
+  se <- vcov(x, vcov. = vcov., ...)
 
   se <- as.vector(sapply(seq(along = se), function(x) sqrt(diag(se[[x]]))))
   tval <- est/se

@@ -40,7 +40,7 @@ hmctest <- function(formula, point = 0.5, order.by = NULL, simulate.p = TRUE,
   if(plot)
   {
     stats <- c(0,cumsum(resi^2))/sum(resi^2)
-    stats <- ts(stats, start=0, freq=n)
+    stats <- ts(stats, start = 0, frequency = n)
     plot(stats, xlab="fraction", ylab="Harrison-McCabe statistics", xaxs="i",
       yaxs="i")
     abline(0,1)

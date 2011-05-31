@@ -86,7 +86,7 @@ dwtest <- function(formula, order.by = NULL, alternative = c("greater", "two.sid
   }
   
   alternative <- switch(alternative,
-    "two.sided" = "true autocorelation is not 0",
+    "two.sided" = "true autocorrelation is not 0",
     "less" = "true autocorrelation is less than 0",
     "greater" = "true autocorrelation is greater than 0")
 
