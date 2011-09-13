@@ -1,3 +1,14 @@
+Changes in Version 0.9-29
+
+  o dwtest() now catches weighted regressions and throws an error
+    because weighted regressions are not supported (yet).
+    
+  o bgtest() now returns an object of class "bgtest" (inheriting from
+    "htest"). This has coef(), vcov() and df.residual() methods
+    - and thus enable calling coeftest() - to show the results of the
+    auxiliary regression.
+
+
 Changes in Version 0.9-28
 
   o Fixed typo in print output of dwtest() for two-sided alternatives.

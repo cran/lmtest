@@ -36,6 +36,10 @@ bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), 
   Z <- sapply(order, function(x) c(rep(0, x), resi[1:(n-x)]))
   auxfit <- lm.fit(cbind(X,Z), resi)
 
+  cf <- auxfit$coefficients
+  vc <- chol2inv(auxfit$qr$qr) * sum(auxfit$residuals^2) / auxfit$df.residual
+  names(cf) <- colnames(vc) <- rownames(vc) <- c(colnames(X), paste("lag(resid)", order, sep = "_"))
+
   switch(match.arg(type),
 
   "Chisq" = {
@@ -55,9 +59,15 @@ bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), 
 
   names(bg) <- "LM test"
   RVAL <- list(statistic = bg, parameter = df,
-               method = paste("Breusch-Godfrey test for serial correlation of order", max(order)),
+               method = paste("Breusch-Godfrey test for serial correlation of order up to", max(order)),
                p.value = p.val,
-               data.name =   dname)
-  class(RVAL) <- "htest"
+               data.name = dname,
+	       coefficients = cf,
+	       vcov = vc)
+  class(RVAL) <- c("bgtest", "htest")
   return(RVAL)
 }
+
+vcov.bgtest <- function(object, ...) object$vcov
+df.residual.bgtest <- function(object, ...) if(length(df <- object$parameter) > 1L) df[2] else NULL
+

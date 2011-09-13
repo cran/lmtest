@@ -1,5 +1,7 @@
 \name{bgtest}
 \alias{bgtest}
+\alias{vcov.bgtest}
+\alias{df.residual.bgtest}
 \title{Breusch-Godfrey Test}
 \description{
  \code{bgtest} performs the Breusch-Godfrey test for higher-order
@@ -28,20 +30,29 @@ bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(
   Under \eqn{H_0} the test statistic is asymptotically Chi-squared with
   degrees of freedom as given in \code{parameter}.
   If \code{type} is set to \code{"F"} the function returns
-  the exact F statistic which, under \eqn{H_0}, follows an \eqn{F}
+  a finite sample version of the test statistic, employing an \eqn{F}
   distribution with degrees of freedom as given in \code{parameter}.
 
   The starting values for the lagged residuals in the supplementary
   regression are chosen to be 0.
+
+  \code{bgtest} also returns the coefficients and estimated covariance
+  matrix from the auxiliary regression that includes the lagged residuals.
+  Hence, \code{\link{coeftest}} can be used to inspect the results. (Note,
+  however, that standard theory does not always apply to the standard errors
+  and t-statistics in this regression.)
 }
 \value{
- A list with class \code{"htest"} containing the following components:
+ A list with class \code{"bgtest"} inheriting from \code{"htest"} containing the
+ following components:
   \item{statistic}{the value of the test statistic.}
   \item{p.value}{the p-value of the test.}
   \item{parameter}{degrees of freedom.}
   \item{method}{a character string indicating what type of test was
     performed.}
   \item{data.name}{a character string giving the name(s) of the data.}
+  \item{coefficients}{coefficient estimates from the auxiliary regression.}
+  \item{vcov}{corresponding covariance matrix estimate.}
 }
 \references{
   Johnston, J. (1984): \emph{Econometric Methods}, Third Edition, McGraw Hill
@@ -72,6 +83,8 @@ bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(
 
      y2 <- filter(y1, 0.5, method = "recursive")
      bgtest(y2 ~ x)
-
+     bg4 <- bgtest(y2 ~ x, order = 4)
+     bg4
+     coeftest(bg4)
 }
 \keyword{htest}

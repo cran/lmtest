@@ -37,8 +37,8 @@ by the \code{alternative} argument.
 
 Under the assumption of normally distributed disturbances, the null distribution 
 of the Durbin-Watson statistic is the distribution of a linear
-combination of chi-squared variables. The p-value is computed using a
-Fortran version of the Applied Statistics Algorithm AS 153 by Farebrother
+combination of chi-squared variables. The p-value is computed using the
+Fortran version of Applied Statistics Algorithm AS 153 by Farebrother
 (1980, 1984). This algorithm is called "pan" or "gradsol". For large sample
 sizes the algorithm might fail to compute the p value; in that case a warning
 is printed and an approximate p value will be given; this p value is computed
