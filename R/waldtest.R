@@ -16,23 +16,47 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
   ## - terms()
   ## - update()
   ## - formula()
-  ## - residuals() -> only for determining number of observations
-  ## - df.residual()
+  ## - nobs() or residuals() -> only for determining number of observations
+  ## - df.residual() or logLik
   ## - coef() -> needs to be named, matching names in terms() and vcov()
   ## - vcov(), potentially user-supplied
 
-  ## avoid name clashes of vcov argument and vcov() function
-  vcov. <- vcov
+  ## use S4 methods if loaded
+  coef0   <- if("stats4" %in% loadedNamespaces()) stats4:::coef   else coef
+  logLik0 <- if("stats4" %in% loadedNamespaces()) stats4:::logLik else logLik
+  update0 <- if("stats4" %in% loadedNamespaces()) stats4:::update else update
+  nobs0   <- function(x, ...) {
+    nobs1 <- if("stats4" %in% loadedNamespaces()) stats4:::nobs else nobs
+    nobs2 <- function(x, ...) NROW(residuals(x, ...))
+    rval <- try(nobs1(x, ...))
+    if(inherits(rval, "try-error") | is.null(rval)) rval <- nobs2(x, ...)
+    return(rval)
+  }
+  vcov0   <- if(!is.null(vcov)) vcov else {
+    if("stats4" %in% loadedNamespaces()) stats4:::vcov else stats:::vcov
+  }
+  df.residual0 <- function(x) {
+    df <- try(df.residual(x), silent = TRUE)
+    if(inherits(df, "try-error")) df <- try(nobs0(x) - attr(logLik0(x), "df"), silent = TRUE)
+    if(inherits(df, "try-error")) df <- NULL
+    return(df)
+  }
+
   ## model class
   cls <- class(object)[1]
 
   ## convenience functions:
-  ## 1. extract number of observations
-  nobs <- function(x) NROW(residuals(x))
-  ## 2. extracts term labels
-  tlab <- function(x) attr(terms(x), "term.labels")
-  ## 3. extracts model name
-  if(is.null(name)) name <- function(x) paste(deparse(formula(x)), collapse="\n")
+  ## 1. extracts term labels
+  tlab <- function(x) {
+    tt <- try(terms(x), silent = TRUE)
+    if(inherits(tt, "try-error")) "" else attr(tt, "term.labels")
+  }
+  ## 2. extracts model name
+  if(is.null(name)) name <- function(x) {
+    rval <- try(formula(x), silent = TRUE)
+    if(inherits(rval, "try-error") | is.null(rval)) rval <- try(x$call, silent = TRUE)
+    if(inherits(rval, "try-error") | is.null(rval)) return(NULL) else return(paste(deparse(rval), collapse="\n"))
+  }
   ## 3. compute an updated model object
   modelUpdate <- function(fm, update) {
     ## if `update' is numeric or character, then assume that the 
@@ -62,14 +86,14 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
       ## finally turn character into formula update specification       
       update <- as.formula(paste(". ~ . -", paste(update, collapse = " - ")))
     }
-    if(inherits(update, "formula")) update <- update(fm, update)
+    if(inherits(update, "formula")) update <- update0(fm, update)
     if(!inherits(update, cls)) stop(paste("original model was of class \"", cls,
       "\", updated model is of class \"", class(update)[1], "\"", sep = ""))
     return(update)
   }
   ## 4. compare two fitted model objects
   modelCompare <- function(fm, fm.up, vfun = NULL) {
-    q <- length(coef(fm)) - length(coef(fm.up))
+    q <- length(coef0(fm)) - length(coef0(fm.up))
 
     if(q > 0) {
       fm0 <- fm.up
@@ -78,12 +102,12 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
       fm0 <- fm
       fm1 <- fm.up
     }
-    k <- length(coef(fm1))
-    n <- nobs(fm1)
+    k <- length(coef0(fm1))
+    n <- nobs0(fm1)
 
     ## determine omitted variables
     if(!all(tlab(fm0) %in% tlab(fm1))) stop("models are not nested")
-    ovar <- which(!(names(coef(fm1)) %in% names(coef(fm0))))
+    ovar <- which(!(names(coef0(fm1)) %in% names(coef0(fm0))))
 
     ## get covariance matrix estimate
     vc <- if(is.null(vfun)) vcov(fm1)
@@ -91,7 +115,7 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
 	  else vfun
 
     ## compute Chisq statistic
-    stat <- t(coef(fm1)[ovar]) %*% solve(vc[ovar,ovar]) %*% coef(fm1)[ovar]
+    stat <- t(coef0(fm1)[ovar]) %*% solve(vc[ovar,ovar]) %*% coef0(fm1)[ovar]
     return(c(-q, stat))
   }
 
@@ -111,7 +135,11 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
   for(i in 2:nmodels) objects[[i]] <- modelUpdate(objects[[i-1]], objects[[i]])
 
   ## check responses
-  responses <- as.character(lapply(objects, function(x) deparse(terms(x)[[2]])))
+  getresponse <- function(x) {
+    tt <- try(terms(x), silent = TRUE)
+    if(inherits(tt, "try-error")) "" else deparse(tt[[2]])
+  }
+  responses <- as.character(lapply(objects, getresponse))
   sameresp <- responses == responses[1]
   if(!all(sameresp)) {
     objects <- objects[sameresp]
@@ -120,7 +148,7 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
   }
 
   ## check sample sizes
-  ns <- sapply(objects, nobs)
+  ns <- sapply(objects, nobs0)
   if(any(ns != ns[1])) {
     for(i in 2:nmodels) {
       if(ns[1] != ns[i]) {
@@ -129,23 +157,23 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
 	    commonobs <- row.names(model.frame(objects[[i]])) %in% row.names(model.frame(objects[[i-1]]))
 	    objects[[i]] <- eval(substitute(update(objects[[i]], subset = commonobs),
 	      list(commonobs = commonobs)))
-	    if(nobs(objects[[i]]) != ns[1]) stop("models could not be fitted to the same size of dataset")
+	    if(nobs0(objects[[i]]) != ns[1]) stop("models could not be fitted to the same size of dataset")
 	  }
       }
     }
   }
 
-  ## check vcov.
-  if(nmodels > 2 && !is.null(vcov.) && !is.function(vcov.))
-    stop("to compare more than 2 models `vcov.' needs to be a function")
+  ## check vcov0
+  if(nmodels > 2 && !is.null(vcov0) && !is.function(vcov0))
+    stop("to compare more than 2 models `vcov' needs to be a function")
 
   ## setup ANOVA matrix
   test <- match.arg(test)
   rval <- matrix(rep(NA, 4 * nmodels), ncol = 4)
   colnames(rval) <- c("Res.Df", "Df", test, paste("Pr(>", test, ")", sep = ""))
   rownames(rval) <- 1:nmodels
-  rval[,1] <- as.numeric(sapply(objects, df.residual))
-  for(i in 2:nmodels) rval[i, 2:3] <- modelCompare(objects[[i-1]], objects[[i]], vfun = vcov.)
+  rval[,1] <- as.numeric(sapply(objects, df.residual0))
+  for(i in 2:nmodels) rval[i, 2:3] <- modelCompare(objects[[i-1]], objects[[i]], vfun = vcov0)
   if(test == "Chisq") {
     rval[,4] <- pchisq(rval[,3], round(abs(rval[,2])), lower.tail = FALSE)
   } else {
@@ -156,6 +184,7 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
   }
 
   variables <- lapply(objects, name)
+  if(any(sapply(variables, is.null))) variables <- lapply(match.call()[-1L], deparse)[1L:nmodels]
   title <- "Wald test\n"
   topnote <- paste("Model ", format(1:nmodels),": ", variables, sep="", collapse="\n")
 

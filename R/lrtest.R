@@ -19,18 +19,31 @@ lrtest.default <- function(object, ..., name = NULL)
   ## - update()
 
   ## - formula() -> for determining `name' (can be user-supplied)
-  ## - residuals() -> only for determining number of observations
+  ## - nobs() or residuals() -> for determining number of observations
+
+  ## use S4 methods if loaded
+  logLik0 <- if("stats4" %in% loadedNamespaces()) stats4:::logLik else logLik
+  update0 <- if("stats4" %in% loadedNamespaces()) stats4:::update else update
+  nobs0   <- function(x, ...) {
+    nobs1 <- if("stats4" %in% loadedNamespaces()) stats4:::nobs else nobs
+    nobs2 <- function(x, ...) NROW(residuals(x, ...))
+    rval <- try(nobs1(x, ...))
+    if(inherits(rval, "try-error") | is.null(rval)) rval <- nobs2(x, ...)
+    return(rval)
+  }
 
   ## model class
   cls <- class(object)[1]
 
   ## convenience functions:
-  ## 1. extract number of observations
-  nobs <- function(x) NROW(residuals(x))
-  ## 2. extracts term labels
+  ## 1. extracts term labels
   tlab <- function(x) attr(terms(x), "term.labels")
-  ## 3. extracts model name
-  if(is.null(name)) name <- function(x) paste(deparse(formula(x)), collapse="\n")
+  ## 2. extracts model name
+  if(is.null(name)) name <- function(x) {
+    rval <- try(formula(x), silent = TRUE)
+    if(inherits(rval, "try-error") | is.null(rval)) rval <- try(x$call, silent = TRUE)
+    if(inherits(rval, "try-error") | is.null(rval)) return(NULL) else return(paste(deparse(rval), collapse="\n"))
+  }
   ## 3. compute an updated model object
   modelUpdate <- function(fm, update) {
     ## if `update' is numeric or character, then assume that the 
@@ -60,7 +73,7 @@ lrtest.default <- function(object, ..., name = NULL)
       ## finally turn character into formula update specification       
       update <- as.formula(paste(". ~ . -", paste(update, collapse = " - ")))
     }
-    if(inherits(update, "formula")) update <- update(fm, update)
+    if(inherits(update, "formula")) update <- update0(fm, update)
     if(!inherits(update, cls)) warning(paste("original model was of class \"", cls,
       "\", updated model is of class \"", class(update)[1], "\"", sep = ""))
     return(update)
@@ -82,7 +95,7 @@ lrtest.default <- function(object, ..., name = NULL)
   for(i in 2:nmodels) objects[[i]] <- modelUpdate(objects[[i-1]], objects[[i]])
 
   ## check sample sizes
-  ns <- sapply(objects, nobs)
+  ns <- sapply(objects, nobs0)
   if(any(ns != ns[1])) {
     for(i in 2:nmodels) {
       if(ns[1] != ns[i]) {
@@ -91,7 +104,7 @@ lrtest.default <- function(object, ..., name = NULL)
 	    commonobs <- row.names(model.frame(objects[[i]])) %in% row.names(model.frame(objects[[i-1]]))
 	    objects[[i]] <- eval(substitute(update(objects[[i]], subset = commonobs),
 	      list(commonobs = commonobs)))
-	    if(nobs(objects[[i]]) != ns[1]) stop("models could not be fitted to the same size of dataset")
+	    if(nobs0(objects[[i]]) != ns[1]) stop("models could not be fitted to the same size of dataset")
 	  }
       }
     }
@@ -102,7 +115,7 @@ lrtest.default <- function(object, ..., name = NULL)
   colnames(rval) <- c("#Df", "LogLik", "Df", "Chisq", "Pr(>Chisq)")
   rownames(rval) <- 1:nmodels
   
-  logL <- lapply(objects, logLik)
+  logL <- lapply(objects, logLik0)
   rval[,1] <- as.numeric(sapply(logL, function(x) attr(x, "df")))  
   rval[,2] <- sapply(logL, as.numeric)
   rval[2:nmodels, 3] <- rval[2:nmodels, 1] - rval[1:(nmodels-1), 1]
@@ -110,6 +123,7 @@ lrtest.default <- function(object, ..., name = NULL)
   rval[,5] <- pchisq(rval[,4], round(abs(rval[,3])), lower.tail = FALSE)
 
   variables <- lapply(objects, name)
+  if(any(sapply(variables, is.null))) variables <- lapply(match.call()[-1L], deparse)[1L:nmodels]
   title <- "Likelihood ratio test\n"
   topnote <- paste("Model ", format(1:nmodels),": ", variables, sep="", collapse="\n")
 

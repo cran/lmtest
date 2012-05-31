@@ -76,13 +76,13 @@
   easily made applicable to other model classes as well by providing suitable methods
   to the standard generics \code{\link{terms}} (for determining the variables in the model
   along with their names), \code{\link{update}} (unless only fitted model objects are passed
-  to \code{waldtest}, as mentioned above), \code{\link{residuals}} (only used for determining
-  the number of observations), \code{\link{df.residual}} (needed for the F statistic),
+  to \code{waldtest}, as mentioned above), \code{\link{nobs}} (or \code{\link{residuals}}, used for determining
+  the number of observations), \code{\link{df.residual}} (needed only for the F statistic),
   \code{\link{coef}} (for extracting the coefficients; needs to be named matching the names
   in \code{terms}), \code{\link{vcov}} (can be user-supplied; needs to be named matching the
   names in \code{terms}). Furthermore, some means of determining a suitable \code{name} for
   a fitted model object can be specified (by default this is taken to be the result of
-  a call to \code{\link{formula}}).
+  a call to \code{\link{formula}}, if available).
   
   The \code{"formula"} method fits a \code{\link{lm}} first and then calls the \code{"lm"}
   method. The \code{"lm"} method just calls the default method, but sets the default

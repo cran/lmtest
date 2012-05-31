@@ -1,8 +1,15 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-29
-Date: 2011-09-13
-Author: Torsten Hothorn, Achim Zeileis, Giovanni Millo, David Mitchell
+Version: 0.9-30
+Date: 2012-05-31
+Authors@R: c(person(given = "Torsten", family = "Hothorn", role =
+        "aut", email = "Torsten.Hothorn@R-project.org"), person(given =
+        "Achim", family = "Zeileis", role = c("aut", "cre"), email =
+        "Achim.Zeileis@R-project.org"), person(given = "Giovanni",
+        family = "Millo", role = "ctb"), person(given = "David", family
+        = "Mitchell", role = "ctb"))
+Author: Torsten Hothorn [aut], Achim Zeileis [aut, cre], Giovanni Millo
+        [ctb], David Mitchell [ctb]
 Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
 Description: A collection of tests, data sets, and examples for
         diagnostic checking in linear regression models. Furthermore,
@@ -10,9 +17,9 @@ Description: A collection of tests, data sets, and examples for
         provided.
 LazyData: yes
 Depends: R (>= 2.10.0), stats, zoo
-Suggests: car, strucchange, sandwich, dynlm, survival, AER
+Suggests: car, strucchange, sandwich, dynlm, stats4, survival, AER
 Imports: stats, graphics
 License: GPL-2
-Packaged: 2011-09-16 17:20:26 UTC; zeileis
+Packaged: 2012-05-31 07:30:28 UTC; zeileis
 Repository: CRAN
-Date/Publication: 2011-09-16 17:26:48
+Date/Publication: 2012-05-31 08:04:16

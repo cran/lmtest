@@ -5,13 +5,19 @@ coeftest <- function(x, vcov. = NULL, df = NULL, ...)
 
 coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
 {
-  est <- coef(x)
-  if(is.null(vcov.)) se <- vcov(x) else {
+  ## use S4 methods if loaded
+  coef0 <- if("stats4" %in% loadedNamespaces()) stats4:::coef else coef
+  vcov0 <- if("stats4" %in% loadedNamespaces()) stats4:::vcov else vcov
+
+  ## extract coefficients and standard errors
+  est <- coef0(x)
+  if(is.null(vcov.)) se <- vcov0(x) else {
       if(is.function(vcov.)) se <- vcov.(x)
         else se <- vcov.
   }
   se <- sqrt(diag(se))
 
+  ## match using names and compute t/z statistics
   if(!is.null(names(est)) && !is.null(names(se))) {
     anames <- names(est)[names(est) %in% names(se)]
     est <- est[anames]
@@ -19,7 +25,11 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
   }  
   tval <- as.vector(est)/se
 
-  if(is.null(df)) df <- df.residual(x)
+  ## apply central limit theorem
+  if(is.null(df)) {
+    df <- try(df.residual(x), silent = TRUE)
+    if(inherits(df, "try-error")) df <- NULL
+  }
   if(is.null(df)) df <- 0
 
   if(is.finite(df) && df > 0) {

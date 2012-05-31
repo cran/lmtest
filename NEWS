@@ -1,3 +1,15 @@
+Changes in Version 0.9-30
+
+  o coeftest(), lrtest(), and waldtest() can now also be used for
+    S4 objects provided that methods to the corresponding S4 generics
+    from stats4 are supplied.
+
+  o Added output of examples and vignettes as .Rout.save for
+    R CMD check.
+
+  o Moved vignette to "vignettes" directory in source package.
+
+
 Changes in Version 0.9-29
 
   o dwtest() now catches weighted regressions and throws an error

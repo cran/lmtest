@@ -1,0 +1,2254 @@
+
+R version 2.14.1 (2011-12-22)
+Copyright (C) 2011 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "lmtest"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('lmtest')
+Loading required package: zoo
+
+Attaching package: 'zoo'
+
+The following object(s) are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+
+> 
+> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ChickEgg")
+> ### * ChickEgg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ChickEgg
+> ### Title: Chickens, Eggs, and Causality
+> ### Aliases: ChickEgg
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> ## Which came first: the chicken or the egg?
+> data(ChickEgg)
+> ## chickens granger-cause eggs?
+> grangertest(egg ~ chicken, order = 3, data = ChickEgg)
+Granger causality test
+
+Model 1: egg ~ Lags(egg, 1:3) + Lags(chicken, 1:3)
+Model 2: egg ~ Lags(egg, 1:3)
+  Res.Df Df      F Pr(>F)
+1     44                 
+2     47 -3 0.5916 0.6238
+> ## eggs granger-cause chickens?
+> grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+Granger causality test
+
+Model 1: chicken ~ Lags(chicken, 1:3) + Lags(egg, 1:3)
+Model 2: chicken ~ Lags(chicken, 1:3)
+  Res.Df Df     F   Pr(>F)   
+1     44                     
+2     47 -3 5.405 0.002966 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## To perform the same tests `by hand', you can use dynlm() and waldtest():
+> if(require(dynlm)) {
++   ## chickens granger-cause eggs?
++   em <- dynlm(egg ~ L(egg, 1) + L(egg, 2) + L(egg, 3), data = ChickEgg)
++   em2 <- update(em, . ~ . + L(chicken, 1) + L(chicken, 2) + L(chicken, 3))
++   waldtest(em, em2)
++ 
++   ## eggs granger-cause chickens?
++   cm <- dynlm(chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3), data = ChickEgg)
++   cm2 <- update(cm, . ~ . + L(egg, 1) + L(egg, 2) + L(egg, 3))
++   waldtest(cm, cm2)
++ }
+Loading required package: dynlm
+Loading required package: car
+Loading required package: MASS
+Loading required package: nnet
+Wald test
+
+Model 1: chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3)
+Model 2: chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3) + L(egg, 
+    1) + L(egg, 2) + L(egg, 3)
+  Res.Df Df     F   Pr(>F)   
+1     47                     
+2     44  3 5.405 0.002966 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:dynlm', 'package:car', 'package:nnet',
+  'package:MASS'
+
+> nameEx("Mandible")
+> ### * Mandible
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Mandible
+> ### Title: Mandible Data
+> ### Aliases: Mandible
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(Mandible)
+> lm(length ~ age, data=Mandible, subset=(age <= 28))
+
+Call:
+lm(formula = length ~ age, data = Mandible, subset = (age <= 
+    28))
+
+Coefficients:
+(Intercept)          age  
+    -11.953        1.773  
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("USDistLag")
+> ### * USDistLag
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: USDistLag
+> ### Title: US Macroeconomic Data
+> ### Aliases: USDistLag
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> ## Willam H. Greene, Econometric Analysis, 2nd Ed.
+> ## Chapter 7
+> ## load data set, p. 221, Table 7.7
+> data(USDistLag)
+> 
+> ## fit distributed lag model, p.221, Example 7.8
+> usdl <- na.contiguous(cbind(USDistLag, lag(USDistLag, k = -1)))
+> colnames(usdl) <- c("con", "gnp", "con1", "gnp1")
+> 
+> ## C(t) = b0 + b1*Y(t) + b2*C(t-1) + u
+> fm <- lm(con ~ gnp + con1, data = usdl)
+> summary(fm)
+
+Call:
+lm(formula = con ~ gnp + con1, data = usdl)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-11.6127  -3.8405  -0.8536   4.3857  12.6428 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -7.69575   11.44429  -0.672 0.510891    
+gnp          0.40015    0.06272   6.380 9.12e-06 ***
+con1         0.38073    0.09479   4.017 0.000996 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Residual standard error: 6.837 on 16 degrees of freedom
+Multiple R-squared: 0.9976,	Adjusted R-squared: 0.9973 
+F-statistic:  3302 on 2 and 16 DF,  p-value: < 2.2e-16 
+
+> vcov(fm)
+            (Intercept)          gnp         con1
+(Intercept) 130.9718602 -0.438682677  0.549587054
+gnp          -0.4386827  0.003933498 -0.005896092
+con1          0.5495871 -0.005896092  0.008984392
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bgtest")
+> ### * bgtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bgtest
+> ### Title: Breusch-Godfrey Test
+> ### Aliases: bgtest vcov.bgtest df.residual.bgtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+>      ## Generate a stationary and an AR(1) series
+>      x <- rep(c(1, -1), 50)
+> 
+>      y1 <- 1 + x + rnorm(100)
+> 
+>      ## Perform Breusch-Godfrey test for first-order serial correlation:
+>      bgtest(y1 ~ x)
+
+	Breusch-Godfrey test for serial correlation of order up to 1
+
+data:  y1 ~ x 
+LM test = 0.0037, df = 1, p-value = 0.9516
+
+>      ## or for fourth-order serial correlation
+>      bgtest(y1 ~ x, order = 4)
+
+	Breusch-Godfrey test for serial correlation of order up to 4
+
+data:  y1 ~ x 
+LM test = 3.0822, df = 4, p-value = 0.5442
+
+>      ## Compare with Durbin-Watson test results:
+>      dwtest(y1 ~ x)
+
+	Durbin-Watson test
+
+data:  y1 ~ x 
+DW = 1.9762, p-value = 0.4924
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+>      y2 <- filter(y1, 0.5, method = "recursive")
+>      bgtest(y2 ~ x)
+
+	Breusch-Godfrey test for serial correlation of order up to 1
+
+data:  y2 ~ x 
+LM test = 19.9075, df = 1, p-value = 8.128e-06
+
+>      bg4 <- bgtest(y2 ~ x, order = 4)
+>      bg4
+
+	Breusch-Godfrey test for serial correlation of order up to 4
+
+data:  y2 ~ x 
+LM test = 23.687, df = 4, p-value = 9.228e-05
+
+>      coeftest(bg4)
+
+z test of coefficients:
+
+               Estimate Std. Error z value  Pr(>|z|)    
+(Intercept)   0.0049353  0.0905891  0.0545    0.9566    
+x            -0.0057380  0.0904290 -0.0635    0.9494    
+lag(resid)_1  0.4619715  0.1027742  4.4950 6.957e-06 ***
+lag(resid)_2 -0.0401917  0.1136254 -0.3537    0.7235    
+lag(resid)_3 -0.1030000  0.1136071 -0.9066    0.3646    
+lag(resid)_4 -0.1184116  0.1049020 -1.1288    0.2590    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bondyield")
+> ### * bondyield
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bondyield
+> ### Title: Bond Yield
+> ### Aliases: bondyield
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(bondyield)
+> 
+> ## page 134, fit Cook-Hendershott OLS model and Yawitz-Marshall OLS model
+> ## third and last line in Table 6.5
+> 
+> modelCH <- RAARUS ~ MOOD + EPI + EXP + RUS
+> lm(modelCH, data=bondyield)
+
+Call:
+lm(formula = modelCH, data = bondyield)
+
+Coefficients:
+(Intercept)         MOOD          EPI          EXP          RUS  
+   0.525913    -0.001402    -0.005623    -0.157801     0.137761  
+
+> dwtest(modelCH, data=bondyield)
+
+	Durbin-Watson test
+
+data:  modelCH 
+DW = 0.8448, p-value = 2.888e-08
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> ## wrong sign of RUS coefficient
+> 
+> modelYM <- RAARUS ~ MOOD + Y + K
+> lm(modelYM, data=bondyield)
+
+Call:
+lm(formula = modelYM, data = bondyield)
+
+Coefficients:
+(Intercept)         MOOD            Y            K  
+   -5.06477     -0.01313      0.04899      1.70792  
+
+> dwtest(modelYM, data=bondyield)
+
+	Durbin-Watson test
+
+data:  modelYM 
+DW = 1.4387, p-value = 0.004938
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> ## coefficient of Y and K differ by factor 100
+> 
+> 
+> ## page 135, fit test statistics in Table 6.6 b)
+> ################################################
+> 
+> ## Chow 1971(1)
+> if(require(strucchange, quietly = TRUE)) {
++ sctest(modelCH, point=c(1971,1), data=bondyield, type="Chow") }
+
+	Chow test
+
+data:  modelCH 
+F = 13.7752, p-value = 1.838e-08
+
+> 
+> ## Breusch-Pagan
+> bptest(modelCH, data=bondyield, studentize=FALSE)
+
+	Breusch-Pagan test
+
+data:  modelCH 
+BP = 2.0667, df = 4, p-value = 0.7235
+
+> bptest(modelCH, data=bondyield)
+
+	studentized Breusch-Pagan test
+
+data:  modelCH 
+BP = 2.9784, df = 4, p-value = 0.5614
+
+> 
+> ## Fluctuation test
+> if(require(strucchange, quietly = TRUE)) {
++ sctest(modelCH, type="fluctuation", data=bondyield, rescale=FALSE)}
+
+	RE test (recursive estimates test)
+
+data:  modelCH 
+RE = 17.7584, p-value < 2.2e-16
+
+> 
+> ## RESET
+> reset(modelCH, data=bondyield)
+
+	RESET test
+
+data:  modelCH 
+RESET = 5.349, df1 = 2, df2 = 53, p-value = 0.007655
+
+> reset(modelCH, power=2, type="regressor", data=bondyield)
+
+	RESET test
+
+data:  modelCH 
+RESET = 4.7726, df1 = 4, df2 = 51, p-value = 0.002393
+
+> reset(modelCH, type="princomp", data=bondyield)
+
+	RESET test
+
+data:  modelCH 
+RESET = 9.3371, df1 = 2, df2 = 53, p-value = 0.0003359
+
+> 
+> ## Harvey-Collier
+> harvtest(modelCH, order.by= ~ MOOD, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelCH 
+HC = 2.3951, df = 54, p-value = 0.02012
+
+> harvtest(modelCH, order.by= ~ EPI, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelCH 
+HC = 0.1707, df = 54, p-value = 0.8651
+
+> harvtest(modelCH, order.by= ~ EXP, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelCH 
+HC = 0.8713, df = 54, p-value = 0.3875
+
+> harvtest(modelCH, order.by= ~ RUS, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelCH 
+HC = 1.5877, df = 54, p-value = 0.1182
+
+> 
+> ## Rainbow
+> raintest(modelCH, order.by = "mahalanobis", data=bondyield)
+
+	Rainbow test
+
+data:  modelCH 
+Rain = 1.702, df1 = 30, df2 = 25, p-value = 0.08919
+
+> 
+> 
+> ## page 136, fit test statistics in Table 6.6 d)
+> ################################################
+> 
+> ## Chow 1966(1)
+> if(require(strucchange, quietly = TRUE)) {
++ sctest(modelYM, point=c(1965,4), data=bondyield, type="Chow") }
+
+	Chow test
+
+data:  modelYM 
+F = 2.8266, p-value = 0.03388
+
+> 
+> ## Fluctuation test
+> if(require(strucchange, quietly = TRUE)) {
++ sctest(modelYM, type="fluctuation", data=bondyield, rescale=FALSE) }
+
+	RE test (recursive estimates test)
+
+data:  modelYM 
+RE = 19.733, p-value < 2.2e-16
+
+> 
+> ## RESET
+> reset(modelYM, data=bondyield)
+
+	RESET test
+
+data:  modelYM 
+RESET = 2.1436, df1 = 2, df2 = 54, p-value = 0.1271
+
+> reset(modelYM, power=2, type="regressor", data=bondyield)
+
+	RESET test
+
+data:  modelYM 
+RESET = 4.1716, df1 = 3, df2 = 53, p-value = 0.01003
+
+> reset(modelYM, type="princomp", data=bondyield)
+
+	RESET test
+
+data:  modelYM 
+RESET = 1.9931, df1 = 2, df2 = 54, p-value = 0.1462
+
+> 
+> ## Harvey-Collier
+> harvtest(modelYM, order.by= ~ MOOD, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelYM 
+HC = 0.2487, df = 55, p-value = 0.8045
+
+> harvtest(modelYM, order.by= ~ Y, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelYM 
+HC = 2.1227, df = 55, p-value = 0.0383
+
+> harvtest(modelYM, order.by= ~ K, data=bondyield)
+
+	Harvey-Collier test
+
+data:  modelYM 
+HC = 0.0261, df = 55, p-value = 0.9793
+
+> 
+> ## Rainbow
+> raintest(modelYM, order.by = "mahalanobis", data=bondyield)
+
+	Rainbow test
+
+data:  modelYM 
+Rain = 1.2978, df1 = 30, df2 = 26, p-value = 0.2515
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("bptest")
+> ### * bptest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bptest
+> ### Title: Breusch-Pagan Test
+> ### Aliases: bptest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## generate a regressor
+> x <- rep(c(-1,1), 50)
+> ## generate heteroskedastic and homoskedastic disturbances
+> err1 <- rnorm(100, sd=rep(c(1,2), 50))
+> err2 <- rnorm(100)
+> ## generate a linear relationship
+> y1 <- 1 + x + err1
+> y2 <- 1 + x + err2
+> ## perform Breusch-Pagan test
+> bptest(y1 ~ x)
+
+	studentized Breusch-Pagan test
+
+data:  y1 ~ x 
+BP = 11.0995, df = 1, p-value = 0.0008635
+
+> bptest(y2 ~ x)
+
+	studentized Breusch-Pagan test
+
+data:  y2 ~ x 
+BP = 0.1181, df = 1, p-value = 0.7311
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coeftest")
+> ### * coeftest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coeftest
+> ### Title: Testing Estimated Coefficients
+> ### Aliases: coeftest coeftest.default coeftest.survreg coeftest.glm
+> ###   coeftest.mlm coeftest.breakpointsfull print.coeftest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## load data and fit model
+> data(Mandible)
+> fm <- lm(length ~ age, data=Mandible, subset=(age <= 28))
+> 
+> ## the following commands lead to the same tests:
+> summary(fm)
+
+Call:
+lm(formula = length ~ age, data = Mandible, subset = (age <= 
+    28))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.2013 -1.6592 -0.1217  1.3420  6.4351 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -11.9534     0.9762  -12.24   <2e-16 ***
+age           1.7727     0.0477   37.16   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Residual standard error: 2.373 on 156 degrees of freedom
+Multiple R-squared: 0.8985,	Adjusted R-squared: 0.8978 
+F-statistic:  1381 on 1 and 156 DF,  p-value: < 2.2e-16 
+
+> coeftest(fm)
+
+t test of coefficients:
+
+              Estimate Std. Error t value  Pr(>|t|)    
+(Intercept) -11.953366   0.976227 -12.245 < 2.2e-16 ***
+age           1.772730   0.047704  37.161 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+> 
+> ## a z test (instead of a t test) can be performed by
+> coeftest(fm, df = Inf)
+
+z test of coefficients:
+
+              Estimate Std. Error z value  Pr(>|z|)    
+(Intercept) -11.953366   0.976227 -12.245 < 2.2e-16 ***
+age           1.772730   0.047704  37.161 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+> 
+> if(require(sandwich)) {
++ ## a different covariance matrix can be also used:
++ ## either supplied as a function
++ coeftest(fm, df = Inf, vcov = vcovHC)
++ ## or as a matrix
++ coeftest(fm, df = Inf, vcov = vcovHC(fm, type = "HC0"))
++ }
+Loading required package: sandwich
+
+z test of coefficients:
+
+              Estimate Std. Error z value  Pr(>|z|)    
+(Intercept) -11.953366   1.009817 -11.837 < 2.2e-16 ***
+age           1.772730   0.054343  32.621 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:sandwich'
+
+> nameEx("coxtest")
+> ### * coxtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coxtest
+> ### Title: Cox Test for Comparing Non-Nested Models
+> ### Aliases: coxtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## Fit two competing, non-nested models for aggregate 
+> ## consumption, as in Greene (1993), Examples 7.11 and 7.12
+> 
+> ## load data and compute lags
+> data(USDistLag)
+> usdl <- na.contiguous(cbind(USDistLag, lag(USDistLag, k = -1)))
+> colnames(usdl) <- c("con", "gnp", "con1", "gnp1")
+> 
+> ## C(t) = a0 + a1*Y(t) + a2*C(t-1) + u
+> fm1 <- lm(con ~ gnp + con1, data = usdl)
+> 
+> ## C(t) = b0 + b1*Y(t) + b2*Y(t-1) + v
+> fm2 <- lm(con ~ gnp + gnp1, data = usdl)
+> 
+> ## Cox test in both directions:
+> coxtest(fm1, fm2)
+Cox test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+                Estimate Std. Error z value  Pr(>|z|)    
+fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
+fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## ...and do the same for jtest() and encomptest().
+> ## Notice that in this particular case they are coincident.
+> jtest(fm1, fm2)
+J test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+                Estimate Std. Error t value  Pr(>|t|)    
+M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
+M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> encomptest(fm1, fm2)
+Encompassing test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+Model E: con ~ gnp + con1 + gnp1
+          Res.Df Df      F    Pr(>F)    
+M1 vs. ME     15 -1 12.569 0.0029371 ** 
+M2 vs. ME     15 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("currencysubstitution")
+> ### * currencysubstitution
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: currencysubstitution
+> ### Title: Currency Substitution
+> ### Aliases: currencysubstitution
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(currencysubstitution)
+> 
+> ## page 130, fit Miles OLS model and Bordo-Choudri OLS model
+> ## third and last line in Table 6.3
+> 
+> modelMiles <- logCUS ~ log((1+Iu)/(1+Ic))
+> lm(modelMiles, data=currencysubstitution)
+
+Call:
+lm(formula = modelMiles, data = currencysubstitution)
+
+Coefficients:
+           (Intercept)  log((1 + Iu)/(1 + Ic))  
+                 2.562                   5.871  
+
+> dwtest(modelMiles, data=currencysubstitution)
+
+	Durbin-Watson test
+
+data:  modelMiles 
+DW = 0.2702, p-value < 2.2e-16
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> modelBordoChoudri <- logCUS ~ I(Iu-Ic) + Ic + logY
+> lm(modelBordoChoudri, data=currencysubstitution)
+
+Call:
+lm(formula = modelBordoChoudri, data = currencysubstitution)
+
+Coefficients:
+(Intercept)   I(Iu - Ic)           Ic         logY  
+    -5.9782      -9.2158     -18.4563       0.8366  
+
+> dwtest(modelBordoChoudri, data=currencysubstitution)
+
+	Durbin-Watson test
+
+data:  modelBordoChoudri 
+DW = 0.5351, p-value = 2.261e-13
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> 
+> ## page 131, fit test statistics in Table 6.4 b)
+> ################################################
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Fluctuation test
++ sctest(modelMiles, type="fluctuation", data=currencysubstitution,
++  rescale=FALSE) }
+
+	RE test (recursive estimates test)
+
+data:  modelMiles 
+RE = 3.1591, p-value = 8.583e-09
+
+> 
+> ## RESET
+> reset(modelMiles, data=currencysubstitution)
+
+	RESET test
+
+data:  modelMiles 
+RESET = 1.1308, df1 = 2, df2 = 57, p-value = 0.3299
+
+> reset(modelMiles, power=2, type="regressor", data=currencysubstitution)
+
+	RESET test
+
+data:  modelMiles 
+RESET = 2.1078, df1 = 1, df2 = 58, p-value = 0.1519
+
+> reset(modelMiles, type="princomp", data=currencysubstitution)
+
+	RESET test
+
+data:  modelMiles 
+RESET = 1.1308, df1 = 2, df2 = 57, p-value = 0.3299
+
+> 
+> ## Harvey-Collier
+> harvtest(modelMiles, order.by = ~log((1+Iu)/(1+Ic)), data=currencysubstitution)
+
+	Harvey-Collier test
+
+data:  modelMiles 
+HC = 0.8691, df = 58, p-value = 0.3884
+
+> 
+> ## Rainbow
+> raintest(modelMiles, order.by = "mahalanobis", data=currencysubstitution)
+
+	Rainbow test
+
+data:  modelMiles 
+Rain = 1.766, df1 = 31, df2 = 28, p-value = 0.06603
+
+> 
+> 
+> ## page 132, fit test statistics in Table 6.4 d)
+> ################################################
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Chow 1970(2)
++ sctest(modelBordoChoudri, point=c(1970,2), data=currencysubstitution,
++  type="Chow") }
+
+	Chow test
+
+data:  modelBordoChoudri 
+F = 14.5716, p-value = 4.317e-08
+
+> 
+> ## Breusch-Pagan
+> bptest(modelBordoChoudri, data=currencysubstitution, studentize=FALSE)
+
+	Breusch-Pagan test
+
+data:  modelBordoChoudri 
+BP = 14.5139, df = 3, p-value = 0.002283
+
+> bptest(modelBordoChoudri, data=currencysubstitution)
+
+	studentized Breusch-Pagan test
+
+data:  modelBordoChoudri 
+BP = 10.7358, df = 3, p-value = 0.01324
+
+> 
+> ## RESET
+> reset(modelBordoChoudri, data=currencysubstitution)
+
+	RESET test
+
+data:  modelBordoChoudri 
+RESET = 0.6931, df1 = 2, df2 = 55, p-value = 0.5043
+
+> reset(modelBordoChoudri, power=2, type="regressor", data=currencysubstitution)
+
+	RESET test
+
+data:  modelBordoChoudri 
+RESET = 6.6775, df1 = 3, df2 = 54, p-value = 0.0006458
+
+> reset(modelBordoChoudri, type="princomp", data=currencysubstitution)
+
+	RESET test
+
+data:  modelBordoChoudri 
+RESET = 8.2945, df1 = 2, df2 = 55, p-value = 0.0007107
+
+> 
+> ## Harvey-Collier
+> harvtest(modelBordoChoudri, order.by = ~ I(Iu-Ic), data=currencysubstitution)
+
+	Harvey-Collier test
+
+data:  modelBordoChoudri 
+HC = 0.7554, df = 56, p-value = 0.4532
+
+> harvtest(modelBordoChoudri, order.by = ~ Ic, data=currencysubstitution)
+
+	Harvey-Collier test
+
+data:  modelBordoChoudri 
+HC = 0.4026, df = 56, p-value = 0.6888
+
+> harvtest(modelBordoChoudri, order.by = ~ logY, data=currencysubstitution)
+
+	Harvey-Collier test
+
+data:  modelBordoChoudri 
+HC = 2.5016, df = 56, p-value = 0.01531
+
+> 
+> ## Rainbow
+> raintest(modelBordoChoudri, order.by = "mahalanobis", data=currencysubstitution)
+
+	Rainbow test
+
+data:  modelBordoChoudri 
+Rain = 3.7711, df1 = 31, df2 = 26, p-value = 0.0004604
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("dwtest")
+> ### * dwtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dwtest
+> ### Title: Durbin-Watson Test
+> ### Aliases: dwtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> 
+> ## generate two AR(1) error terms with parameter
+> ## rho = 0 (white noise) and rho = 0.9 respectively
+> err1 <- rnorm(100)
+> 
+> ## generate regressor and dependent variable
+> x <- rep(c(-1,1), 50)
+> y1 <- 1 + x + err1
+> 
+> ## perform Durbin-Watson test
+> dwtest(y1 ~ x)
+
+	Durbin-Watson test
+
+data:  y1 ~ x 
+DW = 1.9762, p-value = 0.4924
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> err2 <- filter(err1, 0.9, method="recursive")
+> y2 <- 1 + x + err2
+> dwtest(y2 ~ x)
+
+	Durbin-Watson test
+
+data:  y2 ~ x 
+DW = 0.4596, p-value = 7.862e-15
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("encomptest")
+> ### * encomptest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: encomptest
+> ### Title: Encompassing Test for Comparing Non-Nested Models
+> ### Aliases: encomptest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## Fit two competing, non-nested models for aggregate 
+> ## consumption, as in Greene (1993), Examples 7.11 and 7.12
+> 
+> ## load data and compute lags
+> data(USDistLag)
+> usdl <- na.contiguous(cbind(USDistLag, lag(USDistLag, k = -1)))
+> colnames(usdl) <- c("con", "gnp", "con1", "gnp1")
+> 
+> ## C(t) = a0 + a1*Y(t) + a2*C(t-1) + u
+> fm1 <- lm(con ~ gnp + con1, data = usdl)
+> 
+> ## C(t) = b0 + b1*Y(t) + b2*Y(t-1) + v
+> fm2 <- lm(con ~ gnp + gnp1, data = usdl)
+> 
+> ## Encompassing model
+> fm3 <- lm(con ~ gnp + con1 + gnp1, data = usdl)
+> 
+> ## Cox test in both directions:
+> coxtest(fm1, fm2)
+Cox test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+                Estimate Std. Error z value  Pr(>|z|)    
+fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
+fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## ...and do the same for jtest() and encomptest().
+> ## Notice that in this particular case they are coincident.
+> jtest(fm1, fm2)
+J test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+                Estimate Std. Error t value  Pr(>|t|)    
+M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
+M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> encomptest(fm1, fm2)
+Encompassing test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+Model E: con ~ gnp + con1 + gnp1
+          Res.Df Df      F    Pr(>F)    
+M1 vs. ME     15 -1 12.569 0.0029371 ** 
+M2 vs. ME     15 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## the encompassing test is essentially
+> waldtest(fm1, fm3, fm2)
+Wald test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + con1 + gnp1
+Model 3: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     16                        
+2     15  1 12.569 0.0029371 ** 
+3     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ftemp")
+> ### * ftemp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ftemp
+> ### Title: Femal Temperature Data
+> ### Aliases: ftemp
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(ftemp)
+> plot(ftemp)
+> y <- window(ftemp, start = 8, end = 60)
+> if(require(strucchange)) {
++   bp <- breakpoints(y ~ 1)
++   plot(bp)
++   fm.seg <- lm(y ~ 0 + breakfactor(bp))
++   plot(y)
++   lines(8:60, fitted(fm.seg), col = 4)
++   lines(confint(bp))
++ }
+Loading required package: strucchange
+Loading required package: sandwich
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("gqtest")
+> ### * gqtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gqtest
+> ### Title: Goldfeld-Quandt Test
+> ### Aliases: gqtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## generate a regressor
+> x <- rep(c(-1,1), 50)
+> ## generate heteroskedastic and homoskedastic disturbances
+> err1 <- c(rnorm(50, sd=1), rnorm(50, sd=2))
+> err2 <- rnorm(100)
+> ## generate a linear relationship
+> y1 <- 1 + x + err1
+> y2 <- 1 + x + err2
+> ## perform Goldfeld-Quandt test
+> gqtest(y1 ~ x)
+
+	Goldfeld-Quandt test
+
+data:  y1 ~ x 
+GQ = 5.4699, df1 = 48, df2 = 48, p-value = 1.404e-08
+
+> gqtest(y2 ~ x)
+
+	Goldfeld-Quandt test
+
+data:  y2 ~ x 
+GQ = 1.2638, df1 = 48, df2 = 48, p-value = 0.2102
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("grangertest")
+> ### * grangertest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: grangertest
+> ### Title: Test for Granger Causality
+> ### Aliases: grangertest grangertest.default grangertest.formula
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## Which came first: the chicken or the egg?
+> data(ChickEgg)
+> grangertest(egg ~ chicken, order = 3, data = ChickEgg)
+Granger causality test
+
+Model 1: egg ~ Lags(egg, 1:3) + Lags(chicken, 1:3)
+Model 2: egg ~ Lags(egg, 1:3)
+  Res.Df Df      F Pr(>F)
+1     44                 
+2     47 -3 0.5916 0.6238
+> grangertest(chicken ~ egg, order = 3, data = ChickEgg)
+Granger causality test
+
+Model 1: chicken ~ Lags(chicken, 1:3) + Lags(egg, 1:3)
+Model 2: chicken ~ Lags(chicken, 1:3)
+  Res.Df Df     F   Pr(>F)   
+1     44                     
+2     47 -3 5.405 0.002966 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## alternative ways of specifying the same test
+> grangertest(ChickEgg, order = 3)
+Granger causality test
+
+Model 1: egg ~ Lags(egg, 1:3) + Lags(chicken, 1:3)
+Model 2: egg ~ Lags(egg, 1:3)
+  Res.Df Df      F Pr(>F)
+1     44                 
+2     47 -3 0.5916 0.6238
+> grangertest(ChickEgg[, 1], ChickEgg[, 2], order = 3)
+Granger causality test
+
+Model 1: ChickEgg[, 2] ~ Lags(ChickEgg[, 2], 1:3) + Lags(ChickEgg[, 1], 1:3)
+Model 2: ChickEgg[, 2] ~ Lags(ChickEgg[, 2], 1:3)
+  Res.Df Df      F Pr(>F)
+1     44                 
+2     47 -3 0.5916 0.6238
+> 
+> 
+> 
+> cleanEx()
+> nameEx("growthofmoney")
+> ### * growthofmoney
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: growthofmoney
+> ### Title: Growth of Money Supply
+> ### Aliases: growthofmoney
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(growthofmoney)
+> 
+> ## page 137, fit Hetzel OLS model
+> ## first/second line in Table 6.7
+> 
+> modelHetzel <- TG1.TG0 ~ AG0.TG0
+> lm(modelHetzel, data=growthofmoney)
+
+Call:
+lm(formula = modelHetzel, data = growthofmoney)
+
+Coefficients:
+(Intercept)      AG0.TG0  
+   0.007322     0.324858  
+
+> dwtest(modelHetzel, data=growthofmoney)
+
+	Durbin-Watson test
+
+data:  modelHetzel 
+DW = 2.9046, p-value = 0.9839
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> 
+> ## page 135, fit test statistics in Table 6.8
+> #############################################
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Chow 1974(1)
++ sctest(modelHetzel, point=c(1973,4), data=growthofmoney, type="Chow") }
+
+	Chow test
+
+data:  modelHetzel 
+F = 0.3788, p-value = 0.6911
+
+> 
+> ## RESET
+> reset(modelHetzel, data=growthofmoney)
+
+	RESET test
+
+data:  modelHetzel 
+RESET = 7.9337, df1 = 2, df2 = 15, p-value = 0.004461
+
+> reset(modelHetzel, power=2, type="regressor", data=growthofmoney)
+
+	RESET test
+
+data:  modelHetzel 
+RESET = 1.5265, df1 = 1, df2 = 16, p-value = 0.2345
+
+> reset(modelHetzel, type="princomp", data=growthofmoney)
+
+	RESET test
+
+data:  modelHetzel 
+RESET = 7.9337, df1 = 2, df2 = 15, p-value = 0.004461
+
+> 
+> ## Harvey-Collier
+> harvtest(modelHetzel, order.by= ~ AG0.TG0, data=growthofmoney)
+
+	Harvey-Collier test
+
+data:  modelHetzel 
+HC = 3.7768, df = 16, p-value = 0.001651
+
+> 
+> ## Rainbow
+> raintest(modelHetzel, order.by = "mahalanobis", data=growthofmoney)
+
+	Rainbow test
+
+data:  modelHetzel 
+Rain = 7.1731, df1 = 10, df2 = 7, p-value = 0.007924
+
+> 
+> 
+> ## Identification of outliers
+> #############################
+> 
+> ## Figure 6.1
+> plot(modelHetzel, data=growthofmoney)
+> abline(v=0)
+> abline(h=0)
+> abline(coef(lm(modelHetzel, data=growthofmoney)), col=2)
+> 
+> ## Table 6.7, last line
+> growthofmoney2 <- as.data.frame(growthofmoney[-c(5:6),])
+> lm(modelHetzel, data=growthofmoney2)
+
+Call:
+lm(formula = modelHetzel, data = growthofmoney2)
+
+Coefficients:
+(Intercept)      AG0.TG0  
+    0.05673      0.17752  
+
+> dwtest(modelHetzel, data=growthofmoney2)
+
+	Durbin-Watson test
+
+data:  modelHetzel 
+DW = 1.5019, p-value = 0.1351
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("harvtest")
+> ### * harvtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: harvtest
+> ### Title: Harvey-Collier Test
+> ### Aliases: harvtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> # generate a regressor and dependent variable
+> x <- 1:50
+> y1 <- 1 + x + rnorm(50)
+> y2 <- y1 + 0.3*x^2
+> 
+> ## perform Harvey-Collier test
+> harv <- harvtest(y1 ~ x)
+> harv
+
+	Harvey-Collier test
+
+data:  y1 ~ x 
+HC = 0.5401, df = 47, p-value = 0.5917
+
+> ## calculate critical value vor 0.05 level
+> qt(0.95, harv$parameter)
+[1] 1.677927
+> harvtest(y2 ~ x)
+
+	Harvey-Collier test
+
+data:  y2 ~ x 
+HC = 7.9751, df = 47, p-value = 2.775e-10
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hmctest")
+> ### * hmctest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hmctest
+> ### Title: Harrison-McCabe test
+> ### Aliases: hmctest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## generate a regressor
+> x <- rep(c(-1,1), 50)
+> ## generate heteroskedastic and homoskedastic disturbances
+> err1 <- c(rnorm(50, sd=1), rnorm(50, sd=2))
+> err2 <- rnorm(100)
+> ## generate a linear relationship
+> y1 <- 1 + x + err1
+> y2 <- 1 + x + err2
+> ## perform Harrison-McCabe test
+> hmctest(y1 ~ x)
+
+	Harrison-McCabe test
+
+data:  y1 ~ x 
+HMC = 0.1554, p-value < 2.2e-16
+
+> hmctest(y2 ~ x)
+
+	Harrison-McCabe test
+
+data:  y2 ~ x 
+HMC = 0.4429, p-value = 0.225
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("jocci")
+> ### * jocci
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: jocci
+> ### Title: U.S. Macroeconomic Time Series
+> ### Aliases: fyff gmdc ip jocci lhur pw561
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(jocci)
+> 
+> dwtest(dy ~ 1, data = jocci)
+
+	Durbin-Watson test
+
+data:  dy ~ 1 
+DW = 1.0581, p-value < 2.2e-16
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> bgtest(dy ~ 1, data = jocci)
+
+	Breusch-Godfrey test for serial correlation of order up to 1
+
+data:  dy ~ 1 
+LM test = 91.0373, df = 1, p-value < 2.2e-16
+
+> ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 +dy6
+> bgtest(ar6.model, data = jocci)
+
+	Breusch-Godfrey test for serial correlation of order up to 1
+
+data:  ar6.model 
+LM test = 0.2, df = 1, p-value = 0.6547
+
+> 
+> var.model <- ~ I(dy1^2) + I(dy2^2) + I(dy3^2) + I(dy4^2) + I(dy5^2) + I(dy6^2)
+> bptest(ar6.model, var.model, data = jocci)
+
+	studentized Breusch-Pagan test
+
+data:  ar6.model 
+BP = 22.3771, df = 6, p-value = 0.001034
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("jtest")
+> ### * jtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: jtest
+> ### Title: J Test for Comparing Non-Nested Models
+> ### Aliases: jtest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## Fit two competing, non-nested models for aggregate 
+> ## consumption, as in Greene (1993), Examples 7.11 and 7.12
+> 
+> ## load data and compute lags
+> data(USDistLag)
+> usdl <- na.contiguous(cbind(USDistLag, lag(USDistLag, k = -1)))
+> colnames(usdl) <- c("con", "gnp", "con1", "gnp1")
+> 
+> ## C(t) = a0 + a1*Y(t) + a2*C(t-1) + u
+> fm1 <- lm(con ~ gnp + con1, data = usdl)
+> 
+> ## C(t) = b0 + b1*Y(t) + b2*Y(t-1) + v
+> fm2 <- lm(con ~ gnp + gnp1, data = usdl)
+> 
+> ## Cox test in both directions:
+> coxtest(fm1, fm2)
+Cox test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+                Estimate Std. Error z value  Pr(>|z|)    
+fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
+fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## ...and do the same for jtest() and encomptest().
+> ## Notice that in this particular case they are coincident.
+> jtest(fm1, fm2)
+J test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+                Estimate Std. Error t value  Pr(>|t|)    
+M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
+M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> encomptest(fm1, fm2)
+Encompassing test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+Model E: con ~ gnp + con1 + gnp1
+          Res.Df Df      F    Pr(>F)    
+M1 vs. ME     15 -1 12.569 0.0029371 ** 
+M2 vs. ME     15 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lrtest")
+> ### * lrtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lrtest
+> ### Title: Likelihood Ratio Test of Nested Models
+> ### Aliases: lrtest lrtest.formula lrtest.default
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## with data from Greene (1993):
+> ## load data and compute lags
+> data("USDistLag")
+> usdl <- na.contiguous(cbind(USDistLag, lag(USDistLag, k = -1)))
+> colnames(usdl) <- c("con", "gnp", "con1", "gnp1")
+> 
+> fm1 <- lm(con ~ gnp + gnp1, data = usdl)
+> fm2 <- lm(con ~ gnp + con1 + gnp1, data = usdl)
+> 
+> ## various equivalent specifications of the LR test
+> lrtest(fm2, fm1)
+Likelihood ratio test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   5 -56.069                         
+2   4 -65.871 -1 19.605  9.524e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> lrtest(fm2, 2)
+Likelihood ratio test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   5 -56.069                         
+2   4 -65.871 -1 19.605  9.524e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> lrtest(fm2, "con1")
+Likelihood ratio test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   5 -56.069                         
+2   4 -65.871 -1 19.605  9.524e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> lrtest(fm2, . ~ . - con1)
+Likelihood ratio test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  #Df  LogLik Df  Chisq Pr(>Chisq)    
+1   5 -56.069                         
+2   4 -65.871 -1 19.605  9.524e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("moneydemand")
+> ### * moneydemand
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: moneydemand
+> ### Title: Money Demand
+> ### Aliases: moneydemand
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(moneydemand)
+> moneydemand <- window(moneydemand, start=1880, end=1972)
+> 
+> ## page 125, fit Allen OLS model (and Durbin-Watson test),
+> ## last line in Table 6.1
+> 
+> modelAllen <- logM ~ logYp + Rs + Rl + logSpp
+> lm(modelAllen, data = moneydemand)
+
+Call:
+lm(formula = modelAllen, data = moneydemand)
+
+Coefficients:
+(Intercept)        logYp           Rs           Rl       logSpp  
+  -15.48806      1.61700     -0.01885     -0.08354      0.08421  
+
+> dwtest(modelAllen, data = moneydemand)
+
+	Durbin-Watson test
+
+data:  modelAllen 
+DW = 0.1814, p-value < 2.2e-16
+alternative hypothesis: true autocorrelation is greater than 0 
+
+> 
+> ## page 127, fit test statistics in Table 6.1 c)
+> ################################################
+> 
+> ## Breusch-Pagan
+> bptest(modelAllen, studentize = FALSE, data = moneydemand)
+
+	Breusch-Pagan test
+
+data:  modelAllen 
+BP = 13.3422, df = 4, p-value = 0.009719
+
+> bptest(modelAllen, studentize = TRUE, data = moneydemand)
+
+	studentized Breusch-Pagan test
+
+data:  modelAllen 
+BP = 17.0695, df = 4, p-value = 0.001874
+
+> 
+> ## RESET
+> reset(modelAllen, data = moneydemand)
+
+	RESET test
+
+data:  modelAllen 
+RESET = 92.7489, df1 = 2, df2 = 86, p-value < 2.2e-16
+
+> reset(modelAllen, power = 2, type = "regressor", data = moneydemand)
+
+	RESET test
+
+data:  modelAllen 
+RESET = 68.1973, df1 = 4, df2 = 84, p-value < 2.2e-16
+
+> reset(modelAllen, type = "princomp", data = moneydemand)
+
+	RESET test
+
+data:  modelAllen 
+RESET = 1.7024, df1 = 2, df2 = 86, p-value = 0.1883
+
+> 
+> ## Harvey-Collier tests (up to sign of the test statistic)
+> harvtest(modelAllen, order.by = ~logYp, data = moneydemand)
+
+	Harvey-Collier test
+
+data:  modelAllen 
+HC = 5.5579, df = 87, p-value = 2.943e-07
+
+> harvtest(modelAllen, order.by = ~Rs, data = moneydemand)
+
+	Harvey-Collier test
+
+data:  modelAllen 
+HC = 1.4391, df = 87, p-value = 0.1537
+
+> harvtest(modelAllen, order.by = ~Rl, data = moneydemand)
+
+	Harvey-Collier test
+
+data:  modelAllen 
+HC = 0.6218, df = 87, p-value = 0.5357
+
+> harvtest(modelAllen, order.by = ~logSpp, data = moneydemand)
+
+	Harvey-Collier test
+
+data:  modelAllen 
+HC = 0.7943, df = 87, p-value = 0.4292
+
+> 
+> ## Rainbow test
+> raintest(modelAllen, order.by = "mahalanobis", data = moneydemand)
+
+	Rainbow test
+
+data:  modelAllen 
+Rain = 1.1387, df1 = 47, df2 = 41, p-value = 0.3374
+
+> 
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Chow (1913)
++ sctest(modelAllen, point=c(1913,1), data = moneydemand, type = "Chow") }
+
+	Chow test
+
+data:  modelAllen 
+F = 58.3138, p-value < 2.2e-16
+
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Fluctuation
++ sctest(modelAllen, type = "fluctuation", rescale = FALSE, data = moneydemand)}
+
+	RE test (recursive estimates test)
+
+data:  modelAllen 
+RE = 9.5229, p-value < 2.2e-16
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("petest")
+> ### * petest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: petest
+> ### Title: PE Test for Linear vs. Log-Linear Specifications
+> ### Aliases: petest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> if(require("AER")) {
++ ## Verbeek (2004), Section 3
++ data("HousePrices", package = "AER")
++ 
++ ### Verbeek (2004), Table 3.3
++ hp_lin <- lm(price ~ . , data = HousePrices)
++ summary(hp_lin)
++ 
++ ### Verbeek (2004), Table 3.2
++ hp_log <- update(hp_lin, log(price) ~ . - lotsize + log(lotsize))
++ summary(hp_log)
++ 
++ ## PE test
++ petest(hp_lin, hp_log)
++ 
++ 
++ ## Greene (2003), Example 9.8
++ data("USMacroG", package = "AER")
++ 
++ ## Greene (2003), Table 9.2
++ usm_lin <- lm(m1 ~ tbill + gdp, data = USMacroG)
++ usm_log <- lm(log(m1) ~ log(tbill) + log(gdp), data = USMacroG)
++ petest(usm_lin, usm_log)
++ ## matches results from Greene's errata
++ }
+Loading required package: AER
+Loading required package: car
+Loading required package: MASS
+Loading required package: nnet
+Loading required package: Formula
+Loading required package: sandwich
+Loading required package: strucchange
+Loading required package: survival
+Loading required package: splines
+PE test
+
+Model 1: m1 ~ tbill + gdp
+Model 2: log(m1) ~ log(tbill) + log(gdp)
+                          Estimate Std. Error t value Pr(>|t|)    
+M1 + log(fit(M1))-fit(M2)  -209.35    26.7580 -7.8240  2.9e-13 ***
+M2 + fit(M1)-exp(fit(M2))     0.00     0.0003 -0.1603   0.8728    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:AER', 'package:survival', 'package:splines',
+  'package:strucchange', 'package:sandwich', 'package:Formula',
+  'package:car', 'package:nnet', 'package:MASS'
+
+> nameEx("raintest")
+> ### * raintest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: raintest
+> ### Title: Rainbow Test
+> ### Aliases: raintest
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> x <- c(1:30)
+> y <- x^2 + rnorm(30,0,2)
+> rain <- raintest(y ~ x)
+> rain
+
+	Rainbow test
+
+data:  y ~ x 
+Rain = 25.7596, df1 = 15, df2 = 13, p-value = 3.169e-07
+
+> ## critical value
+> qf(0.95, rain$parameter[1], rain$parameter[2])
+[1] 2.53311
+> 
+> 
+> 
+> cleanEx()
+> nameEx("resettest")
+> ### * resettest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: resettest
+> ### Title: RESET Test
+> ### Aliases: resettest reset
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> x <- c(1:30)
+> y1 <- 1 + x + x^2 + rnorm(30)
+> y2 <- 1 + x + rnorm(30)
+> resettest(y1 ~ x , power=2, type="regressor")
+
+	RESET test
+
+data:  y1 ~ x 
+RESET = 153880.6, df1 = 1, df2 = 27, p-value < 2.2e-16
+
+> resettest(y2 ~ x , power=2, type="regressor")
+
+	RESET test
+
+data:  y2 ~ x 
+RESET = 0.0077, df1 = 1, df2 = 27, p-value = 0.9306
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("unemployment")
+> ### * unemployment
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: unemployment
+> ### Title: Unemployment Data
+> ### Aliases: unemployment
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(unemployment)
+> 
+> ## data transformation
+> myunemployment <- window(unemployment, start=1895, end=1956)
+> time <- 6:67
+> 
+> ## page 144, fit Rea OLS model
+> ## last line in Table 6.12
+> 
+> modelRea <- UN ~ log(m/p) + log(G) + log(x) + time
+> lm(modelRea, data = myunemployment)
+
+Call:
+lm(formula = modelRea, data = myunemployment)
+
+Coefficients:
+(Intercept)     log(m/p)       log(G)       log(x)         time  
+    86.9466     -13.8332      -5.7374      -9.5063       0.9158  
+
+> ## coefficients of logged variables differ by factor 100
+> 
+> ## page 143, fit test statistics in table 6.11
+> ##############################################
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Chow 1941
++ sctest(modelRea, point=c(1940,1), data=myunemployment, type="Chow") }
+
+	Chow test
+
+data:  modelRea 
+F = 2.7896, p-value = 0.02634
+
+> 
+> ## Breusch-Pagan
+> bptest(modelRea, data=myunemployment, studentize=FALSE)
+
+	Breusch-Pagan test
+
+data:  modelRea 
+BP = 6.191, df = 4, p-value = 0.1853
+
+> bptest(modelRea, data=myunemployment)
+
+	studentized Breusch-Pagan test
+
+data:  modelRea 
+BP = 5.6325, df = 4, p-value = 0.2283
+
+> 
+> ## RESET (a)-(b)
+> reset(modelRea, data=myunemployment)
+
+	RESET test
+
+data:  modelRea 
+RESET = 13.594, df1 = 2, df2 = 55, p-value = 1.595e-05
+
+> reset(modelRea, power=2, type="regressor", data=myunemployment)
+
+	RESET test
+
+data:  modelRea 
+RESET = 5.2705, df1 = 4, df2 = 53, p-value = 0.001195
+
+> 
+> ## Harvey-Collier
+> harvtest(modelRea, order.by = ~ log(m/p), data=myunemployment)
+
+	Harvey-Collier test
+
+data:  modelRea 
+HC = 0.2315, df = 56, p-value = 0.8178
+
+> harvtest(modelRea, order.by = ~ log(G), data=myunemployment)
+
+	Harvey-Collier test
+
+data:  modelRea 
+HC = 1.8008, df = 56, p-value = 0.07711
+
+> harvtest(modelRea, order.by = ~ log(x), data=myunemployment)
+
+	Harvey-Collier test
+
+data:  modelRea 
+HC = 0.7068, df = 56, p-value = 0.4826
+
+> harvtest(modelRea, data=myunemployment)
+
+	Harvey-Collier test
+
+data:  modelRea 
+HC = 1.6957, df = 56, p-value = 0.0955
+
+> 
+> ## Rainbow
+> raintest(modelRea, order.by = "mahalanobis", data=myunemployment)
+
+	Rainbow test
+
+data:  modelRea 
+Rain = 1.9521, df1 = 31, df2 = 26, p-value = 0.04274
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("valueofstocks")
+> ### * valueofstocks
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: valueofstocks
+> ### Title: Value of Stocks
+> ### Aliases: valueofstocks
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(valueofstocks)
+> lm(log(VST) ~., data=valueofstocks)
+
+Call:
+lm(formula = log(VST) ~ ., data = valueofstocks)
+
+Coefficients:
+(Intercept)           MB         RTPD         RTPS          XBC  
+   4.724163     0.017505    -0.010756    -0.046852     0.001713  
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("wages")
+> ### * wages
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: wages
+> ### Title: Wages
+> ### Aliases: wages
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(wages)
+> 
+> ## data transformation to include lagged series
+> mywages <- cbind(wages, lag(wages[,2], k = -1), lag(wages[,2], k = -2))
+> colnames(mywages) <- c(colnames(wages), "CPI2", "CPI3")
+> mywages <- window(mywages, start=1962, end=1979)
+> 
+> ## page 142, fit Nichols OLS model
+> ## equation (6.10)
+> 
+> modelNichols <- w ~ CPI + CPI2 + CPI3 + u + mw
+> lm(modelNichols, data = mywages)
+
+Call:
+lm(formula = modelNichols, data = mywages)
+
+Coefficients:
+(Intercept)          CPI         CPI2         CPI3            u           mw  
+    4.27536      0.51882      0.12133      0.21404     -0.48786      0.03164  
+
+> 
+> ## page 143, fit test statistics in table 6.11
+> ##############################################
+> 
+> if(require(strucchange, quietly = TRUE)) {
++ ## Chow 1972
++ sctest(modelNichols, point=c(1971,1), data=mywages, type="Chow") }
+
+	Chow test
+
+data:  modelNichols 
+F = 1.5372, p-value = 0.3074
+
+> 
+> ## Breusch-Pagan
+> bptest(modelNichols, data=mywages, studentize=FALSE)
+
+	Breusch-Pagan test
+
+data:  modelNichols 
+BP = 3.6043, df = 5, p-value = 0.6077
+
+> bptest(modelNichols, data=mywages)
+
+	studentized Breusch-Pagan test
+
+data:  modelNichols 
+BP = 2.5505, df = 5, p-value = 0.7689
+
+> 
+> ## RESET (a)-(b)
+> reset(modelNichols, data=mywages)
+
+	RESET test
+
+data:  modelNichols 
+RESET = 0.8642, df1 = 2, df2 = 10, p-value = 0.4506
+
+> reset(modelNichols, power=2, type="regressor", data=mywages)
+
+	RESET test
+
+data:  modelNichols 
+RESET = 8.3265, df1 = 5, df2 = 7, p-value = 0.00735
+
+> 
+> ## Harvey-Collier
+> harvtest(modelNichols, order.by = ~ CPI, data=mywages)
+
+	Harvey-Collier test
+
+data:  modelNichols 
+HC = 2.0179, df = 11, p-value = 0.06866
+
+> harvtest(modelNichols, order.by = ~ CPI2, data=mywages)
+
+	Harvey-Collier test
+
+data:  modelNichols 
+HC = 4.1448, df = 11, p-value = 0.001631
+
+> harvtest(modelNichols, order.by = ~ CPI3, data=mywages)
+
+	Harvey-Collier test
+
+data:  modelNichols 
+HC = 2.2039, df = 11, p-value = 0.04975
+
+> harvtest(modelNichols, order.by = ~ u, data=mywages)
+
+	Harvey-Collier test
+
+data:  modelNichols 
+HC = 0.2084, df = 11, p-value = 0.8387
+
+> 
+> ## Rainbow
+> raintest(modelNichols, order.by = "mahalanobis", data=mywages)
+
+	Rainbow test
+
+data:  modelNichols 
+Rain = 0.6107, df1 = 9, df2 = 3, p-value = 0.7512
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching 'package:strucchange', 'package:sandwich'
+
+> nameEx("waldtest")
+> ### * waldtest
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: waldtest
+> ### Title: Wald Test of Nested Models
+> ### Aliases: waldtest waldtest.formula waldtest.default waldtest.lm
+> ### Keywords: htest
+> 
+> ### ** Examples
+> 
+> ## fit two competing, non-nested models and their encompassing
+> ## model for aggregate consumption, as in Greene (1993),
+> ## Examples 7.11 and 7.12
+> 
+> ## load data and compute lags
+> data(USDistLag)
+> usdl <- na.contiguous(cbind(USDistLag, lag(USDistLag, k = -1)))
+> colnames(usdl) <- c("con", "gnp", "con1", "gnp1")
+> 
+> ## C(t) = a0 + a1*Y(t) + a2*C(t-1) + u
+> fm1 <- lm(con ~ gnp + con1, data = usdl)
+> 
+> ## C(t) = b0 + b1*Y(t) + b2*Y(t-1) + v
+> fm2 <- lm(con ~ gnp + gnp1, data = usdl)
+> 
+> ## Encompassing model
+> fm3 <- lm(con ~ gnp + con1 + gnp1, data = usdl)
+> 
+> ## a simple ANOVA for fm3 vs. fm2
+> waldtest(fm3, fm2)
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     15                        
+2     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> anova(fm3, fm2)
+Analysis of Variance Table
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df    RSS Df Sum of Sq      F    Pr(>F)    
+1     15  406.9                                  
+2     16 1141.8 -1   -734.93 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> ## as df = 1, the test is equivalent to the corresponding t test in
+> coeftest(fm3)
+
+t test of coefficients:
+
+             Estimate Std. Error t value  Pr(>|t|)    
+(Intercept)  6.334762   9.574496  0.6616 0.5182445    
+gnp          0.367170   0.048676  7.5432 1.763e-06 ***
+con1         1.044563   0.200682  5.2051 0.0001067 ***
+gnp1        -0.391718   0.110488 -3.5454 0.0029371 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+> 
+> ## various equivalent specifications of the two models
+> waldtest(fm3, fm2)
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     15                        
+2     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> waldtest(fm3, 2)
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     15                        
+2     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> waldtest(fm3, "con1")
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     15                        
+2     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> waldtest(fm3, . ~ . - con1)
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     15                        
+2     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## comparing more than one model
+> ## (euqivalent to the encompassing test)
+> waldtest(fm1, fm3, fm2)
+Wald test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + con1 + gnp1
+Model 3: con ~ gnp + gnp1
+  Res.Df Df      F    Pr(>F)    
+1     16                        
+2     15  1 12.569 0.0029371 ** 
+3     16 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> encomptest(fm1, fm2)
+Encompassing test
+
+Model 1: con ~ gnp + con1
+Model 2: con ~ gnp + gnp1
+Model E: con ~ gnp + con1 + gnp1
+          Res.Df Df      F    Pr(>F)    
+M1 vs. ME     15 -1 12.569 0.0029371 ** 
+M2 vs. ME     15 -1 27.093 0.0001067 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> ## using the asymptotic Chisq statistic
+> waldtest(fm3, fm2, test = "Chisq")
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df  Chisq Pr(>Chisq)    
+1     15                         
+2     16 -1 27.093  1.939e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> ## plugging in a HC estimator
+> if(require(sandwich)) waldtest(fm3, fm2, vcov = vcovHC)  
+Loading required package: sandwich
+Wald test
+
+Model 1: con ~ gnp + con1 + gnp1
+Model 2: con ~ gnp + gnp1
+  Res.Df Df      F   Pr(>F)   
+1     15                      
+2     16 -1 9.7456 0.006998 **
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  4.224 0.132 4.367 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
