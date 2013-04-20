@@ -1,7 +1,6 @@
 
-R version 2.14.1 (2011-12-22)
-Copyright (C) 2011 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
+R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -24,12 +23,12 @@ Loading required package: zoo
 
 Attaching package: 'zoo'
 
-The following object(s) are masked from 'package:base':
+The following object is masked from 'package:base':
 
     as.Date, as.Date.numeric
 
 > 
-> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("ChickEgg")
 > ### * ChickEgg
@@ -64,7 +63,7 @@ Model 2: chicken ~ Lags(chicken, 1:3)
 1     44                     
 2     47 -3 5.405 0.002966 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## To perform the same tests `by hand', you can use dynlm() and waldtest():
 > if(require(dynlm)) {
@@ -91,7 +90,7 @@ Model 2: chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3) + L(egg,
 1     47                     
 2     44  3 5.405 0.002966 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
@@ -166,11 +165,11 @@ Coefficients:
 gnp          0.40015    0.06272   6.380 9.12e-06 ***
 con1         0.38073    0.09479   4.017 0.000996 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 6.837 on 16 degrees of freedom
-Multiple R-squared: 0.9976,	Adjusted R-squared: 0.9973 
-F-statistic:  3302 on 2 and 16 DF,  p-value: < 2.2e-16 
+Multiple R-squared:  0.9976,	Adjusted R-squared:  0.9973 
+F-statistic:  3302 on 2 and 16 DF,  p-value: < 2.2e-16
 
 > vcov(fm)
             (Intercept)          gnp         con1
@@ -204,7 +203,7 @@ con1          0.5495871 -0.005896092  0.008984392
 
 	Breusch-Godfrey test for serial correlation of order up to 1
 
-data:  y1 ~ x 
+data:  y1 ~ x
 LM test = 0.0037, df = 1, p-value = 0.9516
 
 >      ## or for fourth-order serial correlation
@@ -212,7 +211,7 @@ LM test = 0.0037, df = 1, p-value = 0.9516
 
 	Breusch-Godfrey test for serial correlation of order up to 4
 
-data:  y1 ~ x 
+data:  y1 ~ x
 LM test = 3.0822, df = 4, p-value = 0.5442
 
 >      ## Compare with Durbin-Watson test results:
@@ -220,9 +219,9 @@ LM test = 3.0822, df = 4, p-value = 0.5442
 
 	Durbin-Watson test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 DW = 1.9762, p-value = 0.4924
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 >      y2 <- filter(y1, 0.5, method = "recursive")
@@ -230,7 +229,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	Breusch-Godfrey test for serial correlation of order up to 1
 
-data:  y2 ~ x 
+data:  y2 ~ x
 LM test = 19.9075, df = 1, p-value = 8.128e-06
 
 >      bg4 <- bgtest(y2 ~ x, order = 4)
@@ -238,7 +237,7 @@ LM test = 19.9075, df = 1, p-value = 8.128e-06
 
 	Breusch-Godfrey test for serial correlation of order up to 4
 
-data:  y2 ~ x 
+data:  y2 ~ x
 LM test = 23.687, df = 4, p-value = 9.228e-05
 
 >      coeftest(bg4)
@@ -253,7 +252,7 @@ lag(resid)_2 -0.0401917  0.1136254 -0.3537    0.7235
 lag(resid)_3 -0.1030000  0.1136071 -0.9066    0.3646    
 lag(resid)_4 -0.1184116  0.1049020 -1.1288    0.2590    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 > 
 > 
@@ -290,9 +289,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelCH 
+data:  modelCH
 DW = 0.8448, p-value = 2.888e-08
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > ## wrong sign of RUS coefficient
 > 
@@ -310,9 +309,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelYM 
+data:  modelYM
 DW = 1.4387, p-value = 0.004938
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > ## coefficient of Y and K differ by factor 100
 > 
@@ -326,7 +325,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	Chow test
 
-data:  modelCH 
+data:  modelCH
 F = 13.7752, p-value = 1.838e-08
 
 > 
@@ -335,14 +334,14 @@ F = 13.7752, p-value = 1.838e-08
 
 	Breusch-Pagan test
 
-data:  modelCH 
+data:  modelCH
 BP = 2.0667, df = 4, p-value = 0.7235
 
 > bptest(modelCH, data=bondyield)
 
 	studentized Breusch-Pagan test
 
-data:  modelCH 
+data:  modelCH
 BP = 2.9784, df = 4, p-value = 0.5614
 
 > 
@@ -352,7 +351,7 @@ BP = 2.9784, df = 4, p-value = 0.5614
 
 	RE test (recursive estimates test)
 
-data:  modelCH 
+data:  modelCH
 RE = 17.7584, p-value < 2.2e-16
 
 > 
@@ -361,21 +360,21 @@ RE = 17.7584, p-value < 2.2e-16
 
 	RESET test
 
-data:  modelCH 
+data:  modelCH
 RESET = 5.349, df1 = 2, df2 = 53, p-value = 0.007655
 
 > reset(modelCH, power=2, type="regressor", data=bondyield)
 
 	RESET test
 
-data:  modelCH 
+data:  modelCH
 RESET = 4.7726, df1 = 4, df2 = 51, p-value = 0.002393
 
 > reset(modelCH, type="princomp", data=bondyield)
 
 	RESET test
 
-data:  modelCH 
+data:  modelCH
 RESET = 9.3371, df1 = 2, df2 = 53, p-value = 0.0003359
 
 > 
@@ -384,28 +383,28 @@ RESET = 9.3371, df1 = 2, df2 = 53, p-value = 0.0003359
 
 	Harvey-Collier test
 
-data:  modelCH 
+data:  modelCH
 HC = 2.3951, df = 54, p-value = 0.02012
 
 > harvtest(modelCH, order.by= ~ EPI, data=bondyield)
 
 	Harvey-Collier test
 
-data:  modelCH 
+data:  modelCH
 HC = 0.1707, df = 54, p-value = 0.8651
 
 > harvtest(modelCH, order.by= ~ EXP, data=bondyield)
 
 	Harvey-Collier test
 
-data:  modelCH 
+data:  modelCH
 HC = 0.8713, df = 54, p-value = 0.3875
 
 > harvtest(modelCH, order.by= ~ RUS, data=bondyield)
 
 	Harvey-Collier test
 
-data:  modelCH 
+data:  modelCH
 HC = 1.5877, df = 54, p-value = 0.1182
 
 > 
@@ -414,7 +413,7 @@ HC = 1.5877, df = 54, p-value = 0.1182
 
 	Rainbow test
 
-data:  modelCH 
+data:  modelCH
 Rain = 1.702, df1 = 30, df2 = 25, p-value = 0.08919
 
 > 
@@ -428,7 +427,7 @@ Rain = 1.702, df1 = 30, df2 = 25, p-value = 0.08919
 
 	Chow test
 
-data:  modelYM 
+data:  modelYM
 F = 2.8266, p-value = 0.03388
 
 > 
@@ -438,7 +437,7 @@ F = 2.8266, p-value = 0.03388
 
 	RE test (recursive estimates test)
 
-data:  modelYM 
+data:  modelYM
 RE = 19.733, p-value < 2.2e-16
 
 > 
@@ -447,21 +446,21 @@ RE = 19.733, p-value < 2.2e-16
 
 	RESET test
 
-data:  modelYM 
+data:  modelYM
 RESET = 2.1436, df1 = 2, df2 = 54, p-value = 0.1271
 
 > reset(modelYM, power=2, type="regressor", data=bondyield)
 
 	RESET test
 
-data:  modelYM 
+data:  modelYM
 RESET = 4.1716, df1 = 3, df2 = 53, p-value = 0.01003
 
 > reset(modelYM, type="princomp", data=bondyield)
 
 	RESET test
 
-data:  modelYM 
+data:  modelYM
 RESET = 1.9931, df1 = 2, df2 = 54, p-value = 0.1462
 
 > 
@@ -470,21 +469,21 @@ RESET = 1.9931, df1 = 2, df2 = 54, p-value = 0.1462
 
 	Harvey-Collier test
 
-data:  modelYM 
+data:  modelYM
 HC = 0.2487, df = 55, p-value = 0.8045
 
 > harvtest(modelYM, order.by= ~ Y, data=bondyield)
 
 	Harvey-Collier test
 
-data:  modelYM 
+data:  modelYM
 HC = 2.1227, df = 55, p-value = 0.0383
 
 > harvtest(modelYM, order.by= ~ K, data=bondyield)
 
 	Harvey-Collier test
 
-data:  modelYM 
+data:  modelYM
 HC = 0.0261, df = 55, p-value = 0.9793
 
 > 
@@ -493,7 +492,7 @@ HC = 0.0261, df = 55, p-value = 0.9793
 
 	Rainbow test
 
-data:  modelYM 
+data:  modelYM
 Rain = 1.2978, df1 = 30, df2 = 26, p-value = 0.2515
 
 > 
@@ -528,14 +527,14 @@ detaching 'package:strucchange', 'package:sandwich'
 
 	studentized Breusch-Pagan test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 BP = 11.0995, df = 1, p-value = 0.0008635
 
 > bptest(y2 ~ x)
 
 	studentized Breusch-Pagan test
 
-data:  y2 ~ x 
+data:  y2 ~ x
 BP = 0.1181, df = 1, p-value = 0.7311
 
 > 
@@ -575,11 +574,11 @@ Coefficients:
 (Intercept) -11.9534     0.9762  -12.24   <2e-16 ***
 age           1.7727     0.0477   37.16   <2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 2.373 on 156 degrees of freedom
-Multiple R-squared: 0.8985,	Adjusted R-squared: 0.8978 
-F-statistic:  1381 on 1 and 156 DF,  p-value: < 2.2e-16 
+Multiple R-squared:  0.8985,	Adjusted R-squared:  0.8978 
+F-statistic:  1381 on 1 and 156 DF,  p-value: < 2.2e-16
 
 > coeftest(fm)
 
@@ -589,7 +588,7 @@ t test of coefficients:
 (Intercept) -11.953366   0.976227 -12.245 < 2.2e-16 ***
 age           1.772730   0.047704  37.161 < 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 > 
 > ## a z test (instead of a t test) can be performed by
@@ -601,7 +600,7 @@ z test of coefficients:
 (Intercept) -11.953366   0.976227 -12.245 < 2.2e-16 ***
 age           1.772730   0.047704  37.161 < 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 > 
 > if(require(sandwich)) {
@@ -619,7 +618,7 @@ z test of coefficients:
 (Intercept) -11.953366   1.009817 -11.837 < 2.2e-16 ***
 age           1.772730   0.054343  32.621 < 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 > 
 > 
@@ -664,7 +663,7 @@ Model 2: con ~ gnp + gnp1
 fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
 fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## ...and do the same for jtest() and encomptest().
 > ## Notice that in this particular case they are coincident.
@@ -677,7 +676,7 @@ Model 2: con ~ gnp + gnp1
 M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
 M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -688,7 +687,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
@@ -724,9 +723,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelMiles 
+data:  modelMiles
 DW = 0.2702, p-value < 2.2e-16
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > modelBordoChoudri <- logCUS ~ I(Iu-Ic) + Ic + logY
@@ -743,9 +742,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 DW = 0.5351, p-value = 2.261e-13
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > 
@@ -759,7 +758,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	RE test (recursive estimates test)
 
-data:  modelMiles 
+data:  modelMiles
 RE = 3.1591, p-value = 8.583e-09
 
 > 
@@ -768,21 +767,21 @@ RE = 3.1591, p-value = 8.583e-09
 
 	RESET test
 
-data:  modelMiles 
+data:  modelMiles
 RESET = 1.1308, df1 = 2, df2 = 57, p-value = 0.3299
 
 > reset(modelMiles, power=2, type="regressor", data=currencysubstitution)
 
 	RESET test
 
-data:  modelMiles 
+data:  modelMiles
 RESET = 2.1078, df1 = 1, df2 = 58, p-value = 0.1519
 
 > reset(modelMiles, type="princomp", data=currencysubstitution)
 
 	RESET test
 
-data:  modelMiles 
+data:  modelMiles
 RESET = 1.1308, df1 = 2, df2 = 57, p-value = 0.3299
 
 > 
@@ -791,7 +790,7 @@ RESET = 1.1308, df1 = 2, df2 = 57, p-value = 0.3299
 
 	Harvey-Collier test
 
-data:  modelMiles 
+data:  modelMiles
 HC = 0.8691, df = 58, p-value = 0.3884
 
 > 
@@ -800,7 +799,7 @@ HC = 0.8691, df = 58, p-value = 0.3884
 
 	Rainbow test
 
-data:  modelMiles 
+data:  modelMiles
 Rain = 1.766, df1 = 31, df2 = 28, p-value = 0.06603
 
 > 
@@ -815,7 +814,7 @@ Rain = 1.766, df1 = 31, df2 = 28, p-value = 0.06603
 
 	Chow test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 F = 14.5716, p-value = 4.317e-08
 
 > 
@@ -824,14 +823,14 @@ F = 14.5716, p-value = 4.317e-08
 
 	Breusch-Pagan test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 BP = 14.5139, df = 3, p-value = 0.002283
 
 > bptest(modelBordoChoudri, data=currencysubstitution)
 
 	studentized Breusch-Pagan test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 BP = 10.7358, df = 3, p-value = 0.01324
 
 > 
@@ -840,21 +839,21 @@ BP = 10.7358, df = 3, p-value = 0.01324
 
 	RESET test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 RESET = 0.6931, df1 = 2, df2 = 55, p-value = 0.5043
 
 > reset(modelBordoChoudri, power=2, type="regressor", data=currencysubstitution)
 
 	RESET test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 RESET = 6.6775, df1 = 3, df2 = 54, p-value = 0.0006458
 
 > reset(modelBordoChoudri, type="princomp", data=currencysubstitution)
 
 	RESET test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 RESET = 8.2945, df1 = 2, df2 = 55, p-value = 0.0007107
 
 > 
@@ -863,21 +862,21 @@ RESET = 8.2945, df1 = 2, df2 = 55, p-value = 0.0007107
 
 	Harvey-Collier test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 HC = 0.7554, df = 56, p-value = 0.4532
 
 > harvtest(modelBordoChoudri, order.by = ~ Ic, data=currencysubstitution)
 
 	Harvey-Collier test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 HC = 0.4026, df = 56, p-value = 0.6888
 
 > harvtest(modelBordoChoudri, order.by = ~ logY, data=currencysubstitution)
 
 	Harvey-Collier test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 HC = 2.5016, df = 56, p-value = 0.01531
 
 > 
@@ -886,7 +885,7 @@ HC = 2.5016, df = 56, p-value = 0.01531
 
 	Rainbow test
 
-data:  modelBordoChoudri 
+data:  modelBordoChoudri
 Rain = 3.7711, df1 = 31, df2 = 26, p-value = 0.0004604
 
 > 
@@ -922,9 +921,9 @@ detaching 'package:strucchange', 'package:sandwich'
 
 	Durbin-Watson test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 DW = 1.9762, p-value = 0.4924
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > err2 <- filter(err1, 0.9, method="recursive")
@@ -933,9 +932,9 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	Durbin-Watson test
 
-data:  y2 ~ x 
+data:  y2 ~ x
 DW = 0.4596, p-value = 7.862e-15
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > 
@@ -981,7 +980,7 @@ Model 2: con ~ gnp + gnp1
 fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
 fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## ...and do the same for jtest() and encomptest().
 > ## Notice that in this particular case they are coincident.
@@ -994,7 +993,7 @@ Model 2: con ~ gnp + gnp1
 M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
 M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -1005,7 +1004,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## the encompassing test is essentially
 > waldtest(fm1, fm3, fm2)
@@ -1019,7 +1018,7 @@ Model 3: con ~ gnp + gnp1
 2     15  1 12.569 0.0029371 ** 
 3     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
@@ -1082,14 +1081,14 @@ detaching 'package:strucchange', 'package:sandwich'
 
 	Goldfeld-Quandt test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 GQ = 5.4699, df1 = 48, df2 = 48, p-value = 1.404e-08
 
 > gqtest(y2 ~ x)
 
 	Goldfeld-Quandt test
 
-data:  y2 ~ x 
+data:  y2 ~ x
 GQ = 1.2638, df1 = 48, df2 = 48, p-value = 0.2102
 
 > 
@@ -1127,7 +1126,7 @@ Model 2: chicken ~ Lags(chicken, 1:3)
 1     44                     
 2     47 -3 5.405 0.002966 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## alternative ways of specifying the same test
 > grangertest(ChickEgg, order = 3)
@@ -1181,9 +1180,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelHetzel 
+data:  modelHetzel
 DW = 2.9046, p-value = 0.9839
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > 
@@ -1196,7 +1195,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	Chow test
 
-data:  modelHetzel 
+data:  modelHetzel
 F = 0.3788, p-value = 0.6911
 
 > 
@@ -1205,21 +1204,21 @@ F = 0.3788, p-value = 0.6911
 
 	RESET test
 
-data:  modelHetzel 
+data:  modelHetzel
 RESET = 7.9337, df1 = 2, df2 = 15, p-value = 0.004461
 
 > reset(modelHetzel, power=2, type="regressor", data=growthofmoney)
 
 	RESET test
 
-data:  modelHetzel 
+data:  modelHetzel
 RESET = 1.5265, df1 = 1, df2 = 16, p-value = 0.2345
 
 > reset(modelHetzel, type="princomp", data=growthofmoney)
 
 	RESET test
 
-data:  modelHetzel 
+data:  modelHetzel
 RESET = 7.9337, df1 = 2, df2 = 15, p-value = 0.004461
 
 > 
@@ -1228,7 +1227,7 @@ RESET = 7.9337, df1 = 2, df2 = 15, p-value = 0.004461
 
 	Harvey-Collier test
 
-data:  modelHetzel 
+data:  modelHetzel
 HC = 3.7768, df = 16, p-value = 0.001651
 
 > 
@@ -1237,7 +1236,7 @@ HC = 3.7768, df = 16, p-value = 0.001651
 
 	Rainbow test
 
-data:  modelHetzel 
+data:  modelHetzel
 Rain = 7.1731, df1 = 10, df2 = 7, p-value = 0.007924
 
 > 
@@ -1266,9 +1265,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelHetzel 
+data:  modelHetzel
 DW = 1.5019, p-value = 0.1351
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > 
@@ -1300,7 +1299,7 @@ detaching 'package:strucchange', 'package:sandwich'
 
 	Harvey-Collier test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 HC = 0.5401, df = 47, p-value = 0.5917
 
 > ## calculate critical value vor 0.05 level
@@ -1310,7 +1309,7 @@ HC = 0.5401, df = 47, p-value = 0.5917
 
 	Harvey-Collier test
 
-data:  y2 ~ x 
+data:  y2 ~ x
 HC = 7.9751, df = 47, p-value = 2.775e-10
 
 > 
@@ -1342,14 +1341,14 @@ HC = 7.9751, df = 47, p-value = 2.775e-10
 
 	Harrison-McCabe test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 HMC = 0.1554, p-value < 2.2e-16
 
 > hmctest(y2 ~ x)
 
 	Harrison-McCabe test
 
-data:  y2 ~ x 
+data:  y2 ~ x
 HMC = 0.4429, p-value = 0.225
 
 > 
@@ -1374,15 +1373,15 @@ HMC = 0.4429, p-value = 0.225
 
 	Durbin-Watson test
 
-data:  dy ~ 1 
+data:  dy ~ 1
 DW = 1.0581, p-value < 2.2e-16
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > bgtest(dy ~ 1, data = jocci)
 
 	Breusch-Godfrey test for serial correlation of order up to 1
 
-data:  dy ~ 1 
+data:  dy ~ 1
 LM test = 91.0373, df = 1, p-value < 2.2e-16
 
 > ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 +dy6
@@ -1390,7 +1389,7 @@ LM test = 91.0373, df = 1, p-value < 2.2e-16
 
 	Breusch-Godfrey test for serial correlation of order up to 1
 
-data:  ar6.model 
+data:  ar6.model
 LM test = 0.2, df = 1, p-value = 0.6547
 
 > 
@@ -1399,7 +1398,7 @@ LM test = 0.2, df = 1, p-value = 0.6547
 
 	studentized Breusch-Pagan test
 
-data:  ar6.model 
+data:  ar6.model
 BP = 22.3771, df = 6, p-value = 0.001034
 
 > 
@@ -1442,7 +1441,7 @@ Model 2: con ~ gnp + gnp1
 fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
 fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## ...and do the same for jtest() and encomptest().
 > ## Notice that in this particular case they are coincident.
@@ -1455,7 +1454,7 @@ Model 2: con ~ gnp + gnp1
 M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
 M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -1466,7 +1465,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
@@ -1502,7 +1501,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > lrtest(fm2, 2)
 Likelihood ratio test
 
@@ -1512,7 +1511,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > lrtest(fm2, "con1")
 Likelihood ratio test
 
@@ -1522,7 +1521,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > lrtest(fm2, . ~ . - con1)
 Likelihood ratio test
 
@@ -1532,7 +1531,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
@@ -1569,9 +1568,9 @@ Coefficients:
 
 	Durbin-Watson test
 
-data:  modelAllen 
+data:  modelAllen
 DW = 0.1814, p-value < 2.2e-16
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 > 
 > ## page 127, fit test statistics in Table 6.1 c)
@@ -1582,14 +1581,14 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	Breusch-Pagan test
 
-data:  modelAllen 
+data:  modelAllen
 BP = 13.3422, df = 4, p-value = 0.009719
 
 > bptest(modelAllen, studentize = TRUE, data = moneydemand)
 
 	studentized Breusch-Pagan test
 
-data:  modelAllen 
+data:  modelAllen
 BP = 17.0695, df = 4, p-value = 0.001874
 
 > 
@@ -1598,21 +1597,21 @@ BP = 17.0695, df = 4, p-value = 0.001874
 
 	RESET test
 
-data:  modelAllen 
+data:  modelAllen
 RESET = 92.7489, df1 = 2, df2 = 86, p-value < 2.2e-16
 
 > reset(modelAllen, power = 2, type = "regressor", data = moneydemand)
 
 	RESET test
 
-data:  modelAllen 
+data:  modelAllen
 RESET = 68.1973, df1 = 4, df2 = 84, p-value < 2.2e-16
 
 > reset(modelAllen, type = "princomp", data = moneydemand)
 
 	RESET test
 
-data:  modelAllen 
+data:  modelAllen
 RESET = 1.7024, df1 = 2, df2 = 86, p-value = 0.1883
 
 > 
@@ -1621,28 +1620,28 @@ RESET = 1.7024, df1 = 2, df2 = 86, p-value = 0.1883
 
 	Harvey-Collier test
 
-data:  modelAllen 
+data:  modelAllen
 HC = 5.5579, df = 87, p-value = 2.943e-07
 
 > harvtest(modelAllen, order.by = ~Rs, data = moneydemand)
 
 	Harvey-Collier test
 
-data:  modelAllen 
+data:  modelAllen
 HC = 1.4391, df = 87, p-value = 0.1537
 
 > harvtest(modelAllen, order.by = ~Rl, data = moneydemand)
 
 	Harvey-Collier test
 
-data:  modelAllen 
+data:  modelAllen
 HC = 0.6218, df = 87, p-value = 0.5357
 
 > harvtest(modelAllen, order.by = ~logSpp, data = moneydemand)
 
 	Harvey-Collier test
 
-data:  modelAllen 
+data:  modelAllen
 HC = 0.7943, df = 87, p-value = 0.4292
 
 > 
@@ -1651,7 +1650,7 @@ HC = 0.7943, df = 87, p-value = 0.4292
 
 	Rainbow test
 
-data:  modelAllen 
+data:  modelAllen
 Rain = 1.1387, df1 = 47, df2 = 41, p-value = 0.3374
 
 > 
@@ -1662,7 +1661,7 @@ Rain = 1.1387, df1 = 47, df2 = 41, p-value = 0.3374
 
 	Chow test
 
-data:  modelAllen 
+data:  modelAllen
 F = 58.3138, p-value < 2.2e-16
 
 > 
@@ -1672,7 +1671,7 @@ F = 58.3138, p-value < 2.2e-16
 
 	RE test (recursive estimates test)
 
-data:  modelAllen 
+data:  modelAllen
 RE = 9.5229, p-value < 2.2e-16
 
 > 
@@ -1736,7 +1735,7 @@ Model 2: log(m1) ~ log(tbill) + log(gdp)
 M1 + log(fit(M1))-fit(M2)  -209.35    26.7580 -7.8240  2.9e-13 ***
 M2 + fit(M1)-exp(fit(M2))     0.00     0.0003 -0.1603   0.8728    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
@@ -1765,7 +1764,7 @@ detaching 'package:AER', 'package:survival', 'package:splines',
 
 	Rainbow test
 
-data:  y ~ x 
+data:  y ~ x
 Rain = 25.7596, df1 = 15, df2 = 13, p-value = 3.169e-07
 
 > ## critical value
@@ -1794,14 +1793,14 @@ Rain = 25.7596, df1 = 15, df2 = 13, p-value = 3.169e-07
 
 	RESET test
 
-data:  y1 ~ x 
+data:  y1 ~ x
 RESET = 153880.6, df1 = 1, df2 = 27, p-value < 2.2e-16
 
 > resettest(y2 ~ x , power=2, type="regressor")
 
 	RESET test
 
-data:  y2 ~ x 
+data:  y2 ~ x
 RESET = 0.0077, df1 = 1, df2 = 27, p-value = 0.9306
 
 > 
@@ -1850,7 +1849,7 @@ Coefficients:
 
 	Chow test
 
-data:  modelRea 
+data:  modelRea
 F = 2.7896, p-value = 0.02634
 
 > 
@@ -1859,14 +1858,14 @@ F = 2.7896, p-value = 0.02634
 
 	Breusch-Pagan test
 
-data:  modelRea 
+data:  modelRea
 BP = 6.191, df = 4, p-value = 0.1853
 
 > bptest(modelRea, data=myunemployment)
 
 	studentized Breusch-Pagan test
 
-data:  modelRea 
+data:  modelRea
 BP = 5.6325, df = 4, p-value = 0.2283
 
 > 
@@ -1875,14 +1874,14 @@ BP = 5.6325, df = 4, p-value = 0.2283
 
 	RESET test
 
-data:  modelRea 
+data:  modelRea
 RESET = 13.594, df1 = 2, df2 = 55, p-value = 1.595e-05
 
 > reset(modelRea, power=2, type="regressor", data=myunemployment)
 
 	RESET test
 
-data:  modelRea 
+data:  modelRea
 RESET = 5.2705, df1 = 4, df2 = 53, p-value = 0.001195
 
 > 
@@ -1891,28 +1890,28 @@ RESET = 5.2705, df1 = 4, df2 = 53, p-value = 0.001195
 
 	Harvey-Collier test
 
-data:  modelRea 
+data:  modelRea
 HC = 0.2315, df = 56, p-value = 0.8178
 
 > harvtest(modelRea, order.by = ~ log(G), data=myunemployment)
 
 	Harvey-Collier test
 
-data:  modelRea 
+data:  modelRea
 HC = 1.8008, df = 56, p-value = 0.07711
 
 > harvtest(modelRea, order.by = ~ log(x), data=myunemployment)
 
 	Harvey-Collier test
 
-data:  modelRea 
+data:  modelRea
 HC = 0.7068, df = 56, p-value = 0.4826
 
 > harvtest(modelRea, data=myunemployment)
 
 	Harvey-Collier test
 
-data:  modelRea 
+data:  modelRea
 HC = 1.6957, df = 56, p-value = 0.0955
 
 > 
@@ -1921,7 +1920,7 @@ HC = 1.6957, df = 56, p-value = 0.0955
 
 	Rainbow test
 
-data:  modelRea 
+data:  modelRea
 Rain = 1.9521, df1 = 31, df2 = 26, p-value = 0.04274
 
 > 
@@ -1999,7 +1998,7 @@ Coefficients:
 
 	Chow test
 
-data:  modelNichols 
+data:  modelNichols
 F = 1.5372, p-value = 0.3074
 
 > 
@@ -2008,14 +2007,14 @@ F = 1.5372, p-value = 0.3074
 
 	Breusch-Pagan test
 
-data:  modelNichols 
+data:  modelNichols
 BP = 3.6043, df = 5, p-value = 0.6077
 
 > bptest(modelNichols, data=mywages)
 
 	studentized Breusch-Pagan test
 
-data:  modelNichols 
+data:  modelNichols
 BP = 2.5505, df = 5, p-value = 0.7689
 
 > 
@@ -2024,14 +2023,14 @@ BP = 2.5505, df = 5, p-value = 0.7689
 
 	RESET test
 
-data:  modelNichols 
+data:  modelNichols
 RESET = 0.8642, df1 = 2, df2 = 10, p-value = 0.4506
 
 > reset(modelNichols, power=2, type="regressor", data=mywages)
 
 	RESET test
 
-data:  modelNichols 
+data:  modelNichols
 RESET = 8.3265, df1 = 5, df2 = 7, p-value = 0.00735
 
 > 
@@ -2040,28 +2039,28 @@ RESET = 8.3265, df1 = 5, df2 = 7, p-value = 0.00735
 
 	Harvey-Collier test
 
-data:  modelNichols 
+data:  modelNichols
 HC = 2.0179, df = 11, p-value = 0.06866
 
 > harvtest(modelNichols, order.by = ~ CPI2, data=mywages)
 
 	Harvey-Collier test
 
-data:  modelNichols 
+data:  modelNichols
 HC = 4.1448, df = 11, p-value = 0.001631
 
 > harvtest(modelNichols, order.by = ~ CPI3, data=mywages)
 
 	Harvey-Collier test
 
-data:  modelNichols 
+data:  modelNichols
 HC = 2.2039, df = 11, p-value = 0.04975
 
 > harvtest(modelNichols, order.by = ~ u, data=mywages)
 
 	Harvey-Collier test
 
-data:  modelNichols 
+data:  modelNichols
 HC = 0.2084, df = 11, p-value = 0.8387
 
 > 
@@ -2070,7 +2069,7 @@ HC = 0.2084, df = 11, p-value = 0.8387
 
 	Rainbow test
 
-data:  modelNichols 
+data:  modelNichols
 Rain = 0.6107, df1 = 9, df2 = 3, p-value = 0.7512
 
 > 
@@ -2120,7 +2119,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > anova(fm3, fm2)
 Analysis of Variance Table
 
@@ -2130,7 +2129,7 @@ Model 2: con ~ gnp + gnp1
 1     15  406.9                                  
 2     16 1141.8 -1   -734.93 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## as df = 1, the test is equivalent to the corresponding t test in
 > coeftest(fm3)
 
@@ -2142,7 +2141,7 @@ gnp          0.367170   0.048676  7.5432 1.763e-06 ***
 con1         1.044563   0.200682  5.2051 0.0001067 ***
 gnp1        -0.391718   0.110488 -3.5454 0.0029371 ** 
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 > 
 > ## various equivalent specifications of the two models
@@ -2155,7 +2154,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > waldtest(fm3, 2)
 Wald test
 
@@ -2165,7 +2164,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > waldtest(fm3, "con1")
 Wald test
 
@@ -2175,7 +2174,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > waldtest(fm3, . ~ . - con1)
 Wald test
 
@@ -2185,7 +2184,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## comparing more than one model
 > ## (euqivalent to the encompassing test)
@@ -2200,7 +2199,7 @@ Model 3: con ~ gnp + gnp1
 2     15  1 12.569 0.0029371 ** 
 3     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -2211,7 +2210,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ## using the asymptotic Chisq statistic
 > waldtest(fm3, fm2, test = "Chisq")
@@ -2223,7 +2222,7 @@ Model 2: con ~ gnp + gnp1
 1     15                         
 2     16 -1 27.093  1.939e-07 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ## plugging in a HC estimator
 > if(require(sandwich)) waldtest(fm3, fm2, vcov = vcovHC)  
 Loading required package: sandwich
@@ -2235,14 +2234,14 @@ Model 2: con ~ gnp + gnp1
 1     15                      
 2     16 -1 9.7456 0.006998 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > 
 > 
 > ### * <FOOTER>
 > ###
-> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.224 0.132 4.367 0 0 
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  5.176 0.112 5.318 0 0 
 > grDevices::dev.off()
 null device 
           1 

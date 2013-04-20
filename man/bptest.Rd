@@ -56,7 +56,7 @@ W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica
 }
 
-\seealso{\code{\link{lm}}, \code{\link[car]{ncv.test}}}
+\seealso{\code{\link{lm}}, \code{\link[car]{ncvTest}}}
 
 \examples{
 ## generate a regressor

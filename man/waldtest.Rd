@@ -95,7 +95,7 @@
  (either \code{"Chisq"} or \code{"F"}) and corresponding p value.
 }
 
-\seealso{\code{\link{coeftest}}, \code{\link[stats]{anova}}, \code{\link[car]{linear.hypothesis}}}
+\seealso{\code{\link{coeftest}}, \code{\link[stats]{anova}}, \code{\link[car]{linearHypothesis}}}
 
 \examples{
 ## fit two competing, non-nested models and their encompassing

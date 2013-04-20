@@ -1,3 +1,14 @@
+Changes in Version 0.9-31
+
+  o Included Farebrother/Cummins as "aut" in DESCRIPTION for pan.f
+    Fortran code.
+
+  o Made starting values in the auxiliary regression of bgtest()
+    optional. By default still 0, but could also be NA.
+
+  o Avoid spurios errors about missing nobs() methods in lrtest().
+
+
 Changes in Version 0.9-30
 
   o coeftest(), lrtest(), and waldtest() can now also be used for

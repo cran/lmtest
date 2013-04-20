@@ -8,7 +8,7 @@
  serial correlation.
 }
 \usage{
-bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list())
+bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(), fill = 0)
 }
 \arguments{
   \item{formula}{a symbolic description for the model to be tested
@@ -25,6 +25,8 @@ bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(
   \item{data}{an optional data frame containing the variables in the
     model. By default the variables are taken from the environment
     which \code{bgtest} is called from.}
+  \item{fill}{starting values for the lagged residuals in the auxiliary
+    regression. By default \code{0} but can also be set to \code{NA}.}   
   }
 \details{
   Under \eqn{H_0} the test statistic is asymptotically Chi-squared with
@@ -33,8 +35,9 @@ bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(
   a finite sample version of the test statistic, employing an \eqn{F}
   distribution with degrees of freedom as given in \code{parameter}.
 
-  The starting values for the lagged residuals in the supplementary
-  regression are chosen to be 0.
+  By default, the starting values for the lagged residuals in the auxiliary
+  regression are chosen to be 0 (as in Godfrey 1978) but could also be
+  set to \code{NA} to omit them.
 
   \code{bgtest} also returns the coefficients and estimated covariance
   matrix from the auxiliary regression that includes the lagged residuals.

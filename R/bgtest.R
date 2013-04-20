@@ -1,4 +1,4 @@
-bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list())
+bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(), fill = 0)
 {
   dname <- paste(deparse(substitute(formula)))
 
@@ -33,7 +33,14 @@ bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), 
   m <- length(order)
   resi <- lm.fit(X,y)$residuals
 
-  Z <- sapply(order, function(x) c(rep(0, x), resi[1:(n-x)]))
+  Z <- sapply(order, function(x) c(rep(fill, length.out = x), resi[1:(n-x)]))
+  if(any(na <- !complete.cases(Z))) {
+    X <- X[!na, , drop = FALSE]
+    Z <- Z[!na, , drop = FALSE]
+    y <- y[!na]
+    resi <- resi[!na]
+    n <- nrow(X)
+  }
   auxfit <- lm.fit(cbind(X,Z), resi)
 
   cf <- auxfit$coefficients
