@@ -22,22 +22,23 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
   ## - vcov(), potentially user-supplied
 
   ## use S4 methods if loaded
-  coef0   <- if("stats4" %in% loadedNamespaces()) stats4:::coef   else coef
-  logLik0 <- if("stats4" %in% loadedNamespaces()) stats4:::logLik else logLik
-  update0 <- if("stats4" %in% loadedNamespaces()) stats4:::update else update
+  coef0   <- if("stats4" %in% loadedNamespaces()) stats4::coef   else coef
+  logLik0 <- if("stats4" %in% loadedNamespaces()) stats4::logLik else logLik
+  update0 <- if("stats4" %in% loadedNamespaces()) stats4::update else update
   nobs0   <- function(x, ...) {
-    nobs1 <- if("stats4" %in% loadedNamespaces()) stats4:::nobs else nobs
+    nobs1 <- if("stats4" %in% loadedNamespaces()) stats4::nobs else nobs
     nobs2 <- function(x, ...) NROW(residuals(x, ...))
     rval <- try(nobs1(x, ...), silent = TRUE)
     if(inherits(rval, "try-error") | is.null(rval)) rval <- nobs2(x, ...)
     return(rval)
   }
   vcov0   <- if(!is.null(vcov)) vcov else {
-    if("stats4" %in% loadedNamespaces()) stats4:::vcov else stats:::vcov
+    if("stats4" %in% loadedNamespaces()) stats4::vcov else stats::vcov
   }
   df.residual0 <- function(x) {
     df <- try(df.residual(x), silent = TRUE)
-    if(inherits(df, "try-error")) df <- try(nobs0(x) - attr(logLik0(x), "df"), silent = TRUE)
+    if(inherits(df, "try-error") | is.null(df)) df <- try(nobs0(x) - attr(logLik0(x), "df"), silent = TRUE)
+    if(inherits(df, "try-error") | is.null(df)) df <- try(nobs0(x) - length(as.vector(coef0(x))), silent = TRUE)
     if(inherits(df, "try-error")) df <- NULL
     return(df)
   }

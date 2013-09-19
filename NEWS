@@ -1,3 +1,11 @@
+Changes in Version 0.9-32
+
+  o Small improvements in residual degrees of freedom computation
+    within default waldtest() method.
+
+  o Updated Imports/Suggests to conform with current R CMD check.
+
+
 Changes in Version 0.9-31
 
   o Included Farebrother/Cummins as "aut" in DESCRIPTION for pan.f

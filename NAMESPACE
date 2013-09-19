@@ -1,4 +1,4 @@
-import("stats", "graphics")
+import("stats", "graphics", "zoo")
 
 useDynLib("lmtest")
 

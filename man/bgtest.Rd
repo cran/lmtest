@@ -8,7 +8,8 @@
  serial correlation.
 }
 \usage{
-bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), data = list(), fill = 0)
+bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"),
+  data = list(), fill = 0)
 }
 \arguments{
   \item{formula}{a symbolic description for the model to be tested

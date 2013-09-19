@@ -4,7 +4,8 @@
 \title{Goldfeld-Quandt Test}
 \description{Goldfeld-Quandt test against heteroskedasticity.}
 \usage{
-gqtest(formula, point = 0.5, fraction = 0, alternative = c("greater", "two.sided", "less"),
+gqtest(formula, point = 0.5, fraction = 0,
+  alternative = c("greater", "two.sided", "less"),
   order.by = NULL, data = list())
 }
 \arguments{

@@ -6,8 +6,8 @@ coeftest <- function(x, vcov. = NULL, df = NULL, ...)
 coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
 {
   ## use S4 methods if loaded
-  coef0 <- if("stats4" %in% loadedNamespaces()) stats4:::coef else coef
-  vcov0 <- if("stats4" %in% loadedNamespaces()) stats4:::vcov else vcov
+  coef0 <- if("stats4" %in% loadedNamespaces()) stats4::coef else coef
+  vcov0 <- if("stats4" %in% loadedNamespaces()) stats4::vcov else vcov
 
   ## extract coefficients and standard errors
   est <- coef0(x)

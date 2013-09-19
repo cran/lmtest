@@ -22,10 +22,10 @@ lrtest.default <- function(object, ..., name = NULL)
   ## - nobs() or residuals() -> for determining number of observations
 
   ## use S4 methods if loaded
-  logLik0 <- if("stats4" %in% loadedNamespaces()) stats4:::logLik else logLik
-  update0 <- if("stats4" %in% loadedNamespaces()) stats4:::update else update
+  logLik0 <- if("stats4" %in% loadedNamespaces()) stats4::logLik else logLik
+  update0 <- if("stats4" %in% loadedNamespaces()) stats4::update else update
   nobs0   <- function(x, ...) {
-    nobs1 <- if("stats4" %in% loadedNamespaces()) stats4:::nobs else nobs
+    nobs1 <- if("stats4" %in% loadedNamespaces()) stats4::nobs else nobs
     nobs2 <- function(x, ...) NROW(residuals(x, ...))
     rval <- try(nobs1(x, ...), silent = TRUE)
     if(inherits(rval, "try-error") | is.null(rval)) rval <- nobs2(x, ...)

@@ -1,7 +1,7 @@
 
-R version 3.0.0 (2013-04-03) -- "Masked Marvel"
+R Under development (unstable) (2013-09-19 r63945) -- "Unsuffered Consequences"
 Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -23,7 +23,7 @@ Loading required package: zoo
 
 Attaching package: 'zoo'
 
-The following object is masked from 'package:base':
+The following objects are masked from 'package:base':
 
     as.Date, as.Date.numeric
 
@@ -79,8 +79,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 + }
 Loading required package: dynlm
 Loading required package: car
-Loading required package: MASS
-Loading required package: nnet
 Wald test
 
 Model 1: chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3)
@@ -96,8 +94,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > cleanEx()
 
-detaching 'package:dynlm', 'package:car', 'package:nnet',
-  'package:MASS'
+detaching 'package:dynlm', 'package:car'
 
 > nameEx("Mandible")
 > ### * Mandible
@@ -1720,8 +1717,6 @@ detaching 'package:strucchange', 'package:sandwich'
 + }
 Loading required package: AER
 Loading required package: car
-Loading required package: MASS
-Loading required package: nnet
 Loading required package: Formula
 Loading required package: sandwich
 Loading required package: strucchange
@@ -1743,7 +1738,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 detaching 'package:AER', 'package:survival', 'package:splines',
   'package:strucchange', 'package:sandwich', 'package:Formula',
-  'package:car', 'package:nnet', 'package:MASS'
+  'package:car'
 
 > nameEx("raintest")
 > ### * raintest
@@ -2240,8 +2235,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > ### * <FOOTER>
 > ###
+> options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.176 0.112 5.318 0 0 
+Time elapsed:  3.652 0.064 3.73 0 0 
 > grDevices::dev.off()
 null device 
           1 
