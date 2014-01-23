@@ -19,9 +19,11 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
 
   ## match using names and compute t/z statistics
   if(!is.null(names(est)) && !is.null(names(se))) {
-    anames <- names(est)[names(est) %in% names(se)]
-    est <- est[anames]
-    se <- se[anames]
+    if(length(unique(names(est))) == length(names(est)) && length(unique(names(se))) == length(names(se))) {
+      anames <- names(est)[names(est) %in% names(se)]
+      est <- est[anames]
+      se <- se[anames]
+    }
   }  
   tval <- as.vector(est)/se
 

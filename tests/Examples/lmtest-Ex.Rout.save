@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2013-09-19 r63945) -- "Unsuffered Consequences"
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
 Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-unknown-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1717,9 +1717,7 @@ detaching 'package:strucchange', 'package:sandwich'
 + }
 Loading required package: AER
 Loading required package: car
-Loading required package: Formula
 Loading required package: sandwich
-Loading required package: strucchange
 Loading required package: survival
 Loading required package: splines
 PE test
@@ -1737,8 +1735,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > cleanEx()
 
 detaching 'package:AER', 'package:survival', 'package:splines',
-  'package:strucchange', 'package:sandwich', 'package:Formula',
-  'package:car'
+  'package:sandwich', 'package:car'
 
 > nameEx("raintest")
 > ### * raintest
@@ -2237,7 +2234,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  3.652 0.064 3.73 0 0 
+Time elapsed:  4.708 0.108 4.856 0 0 
 > grDevices::dev.off()
 null device 
           1 

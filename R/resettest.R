@@ -15,8 +15,8 @@ reset <- resettest <- function(formula, power=2:3,
     mf <- model.frame(formula, data = data)
     y <- model.response(mf)
     X <- model.matrix(formula, data = data)
-  }  
-
+  }
+  y <- scale(y, center = attr(terms(mf), "intercept") > 0L)
   k <- ncol(X)
   n <- nrow(X)
   type <- match.arg(type)

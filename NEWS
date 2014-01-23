@@ -1,3 +1,16 @@
+Changes in Version 0.9-33
+
+  o Extended license to GPL-2 or GPL-3.
+
+  o To make resettest() results numerically more reliable (especially
+    for type = "fitted" when the fitted mean is large), the response
+    is internally scaled.
+
+  o The default coeftest() method checks whether coef() and vcov()
+    output has unique names (which they may not have for some model
+    classes, e.g., sampleSelection::selection).
+
+
 Changes in Version 0.9-32
 
   o Small improvements in residual degrees of freedom computation
