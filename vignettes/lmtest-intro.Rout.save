@@ -4,7 +4,7 @@ Loading required package: zoo
 
 Attaching package: 'zoo'
 
-The following object(s) are masked from 'package:base':
+The following objects are masked from 'package:base':
 
     as.Date, as.Date.numeric
 
@@ -32,9 +32,9 @@ The following object(s) are masked from 'package:base':
 
 	Durbin-Watson test
 
-data:  dy ~ 1 
+data:  dy ~ 1
 DW = 1.0581, p-value < 2.2e-16
-alternative hypothesis: true autocorrelation is greater than 0 
+alternative hypothesis: true autocorrelation is greater than 0
 
 
 > ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 + dy6
@@ -43,8 +43,8 @@ alternative hypothesis: true autocorrelation is greater than 0
 
 	Breusch-Godfrey test for serial correlation of order up to 1
 
-data:  ar6.model 
-LM test = 0.2, df = 1, p-value = 0.6547
+data:  ar6.model
+LM test = 0.19999, df = 1, p-value = 0.6547
 
 
 > var.model <- ~I(dy1^2) + I(dy2^2) + I(dy3^2) + I(dy4^2) + 
@@ -54,8 +54,8 @@ LM test = 0.2, df = 1, p-value = 0.6547
 
 	studentized Breusch-Pagan test
 
-data:  ar6.model 
-BP = 22.3771, df = 6, p-value = 0.001034
+data:  ar6.model
+BP = 22.377, df = 6, p-value = 0.001034
 
 
 > data(Mandible)
@@ -84,8 +84,8 @@ BP = 22.3771, df = 6, p-value = 0.001034
 
 	RESET test
 
-data:  length ~ age 
-RESET = 25.6367, df1 = 2, df2 = 163, p-value = 2.086e-10
+data:  length ~ age
+RESET = 25.637, df1 = 2, df2 = 163, p-value = 2.086e-10
 
 
 > resettest(length ~ age, power = 2, type = "regressor", 
@@ -93,8 +93,8 @@ RESET = 25.6367, df1 = 2, df2 = 163, p-value = 2.086e-10
 
 	RESET test
 
-data:  length ~ age 
-RESET = 51.5541, df1 = 1, df2 = 164, p-value = 2.302e-11
+data:  length ~ age
+RESET = 51.554, df1 = 1, df2 = 164, p-value = 2.302e-11
 
 
 > raintest(length ~ age + I(age^2), order.by = ~age, 
@@ -102,7 +102,7 @@ RESET = 51.5541, df1 = 1, df2 = 164, p-value = 2.302e-11
 
 	Rainbow test
 
-data:  length ~ age + I(age^2) 
+data:  length ~ age + I(age^2)
 Rain = 1.579, df1 = 84, df2 = 80, p-value = 0.02033
 
 
@@ -113,3 +113,6 @@ Loading required package: strucchange
 Loading required package: sandwich
 
  *** Run successfully completed ***
+> proc.time()
+   user  system elapsed 
+  1.156   0.060   1.319 

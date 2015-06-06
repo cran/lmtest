@@ -1,6 +1,6 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
+Copyright (C) 2015 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -78,7 +78,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 +   waldtest(cm, cm2)
 + }
 Loading required package: dynlm
-Loading required package: car
 Wald test
 
 Model 1: chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3)
@@ -94,7 +93,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > cleanEx()
 
-detaching 'package:dynlm', 'package:car'
+detaching 'package:dynlm'
 
 > nameEx("Mandible")
 > ### * Mandible
@@ -201,7 +200,7 @@ con1          0.5495871 -0.005896092  0.008984392
 	Breusch-Godfrey test for serial correlation of order up to 1
 
 data:  y1 ~ x
-LM test = 0.0037, df = 1, p-value = 0.9516
+LM test = 0.0036887, df = 1, p-value = 0.9516
 
 >      ## or for fourth-order serial correlation
 >      bgtest(y1 ~ x, order = 4)
@@ -227,7 +226,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	Breusch-Godfrey test for serial correlation of order up to 1
 
 data:  y2 ~ x
-LM test = 19.9075, df = 1, p-value = 8.128e-06
+LM test = 19.907, df = 1, p-value = 8.128e-06
 
 >      bg4 <- bgtest(y2 ~ x, order = 4)
 >      bg4
@@ -287,7 +286,7 @@ Coefficients:
 	Durbin-Watson test
 
 data:  modelCH
-DW = 0.8448, p-value = 2.888e-08
+DW = 0.84484, p-value = 2.888e-08
 alternative hypothesis: true autocorrelation is greater than 0
 
 > ## wrong sign of RUS coefficient
@@ -323,7 +322,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	Chow test
 
 data:  modelCH
-F = 13.7752, p-value = 1.838e-08
+F = 13.775, p-value = 1.838e-08
 
 > 
 > ## Breusch-Pagan
@@ -349,7 +348,7 @@ BP = 2.9784, df = 4, p-value = 0.5614
 	RE test (recursive estimates test)
 
 data:  modelCH
-RE = 17.7584, p-value < 2.2e-16
+RE = 17.758, p-value < 2.2e-16
 
 > 
 > ## RESET
@@ -388,14 +387,14 @@ HC = 2.3951, df = 54, p-value = 0.02012
 	Harvey-Collier test
 
 data:  modelCH
-HC = 0.1707, df = 54, p-value = 0.8651
+HC = 0.17075, df = 54, p-value = 0.8651
 
 > harvtest(modelCH, order.by= ~ EXP, data=bondyield)
 
 	Harvey-Collier test
 
 data:  modelCH
-HC = 0.8713, df = 54, p-value = 0.3875
+HC = 0.87128, df = 54, p-value = 0.3875
 
 > harvtest(modelCH, order.by= ~ RUS, data=bondyield)
 
@@ -467,7 +466,7 @@ RESET = 1.9931, df1 = 2, df2 = 54, p-value = 0.1462
 	Harvey-Collier test
 
 data:  modelYM
-HC = 0.2487, df = 55, p-value = 0.8045
+HC = 0.24869, df = 55, p-value = 0.8045
 
 > harvtest(modelYM, order.by= ~ Y, data=bondyield)
 
@@ -481,7 +480,7 @@ HC = 2.1227, df = 55, p-value = 0.0383
 	Harvey-Collier test
 
 data:  modelYM
-HC = 0.0261, df = 55, p-value = 0.9793
+HC = 0.026056, df = 55, p-value = 0.9793
 
 > 
 > ## Rainbow
@@ -525,14 +524,14 @@ detaching 'package:strucchange', 'package:sandwich'
 	studentized Breusch-Pagan test
 
 data:  y1 ~ x
-BP = 11.0995, df = 1, p-value = 0.0008635
+BP = 11.099, df = 1, p-value = 0.0008635
 
 > bptest(y2 ~ x)
 
 	studentized Breusch-Pagan test
 
 data:  y2 ~ x
-BP = 0.1181, df = 1, p-value = 0.7311
+BP = 0.11809, df = 1, p-value = 0.7311
 
 > 
 > 
@@ -721,7 +720,7 @@ Coefficients:
 	Durbin-Watson test
 
 data:  modelMiles
-DW = 0.2702, p-value < 2.2e-16
+DW = 0.27024, p-value < 2.2e-16
 alternative hypothesis: true autocorrelation is greater than 0
 
 > 
@@ -740,7 +739,7 @@ Coefficients:
 	Durbin-Watson test
 
 data:  modelBordoChoudri
-DW = 0.5351, p-value = 2.261e-13
+DW = 0.53514, p-value = 2.261e-13
 alternative hypothesis: true autocorrelation is greater than 0
 
 > 
@@ -788,7 +787,7 @@ RESET = 1.1308, df1 = 2, df2 = 57, p-value = 0.3299
 	Harvey-Collier test
 
 data:  modelMiles
-HC = 0.8691, df = 58, p-value = 0.3884
+HC = 0.86911, df = 58, p-value = 0.3884
 
 > 
 > ## Rainbow
@@ -812,7 +811,7 @@ Rain = 1.766, df1 = 31, df2 = 28, p-value = 0.06603
 	Chow test
 
 data:  modelBordoChoudri
-F = 14.5716, p-value = 4.317e-08
+F = 14.572, p-value = 4.317e-08
 
 > 
 > ## Breusch-Pagan
@@ -821,14 +820,14 @@ F = 14.5716, p-value = 4.317e-08
 	Breusch-Pagan test
 
 data:  modelBordoChoudri
-BP = 14.5139, df = 3, p-value = 0.002283
+BP = 14.514, df = 3, p-value = 0.002283
 
 > bptest(modelBordoChoudri, data=currencysubstitution)
 
 	studentized Breusch-Pagan test
 
 data:  modelBordoChoudri
-BP = 10.7358, df = 3, p-value = 0.01324
+BP = 10.736, df = 3, p-value = 0.01324
 
 > 
 > ## RESET
@@ -837,7 +836,7 @@ BP = 10.7358, df = 3, p-value = 0.01324
 	RESET test
 
 data:  modelBordoChoudri
-RESET = 0.6931, df1 = 2, df2 = 55, p-value = 0.5043
+RESET = 0.69314, df1 = 2, df2 = 55, p-value = 0.5043
 
 > reset(modelBordoChoudri, power=2, type="regressor", data=currencysubstitution)
 
@@ -860,14 +859,14 @@ RESET = 8.2945, df1 = 2, df2 = 55, p-value = 0.0007107
 	Harvey-Collier test
 
 data:  modelBordoChoudri
-HC = 0.7554, df = 56, p-value = 0.4532
+HC = 0.75539, df = 56, p-value = 0.4532
 
 > harvtest(modelBordoChoudri, order.by = ~ Ic, data=currencysubstitution)
 
 	Harvey-Collier test
 
 data:  modelBordoChoudri
-HC = 0.4026, df = 56, p-value = 0.6888
+HC = 0.40259, df = 56, p-value = 0.6888
 
 > harvtest(modelBordoChoudri, order.by = ~ logY, data=currencysubstitution)
 
@@ -930,7 +929,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	Durbin-Watson test
 
 data:  y2 ~ x
-DW = 0.4596, p-value = 7.862e-15
+DW = 0.45961, p-value = 7.862e-15
 alternative hypothesis: true autocorrelation is greater than 0
 
 > 
@@ -1193,7 +1192,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	Chow test
 
 data:  modelHetzel
-F = 0.3788, p-value = 0.6911
+F = 0.37876, p-value = 0.6911
 
 > 
 > ## RESET
@@ -1339,14 +1338,14 @@ HC = 7.9751, df = 47, p-value = 2.775e-10
 	Harrison-McCabe test
 
 data:  y1 ~ x
-HMC = 0.1554, p-value < 2.2e-16
+HMC = 0.15542, p-value < 2.2e-16
 
 > hmctest(y2 ~ x)
 
 	Harrison-McCabe test
 
 data:  y2 ~ x
-HMC = 0.4429, p-value = 0.225
+HMC = 0.44287, p-value = 0.225
 
 > 
 > 
@@ -1379,7 +1378,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 	Breusch-Godfrey test for serial correlation of order up to 1
 
 data:  dy ~ 1
-LM test = 91.0373, df = 1, p-value < 2.2e-16
+LM test = 91.037, df = 1, p-value < 2.2e-16
 
 > ar6.model <- dy ~ dy1 + dy2 + dy3 + dy4 + dy5 +dy6
 > bgtest(ar6.model, data = jocci)
@@ -1387,7 +1386,7 @@ LM test = 91.0373, df = 1, p-value < 2.2e-16
 	Breusch-Godfrey test for serial correlation of order up to 1
 
 data:  ar6.model
-LM test = 0.2, df = 1, p-value = 0.6547
+LM test = 0.19999, df = 1, p-value = 0.6547
 
 > 
 > var.model <- ~ I(dy1^2) + I(dy2^2) + I(dy3^2) + I(dy4^2) + I(dy5^2) + I(dy6^2)
@@ -1396,7 +1395,7 @@ LM test = 0.2, df = 1, p-value = 0.6547
 	studentized Breusch-Pagan test
 
 data:  ar6.model
-BP = 22.3771, df = 6, p-value = 0.001034
+BP = 22.377, df = 6, p-value = 0.001034
 
 > 
 > 
@@ -1566,7 +1565,7 @@ Coefficients:
 	Durbin-Watson test
 
 data:  modelAllen
-DW = 0.1814, p-value < 2.2e-16
+DW = 0.18142, p-value < 2.2e-16
 alternative hypothesis: true autocorrelation is greater than 0
 
 > 
@@ -1579,14 +1578,14 @@ alternative hypothesis: true autocorrelation is greater than 0
 	Breusch-Pagan test
 
 data:  modelAllen
-BP = 13.3422, df = 4, p-value = 0.009719
+BP = 13.342, df = 4, p-value = 0.009719
 
 > bptest(modelAllen, studentize = TRUE, data = moneydemand)
 
 	studentized Breusch-Pagan test
 
 data:  modelAllen
-BP = 17.0695, df = 4, p-value = 0.001874
+BP = 17.069, df = 4, p-value = 0.001874
 
 > 
 > ## RESET
@@ -1595,14 +1594,14 @@ BP = 17.0695, df = 4, p-value = 0.001874
 	RESET test
 
 data:  modelAllen
-RESET = 92.7489, df1 = 2, df2 = 86, p-value < 2.2e-16
+RESET = 92.749, df1 = 2, df2 = 86, p-value < 2.2e-16
 
 > reset(modelAllen, power = 2, type = "regressor", data = moneydemand)
 
 	RESET test
 
 data:  modelAllen
-RESET = 68.1973, df1 = 4, df2 = 84, p-value < 2.2e-16
+RESET = 68.197, df1 = 4, df2 = 84, p-value < 2.2e-16
 
 > reset(modelAllen, type = "princomp", data = moneydemand)
 
@@ -1632,14 +1631,14 @@ HC = 1.4391, df = 87, p-value = 0.1537
 	Harvey-Collier test
 
 data:  modelAllen
-HC = 0.6218, df = 87, p-value = 0.5357
+HC = 0.62177, df = 87, p-value = 0.5357
 
 > harvtest(modelAllen, order.by = ~logSpp, data = moneydemand)
 
 	Harvey-Collier test
 
 data:  modelAllen
-HC = 0.7943, df = 87, p-value = 0.4292
+HC = 0.79431, df = 87, p-value = 0.4292
 
 > 
 > ## Rainbow test
@@ -1659,7 +1658,7 @@ Rain = 1.1387, df1 = 47, df2 = 41, p-value = 0.3374
 	Chow test
 
 data:  modelAllen
-F = 58.3138, p-value < 2.2e-16
+F = 58.314, p-value < 2.2e-16
 
 > 
 > if(require(strucchange, quietly = TRUE)) {
@@ -1719,7 +1718,6 @@ Loading required package: AER
 Loading required package: car
 Loading required package: sandwich
 Loading required package: survival
-Loading required package: splines
 PE test
 
 Model 1: m1 ~ tbill + gdp
@@ -1734,8 +1732,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > 
 > cleanEx()
 
-detaching 'package:AER', 'package:survival', 'package:splines',
-  'package:sandwich', 'package:car'
+detaching 'package:AER', 'package:survival', 'package:sandwich',
+  'package:car'
 
 > nameEx("raintest")
 > ### * raintest
@@ -1757,7 +1755,7 @@ detaching 'package:AER', 'package:survival', 'package:splines',
 	Rainbow test
 
 data:  y ~ x
-Rain = 25.7596, df1 = 15, df2 = 13, p-value = 3.169e-07
+Rain = 25.76, df1 = 15, df2 = 13, p-value = 3.169e-07
 
 > ## critical value
 > qf(0.95, rain$parameter[1], rain$parameter[2])
@@ -1786,14 +1784,14 @@ Rain = 25.7596, df1 = 15, df2 = 13, p-value = 3.169e-07
 	RESET test
 
 data:  y1 ~ x
-RESET = 153880.6, df1 = 1, df2 = 27, p-value < 2.2e-16
+RESET = 153880, df1 = 1, df2 = 27, p-value < 2.2e-16
 
 > resettest(y2 ~ x , power=2, type="regressor")
 
 	RESET test
 
 data:  y2 ~ x
-RESET = 0.0077, df1 = 1, df2 = 27, p-value = 0.9306
+RESET = 0.0077266, df1 = 1, df2 = 27, p-value = 0.9306
 
 > 
 > 
@@ -1883,7 +1881,7 @@ RESET = 5.2705, df1 = 4, df2 = 53, p-value = 0.001195
 	Harvey-Collier test
 
 data:  modelRea
-HC = 0.2315, df = 56, p-value = 0.8178
+HC = 0.23146, df = 56, p-value = 0.8178
 
 > harvtest(modelRea, order.by = ~ log(G), data=myunemployment)
 
@@ -1897,7 +1895,7 @@ HC = 1.8008, df = 56, p-value = 0.07711
 	Harvey-Collier test
 
 data:  modelRea
-HC = 0.7068, df = 56, p-value = 0.4826
+HC = 0.70681, df = 56, p-value = 0.4826
 
 > harvtest(modelRea, data=myunemployment)
 
@@ -2016,7 +2014,7 @@ BP = 2.5505, df = 5, p-value = 0.7689
 	RESET test
 
 data:  modelNichols
-RESET = 0.8642, df1 = 2, df2 = 10, p-value = 0.4506
+RESET = 0.86419, df1 = 2, df2 = 10, p-value = 0.4506
 
 > reset(modelNichols, power=2, type="regressor", data=mywages)
 
@@ -2053,7 +2051,7 @@ HC = 2.2039, df = 11, p-value = 0.04975
 	Harvey-Collier test
 
 data:  modelNichols
-HC = 0.2084, df = 11, p-value = 0.8387
+HC = 0.20839, df = 11, p-value = 0.8387
 
 > 
 > ## Rainbow
@@ -2062,7 +2060,7 @@ HC = 0.2084, df = 11, p-value = 0.8387
 	Rainbow test
 
 data:  modelNichols
-Rain = 0.6107, df1 = 9, df2 = 3, p-value = 0.7512
+Rain = 0.61074, df1 = 9, df2 = 3, p-value = 0.7512
 
 > 
 > 
@@ -2234,7 +2232,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.708 0.108 4.856 0 0 
+Time elapsed:  7.676 0.176 12.198 0 0 
 > grDevices::dev.off()
 null device 
           1 

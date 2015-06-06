@@ -80,10 +80,7 @@ coeftest.survreg <- function(x, vcov. = NULL, df = Inf, ...)
 
 coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
 {
-  stopifnot(require("strucchange"))
-  
   est <- coef(x, ...)
-
   if(is.null(df)) {
     df <- df.residual(x, ...)
     df <- as.vector(rep(df, rep(NCOL(est), length(df))))

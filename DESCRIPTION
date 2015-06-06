@@ -1,7 +1,7 @@
 Package: lmtest
 Title: Testing Linear Regression Models
-Version: 0.9-33
-Date: 2014-01-23
+Version: 0.9-34
+Date: 2015-06-06
 Authors@R: c(person(given = "Torsten", family = "Hothorn", role = "aut", email = "Torsten.Hothorn@R-project.org"),
              person(given = "Achim", family = "Zeileis", role = c("aut", "cre"), email = "Achim.Zeileis@R-project.org"),
              person(given = c("Richard", "W."), family = "Farebrother", role = "aut", comment = "pan.f"),
@@ -16,7 +16,8 @@ Depends: R (>= 2.10.0), stats, zoo
 Suggests: car, strucchange, sandwich, dynlm, stats4, survival, AER
 Imports: graphics
 License: GPL-2 | GPL-3
-Packaged: 2014-01-23 18:36:48 UTC; zeileis
+NeedsCompilation: yes
+Packaged: 2015-06-06 08:59:18 UTC; zeileis
 Author: Torsten Hothorn [aut],
   Achim Zeileis [aut, cre],
   Richard W. Farebrother [aut] (pan.f),
@@ -24,6 +25,5 @@ Author: Torsten Hothorn [aut],
   Giovanni Millo [ctb],
   David Mitchell [ctb]
 Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
-NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2014-01-23 19:41:44
+Date/Publication: 2015-06-06 13:03:26

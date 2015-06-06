@@ -49,7 +49,7 @@ Stock & Watson (1996) fitted an AR(6) model to all transformed time series.
 
 \source{
 Stock & Watson (1996) study the stability of 76 macroeconomic time series, which can be obtained
-from Mark W. Watson's homepage \url{http://www.wws.princeton.edu/~mwatson/}.
+from Mark W. Watson's homepage at \url{http://www.princeton.edu/~mwatson/ddisk/bivtvp.zip}.
 }
 \references{
 

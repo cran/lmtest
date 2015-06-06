@@ -1,3 +1,11 @@
+Changes in Version 0.9-34
+
+  o Registered all default methods as S3 methods (in addition to fully
+    exporting them).
+
+  o Reference output updated for recent versions of R.
+
+
 Changes in Version 0.9-33
 
   o Extended license to GPL-2 or GPL-3.
