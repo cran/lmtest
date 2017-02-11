@@ -27,6 +27,9 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
     Z <- Z[allnames,]
     y <- y[allnames]
   }
+
+  ## need at least one intercept plus one regressor
+  if(ncol(Z) < 2) stop("the auxiliary variance regression requires at least an intercept and a regressor")
    
   k <- ncol(X)
   n <- nrow(X)
@@ -37,26 +40,25 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
   if(studentize)
   {
     w <- resi^2 - sigma2
-    fv <- lm.fit(Z,w)$fitted
-    bp <- n * sum(fv^2)/sum(w^2)
+    aux <- lm.fit(Z, w)    
+    bp <- n * sum(aux$fitted.values^2)/sum(w^2)
     method <- "studentized Breusch-Pagan test"
   }
   else
   {
     f <- resi^2/sigma2 -1
-    fv <- lm.fit(Z,f)$fitted
-    bp <- 0.5 * sum(fv^2)
+    aux <- lm.fit(Z, f)
+    bp <- 0.5 * sum(aux$fitted.values^2)
     method <- "Breusch-Pagan test"
   }
 
   names(bp) <- "BP"
-  df <- ncol(Z)-1
-  names(df) <- "df";
+  df <- c("df" = aux$rank - 1)
   RVAL <- list(statistic = bp,
       parameter = df,
       method = method,
-      p.value= pchisq(bp,df,lower.tail=FALSE),
-      data.name=dname)
+      p.value= pchisq(bp, df, lower.tail = FALSE),
+      data.name = dname)
 
   class(RVAL) <- "htest"
   return(RVAL)

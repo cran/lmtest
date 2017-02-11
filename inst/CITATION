@@ -9,11 +9,11 @@ citEntry(entry="Article",
 	 volume       = "2",
 	 number       = "3",
 	 pages        = "7--10",
-         url          = "http://CRAN.R-project.org/doc/Rnews/",
+         url          = "https://CRAN.R-project.org/doc/Rnews/",
          
          textVersion = 
          paste("Achim Zeileis, Torsten Hothorn (2002).", 
                "Diagnostic Checking in Regression Relationships.",
                "R News 2(3), 7-10.",
-	       "URL http://CRAN.R-project.org/doc/Rnews/")
+	       "URL https://CRAN.R-project.org/doc/Rnews/")
 )

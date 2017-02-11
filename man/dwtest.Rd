@@ -49,13 +49,12 @@ Examples can not only be found on this page, but also on the help pages of the
 data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \code{\link{growthofmoney}}, \code{\link{moneydemand}},
 \code{\link{unemployment}}, \code{\link{wages}}.
-
-For an overview on R and econometrics see Racine & Hyndman (2002).
 }
 \value{An object of class \code{"htest"} containing:
   \item{statistic}{the test statistic.}
-  \item{p.value}{the corresponding p-value.}
   \item{method}{a character string with the method used.}
+  \item{alternative}{a character string describing the alternative hypothesis.}
+  \item{p.value}{the corresponding p-value.}
   \item{data.name}{a character string with the data name.}
 }
 \references{
@@ -86,11 +85,6 @@ R. W. Farebrother (1984),
 
 W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica.
-
-J. Racine & R. Hyndman (2002),
-Using R To Teach Econometrics.
-\emph{Journal of Applied Econometrics} \bold{17}, 175--189.
-
 }
 
 \seealso{\code{\link{lm}}}

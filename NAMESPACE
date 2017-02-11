@@ -3,10 +3,19 @@ import("stats", "graphics", "zoo")
 useDynLib("lmtest")
 
 export(
-  "bgtest",
-  "bptest",
+  ## generic tools
+  "coefci",
+  "coefci.default",
   "coeftest",
   "coeftest.default",
+  "lrtest",
+  "lrtest.default",
+  "waldtest",
+  "waldtest.default",
+
+  ## linear regression model under test
+  "bgtest",
+  "bptest",
   "coxtest",
   "dwtest",
   "encomptest",
@@ -16,14 +25,16 @@ export(
   "harvtest",
   "hmctest",
   "jtest",
-  "lrtest",
-  "lrtest.default",
   "petest",
   "raintest",
   "resettest",
-  "reset",
-  "waldtest",
-  "waldtest.default")
+  "reset"
+)
+
+S3method("coefci", "default")
+S3method("coefci", "glm")
+S3method("coefci", "mlm")
+S3method("coefci", "survreg")
 
 S3method("coeftest", "default")
 S3method("coeftest", "glm")

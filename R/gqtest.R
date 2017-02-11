@@ -65,6 +65,7 @@ gqtest <- function(formula, point = 0.5, fraction = 0,
   RVAL <- list(statistic = gq,
       parameter = df,
       method = method,
+      alternative = alternative,
       p.value= PVAL,
       data.name=dname)
 

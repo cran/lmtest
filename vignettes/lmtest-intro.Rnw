@@ -153,10 +153,10 @@ bptest(ar6.model, var.model, data = jocci)
 @
 The Goldfeld-Quandt test \verb/gqtest()/ and the Harrison-McCabe test \verb/hmctest()/
 also give highly significant $p$ values.
-Whereas the Breusch-Pagan test and the Harrison-McCabe test do not assume a
-particular timing of the change of variance, the Goldfeld-Quandt test suffers
-from the same problem as the Chow test for a change of the
-regression coefficients: the breakpoint has to be known in advance. By default
+Whereas the Breusch-Pagan test does not assume a
+particular timing of the change of variance, the Goldfeld-Quandt and the Harrison-McCabe tests suffer
+from the same problem as the Chow test for a change of the regression coefficients
+(available in package \texttt{strucchange}): the breakpoint has to be known in advance. By default
 it is taken to be after 50\% of the observations, which leads to a significant
 result for the present series.
 

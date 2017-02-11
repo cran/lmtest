@@ -1,6 +1,6 @@
 
-R version 3.2.0 (2015-04-16) -- "Full of Ingredients"
-Copyright (C) 2015 The R Foundation for Statistical Computing
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+Copyright (C) 2016 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -543,16 +543,17 @@ BP = 0.11809, df = 1, p-value = 0.7311
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: coeftest
-> ### Title: Testing Estimated Coefficients
-> ### Aliases: coeftest coeftest.default coeftest.survreg coeftest.glm
-> ###   coeftest.mlm coeftest.breakpointsfull print.coeftest
+> ### Title: Inference for Estimated Coefficients
+> ### Aliases: coeftest coefci coeftest.default coeftest.survreg coeftest.glm
+> ###   coeftest.mlm coeftest.breakpointsfull print.coeftest coefci.default
+> ###   coefci.survreg coefci.glm coefci.mlm
 > ### Keywords: htest
 > 
 > ### ** Examples
 > 
 > ## load data and fit model
-> data(Mandible)
-> fm <- lm(length ~ age, data=Mandible, subset=(age <= 28))
+> data("Mandible", package = "lmtest")
+> fm <- lm(length ~ age, data = Mandible, subset=(age <= 28))
 > 
 > ## the following commands lead to the same tests:
 > summary(fm)
@@ -599,10 +600,23 @@ age           1.772730   0.047704  37.161 < 2.2e-16 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 > 
-> if(require(sandwich)) {
+> ## corresponding confidence intervales
+> coefci(fm)
+                2.5 %    97.5 %
+(Intercept) -13.88169 -10.02504
+age           1.67850   1.86696
+> ## which in this simple case is equivalent to
+> confint(fm)
+                2.5 %    97.5 %
+(Intercept) -13.88169 -10.02504
+age           1.67850   1.86696
+> 
+> if(require("sandwich")) {
 + ## a different covariance matrix can be also used:
 + ## either supplied as a function
 + coeftest(fm, df = Inf, vcov = vcovHC)
++ ## or as a function with additional arguments
++ coeftest(fm, df = Inf, vcov = vcovHC, type = "HC0")
 + ## or as a matrix
 + coeftest(fm, df = Inf, vcov = vcovHC(fm, type = "HC0"))
 + }
@@ -1079,6 +1093,7 @@ detaching 'package:strucchange', 'package:sandwich'
 
 data:  y1 ~ x
 GQ = 5.4699, df1 = 48, df2 = 48, p-value = 1.404e-08
+alternative hypothesis: variance increases from segment 1 to 2
 
 > gqtest(y2 ~ x)
 
@@ -1086,6 +1101,7 @@ GQ = 5.4699, df1 = 48, df2 = 48, p-value = 1.404e-08
 
 data:  y2 ~ x
 GQ = 1.2638, df1 = 48, df2 = 48, p-value = 0.2102
+alternative hypothesis: variance increases from segment 1 to 2
 
 > 
 > 
@@ -2232,7 +2248,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.676 0.176 12.198 0 0 
+Time elapsed:  1.924 0.068 2.044 0 0 
 > grDevices::dev.off()
 null device 
           1 

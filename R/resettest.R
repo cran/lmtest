@@ -23,7 +23,7 @@ reset <- resettest <- function(formula, power=2:3,
   switch(type,
 
   "fitted" = {
-    y.hat <- lm.fit(X,y)$fitted
+    y.hat <- lm.fit(X,y)$fitted.values
     Z <- matrix(t(sapply(y.hat, "^", power)), nrow=n)
   },
 

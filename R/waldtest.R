@@ -22,7 +22,10 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
   ## - vcov(), potentially user-supplied
 
   ## use S4 methods if loaded
-  coef0   <- if("stats4" %in% loadedNamespaces()) stats4::coef   else coef
+  coef0   <- function(x, ...) {
+    coef1 <- if("stats4" %in% loadedNamespaces()) stats4::coef else coef
+    na.omit(coef1(x, ...))
+  }
   logLik0 <- if("stats4" %in% loadedNamespaces()) stats4::logLik else logLik
   update0 <- if("stats4" %in% loadedNamespaces()) stats4::update else update
   nobs0   <- function(x, ...) {
@@ -195,5 +198,6 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
 
 waldtest.lm <- function(object, ..., test = c("F", "Chisq"))
 {
+  if(!is.null(alias(object)$Complete)) stop("there are aliased coefficients in the model")
   waldtest.default(object, ..., test = match.arg(test))
 }

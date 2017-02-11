@@ -44,10 +44,10 @@ data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \value{
  A list with class \code{"htest"} containing the following components:
   \item{statistic}{the value of the test statistic.}
-  \item{p.value}{the p-value of the test.}
   \item{parameter}{degrees of freedom.}
-  \item{method}{a character string indicating what type of test was
-    performed.}
+  \item{method}{a character string indicating what type of test was performed.}
+  \item{alternative}{a character string describing the alternative hypothesis.}
+  \item{p.value}{the p-value of the test.}
   \item{data.name}{a character string giving the name(s) of the data.}
 }
 \references{

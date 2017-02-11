@@ -66,9 +66,9 @@ coxtest <- function(formula1, formula2, data = list())
   s2z <- mean(z.fit$residuals^2)
 
   # 3. / 5.
-  zx.fit <- lm.fit(Z, x.fit$fitted)
+  zx.fit <- lm.fit(Z, x.fit$fitted.values)
   s2zx <- s2x + mean(zx.fit$residuals^2)
-  xz.fit <- lm.fit(X, z.fit$fitted)
+  xz.fit <- lm.fit(X, z.fit$fitted.values)
   s2xz <- s2z + mean(xz.fit$residuals^2)
   
   # 4.

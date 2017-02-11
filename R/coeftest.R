@@ -12,7 +12,7 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
   ## extract coefficients and standard errors
   est <- coef0(x)
   if(is.null(vcov.)) se <- vcov0(x) else {
-      if(is.function(vcov.)) se <- vcov.(x)
+      if(is.function(vcov.)) se <- vcov.(x, ...)
         else se <- vcov.
   }
   se <- sqrt(diag(se))
@@ -91,7 +91,7 @@ coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
   
   se <- vcov(x, vcov. = vcov., ...)
 
-  se <- as.vector(sapply(seq(along = se), function(x) sqrt(diag(se[[x]]))))
+  se <- as.vector(sapply(seq_along(se), function(x) sqrt(diag(se[[x]]))))
   tval <- est/se
 
   if(any(is.finite(df) && df > 0)) {

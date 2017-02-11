@@ -1,9 +1,9 @@
-waldci <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ...)
+coefci <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ...)
 {
-  UseMethod("waldci")
+  UseMethod("coefci")
 }
 
-waldci.default <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ...)
+coefci.default <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ...)
 {
   ## use S4 methods if loaded
   coef0 <- if("stats4" %in% loadedNamespaces()) stats4::coef else coef
@@ -12,7 +12,7 @@ waldci.default <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL
   ## extract coefficients and standard errors
   est <- coef0(x)
   if(is.null(vcov.)) se <- vcov0(x) else {
-      if(is.function(vcov.)) se <- vcov.(x)
+      if(is.function(vcov.)) se <- vcov.(x, ...)
         else se <- vcov.
   }
   se <- sqrt(diag(se))
@@ -47,10 +47,10 @@ waldci.default <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL
   return(ci)
 } 
 
-waldci.glm <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = Inf, ...)
-  waldci.default(x, parm = parm, level = level, vcov. = vcov., df = df, ...)  
+coefci.glm <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = Inf, ...)
+  coefci.default(x, parm = parm, level = level, vcov. = vcov., df = df, ...)  
 
-waldci.mlm <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ...)
+coefci.mlm <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ...)
 {
   ## obtain vcov
   v <- if(is.null(vcov.)) vcov(x) else if(is.function(vcov.)) vcov.(x) else vcov.
@@ -59,10 +59,10 @@ waldci.mlm <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, ..
   x$coefficients <- structure(as.vector(x$coefficients), .Names = colnames(vcov(x)))
 
   ## call default method
-  waldci.default(x, parm = parm, level = level, vcov. = v, df = df, ...)
+  coefci.default(x, parm = parm, level = level, vcov. = v, df = df, ...)
 }
 
-waldci.survreg <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = Inf, ...)
+coefci.survreg <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = Inf, ...)
 {
   if(is.null(vcov.)) v <- vcov(x) else {
       if(is.function(vcov.)) v <- vcov.(x)
@@ -71,5 +71,5 @@ waldci.survreg <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = Inf,
   if(length(x$coefficients) < NROW(x$var)) {
     x$coefficients <- c(x$coefficients, "Log(scale)" = log(x$scale))
   }
-  waldci.default(x, parm = parm, level = level, vcov. = v, df = df, ...)  
+  coefci.default(x, parm = parm, level = level, vcov. = v, df = df, ...)  
 } 

@@ -1,3 +1,19 @@
+Changes in Version 0.9-35
+
+  o Added a new function coefci() to accompany coeftest() for computing
+    the Wald confidence intervals for coefficients, e.g., based on
+    sandwich covariances.
+    
+  o The default coeftest() method -- and also coefci() -- now pass the
+    ... arguments on to the vcov.() function argument (if any).
+
+  o Fixed bug in bptest() for degrees-of-freedom calculation when
+    some regressors are aliased/collinear. Reported by Amrei Luise
+    Stammann.
+
+  o Various documentation improvements suggested by Kevin Tappe.
+
+
 Changes in Version 0.9-34
 
   o Registered all default methods as S3 methods (in addition to fully

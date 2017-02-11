@@ -50,7 +50,7 @@ bgtest <- function(formula, order = 1, order.by = NULL, type = c("Chisq", "F"), 
   switch(match.arg(type),
 
   "Chisq" = {
-    bg <- n * sum(auxfit$fitted^2)/sum(resi^2)
+    bg <- n * sum(auxfit$fitted.values^2)/sum(resi^2)
     p.val <- pchisq(bg, m, lower.tail = FALSE)
     df <- m
     names(df) <- "df"

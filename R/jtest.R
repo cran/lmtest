@@ -60,8 +60,8 @@ jtest <- function(formula1, formula2, data = list(), vcov. = NULL, ...)
   if(!is.null(vcov.) && !is.function(vcov.)) stop("`vcov.' needs to be a function")
 
   ## fit auxiliary models:
-  y.hat1 <- lm.fit(X, y)$fitted
-  y.hat2 <- lm.fit(Z, y)$fitted
+  y.hat1 <- lm.fit(X, y)$fitted.values
+  y.hat2 <- lm.fit(Z, y)$fitted.values
   auxX <- cbind(X, y.hat2)
   auxZ <- cbind(Z, y.hat1)
   auxmodX <- lm(y ~ 0 + auxX)

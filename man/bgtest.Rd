@@ -59,15 +59,15 @@ bgtest(formula, order = 1, order.by = NULL, type = c("Chisq", "F"),
   \item{vcov}{corresponding covariance matrix estimate.}
 }
 \references{
-  Johnston, J. (1984): \emph{Econometric Methods}, Third Edition, McGraw Hill
-  Inc.
+  Breusch, T.S. (1978): Testing for Autocorrelation in Dynamic Linear
+  Models, \emph{Australian Economic Papers}, 17, 334-355.
 
-  Godfrey, L.G. (1978): `Testing Against General Autoregressive and
+  Godfrey, L.G. (1978): Testing Against General Autoregressive and
   Moving Average Error Models when the Regressors Include Lagged
-  Dependent Variables', \emph{Econometrica}, 46, 1293-1302.
+  Dependent Variables', \emph{Econometrica}, 46, 1293-1301.
 
-  Breusch, T.S. (1979): `Testing for Autocorrelation in Dynamic Linear
-  Models', \emph{Australian Economic Papers}, 17, 334-355.
+  Wooldridge, J.M. (2013): \emph{Introductory Econometrics: A Modern Approach},
+    5th edition, South-Western College.
 }
 \author{David Mitchell <david.mitchell@dotars.gov.au>, Achim Zeileis}
 \seealso{\code{\link{dwtest}}}

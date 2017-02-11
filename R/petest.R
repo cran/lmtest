@@ -115,8 +115,8 @@ petest <- function(formula1, formula2, data = list(), vcov. = NULL, ...)
   if(!is.null(vcov.) && !is.function(vcov.)) stop("`vcov.' needs to be a function")
 
   ## fit auxiliary models:
-  y.hat1 <- lm.fit(X, y)$fitted
-  y.hat2 <- lm.fit(Z, y2)$fitted
+  y.hat1 <- lm.fit(X, y)$fitted.values
+  y.hat2 <- lm.fit(Z, y2)$fitted.values
   y.aux1 <- if(islog1) y.hat2 - exp(y.hat1) else log(y.hat1) - y.hat2
   y.aux2 <- if(islog2) y.hat1 - exp(y.hat2) else log(y.hat2) - y.hat1
   aux1 <- cbind(X, y.aux1)
