@@ -20,9 +20,9 @@ doesn't complete the downward part of the pattern due to a conception.
 \source{
 The data set is taken from the Time Series Data Library at
 
-  \url{http://www-personal.buseco.monash.edu.au/~hyndman/TSDL/}
+  \url{http://data.is/TSDLdemo}
 
-maintained by Rob Hyndman and Muhammad Akram.
+maintained by Rob Hyndman.
 }
 
 \examples{

@@ -65,8 +65,8 @@ data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 
 J.M. Utts (1982),
 The Rainbow Test for Lack of Fit in Regression.
-\emph{Communications in Statistics - Theory and Methods} \bold{11},
-1801--1815
+\emph{Communications in Statistics -- Theory and Methods} \bold{11},
+2801--2815.
 
 W. Krämer & H. Sonnberger (1986),
 \emph{The Linear Regression Model under Test}. Heidelberg: Physica

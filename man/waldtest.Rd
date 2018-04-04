@@ -129,7 +129,7 @@ waldtest(fm3, "con1")
 waldtest(fm3, . ~ . - con1)
 
 ## comparing more than one model
-## (euqivalent to the encompassing test)
+## (equivalent to the encompassing test)
 waldtest(fm1, fm3, fm2)
 encomptest(fm1, fm2)
 

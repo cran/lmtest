@@ -30,7 +30,7 @@ parameterized differently.
 \references{
 
 S.D. Allen (1982),
-Kleins's Price Variability Terms in the U.S. Demand for Money.
+Klein's Price Variability Terms in the U.S. Demand for Money.
 \emph{Journal of Money, Credit and Banking} \bold{14}, 525--530
 
 W. Krämer & H. Sonnberger (1986),

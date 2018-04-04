@@ -1,11 +1,13 @@
 
-R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
-Copyright (C) 2016 The R Foundation for Statistical Computing
+R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+Copyright (C) 2018 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -21,9 +23,9 @@ Type 'q()' to quit R.
 > library('lmtest')
 Loading required package: zoo
 
-Attaching package: 'zoo'
+Attaching package: ‘zoo’
 
-The following objects are masked from 'package:base':
+The following objects are masked from ‘package:base’:
 
     as.Date, as.Date.numeric
 
@@ -63,7 +65,7 @@ Model 2: chicken ~ Lags(chicken, 1:3)
 1     44                     
 2     47 -3 5.405 0.002966 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## To perform the same tests `by hand', you can use dynlm() and waldtest():
 > if(require(dynlm)) {
@@ -87,13 +89,13 @@ Model 2: chicken ~ L(chicken, 1) + L(chicken, 2) + L(chicken, 3) + L(egg,
 1     47                     
 2     44  3 5.405 0.002966 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
 > cleanEx()
 
-detaching 'package:dynlm'
+detaching ‘package:dynlm’
 
 > nameEx("Mandible")
 > ### * Mandible
@@ -161,7 +163,7 @@ Coefficients:
 gnp          0.40015    0.06272   6.380 9.12e-06 ***
 con1         0.38073    0.09479   4.017 0.000996 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 6.837 on 16 degrees of freedom
 Multiple R-squared:  0.9976,	Adjusted R-squared:  0.9973 
@@ -248,7 +250,7 @@ lag(resid)_2 -0.0401917  0.1136254 -0.3537    0.7235
 lag(resid)_3 -0.1030000  0.1136071 -0.9066    0.3646    
 lag(resid)_4 -0.1184116  0.1049020 -1.1288    0.2590    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 > 
 > 
@@ -496,7 +498,7 @@ Rain = 1.2978, df1 = 30, df2 = 26, p-value = 0.2515
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("bptest")
 > ### * bptest
@@ -571,7 +573,7 @@ Coefficients:
 (Intercept) -11.9534     0.9762  -12.24   <2e-16 ***
 age           1.7727     0.0477   37.16   <2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 Residual standard error: 2.373 on 156 degrees of freedom
 Multiple R-squared:  0.8985,	Adjusted R-squared:  0.8978 
@@ -585,7 +587,7 @@ t test of coefficients:
 (Intercept) -11.953366   0.976227 -12.245 < 2.2e-16 ***
 age           1.772730   0.047704  37.161 < 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 > 
 > ## a z test (instead of a t test) can be performed by
@@ -597,7 +599,7 @@ z test of coefficients:
 (Intercept) -11.953366   0.976227 -12.245 < 2.2e-16 ***
 age           1.772730   0.047704  37.161 < 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 > 
 > ## corresponding confidence intervales
@@ -628,14 +630,14 @@ z test of coefficients:
 (Intercept) -11.953366   1.009817 -11.837 < 2.2e-16 ***
 age           1.772730   0.054343  32.621 < 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 > 
 > 
 > 
 > cleanEx()
 
-detaching 'package:sandwich'
+detaching ‘package:sandwich’
 
 > nameEx("coxtest")
 > ### * coxtest
@@ -673,7 +675,7 @@ Model 2: con ~ gnp + gnp1
 fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
 fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## ...and do the same for jtest() and encomptest().
 > ## Notice that in this particular case they are coincident.
@@ -686,7 +688,7 @@ Model 2: con ~ gnp + gnp1
 M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
 M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -697,7 +699,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -903,7 +905,7 @@ Rain = 3.7711, df1 = 31, df2 = 26, p-value = 0.0004604
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("dwtest")
 > ### * dwtest
@@ -990,7 +992,7 @@ Model 2: con ~ gnp + gnp1
 fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
 fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## ...and do the same for jtest() and encomptest().
 > ## Notice that in this particular case they are coincident.
@@ -1003,7 +1005,7 @@ Model 2: con ~ gnp + gnp1
 M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
 M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -1014,7 +1016,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## the encompassing test is essentially
 > waldtest(fm1, fm3, fm2)
@@ -1028,7 +1030,7 @@ Model 3: con ~ gnp + gnp1
 2     15  1 12.569 0.0029371 ** 
 3     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -1064,7 +1066,7 @@ Loading required package: sandwich
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("gqtest")
 > ### * gqtest
@@ -1138,7 +1140,7 @@ Model 2: chicken ~ Lags(chicken, 1:3)
 1     44                     
 2     47 -3 5.405 0.002966 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## alternative ways of specifying the same test
 > grangertest(ChickEgg, order = 3)
@@ -1286,7 +1288,7 @@ alternative hypothesis: true autocorrelation is greater than 0
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("harvtest")
 > ### * harvtest
@@ -1453,7 +1455,7 @@ Model 2: con ~ gnp + gnp1
 fitted(M1) ~ M2   2.8543    1.29978  2.1960   0.02809 *  
 fitted(M2) ~ M1  -4.4003    0.78961 -5.5727 2.508e-08 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## ...and do the same for jtest() and encomptest().
 > ## Notice that in this particular case they are coincident.
@@ -1466,7 +1468,7 @@ Model 2: con ~ gnp + gnp1
 M1 + fitted(M2)  -2.7041    0.76273 -3.5454 0.0029371 ** 
 M2 + fitted(M1)   2.7436    0.52710  5.2051 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -1477,7 +1479,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -1513,7 +1515,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > lrtest(fm2, 2)
 Likelihood ratio test
 
@@ -1523,7 +1525,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > lrtest(fm2, "con1")
 Likelihood ratio test
 
@@ -1533,7 +1535,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > lrtest(fm2, . ~ . - con1)
 Likelihood ratio test
 
@@ -1543,7 +1545,7 @@ Model 2: con ~ gnp + gnp1
 1   5 -56.069                         
 2   4 -65.871 -1 19.605  9.524e-06 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -1691,7 +1693,7 @@ RE = 9.5229, p-value < 2.2e-16
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("petest")
 > ### * petest
@@ -1732,6 +1734,7 @@ detaching 'package:strucchange', 'package:sandwich'
 + }
 Loading required package: AER
 Loading required package: car
+Loading required package: carData
 Loading required package: sandwich
 Loading required package: survival
 PE test
@@ -1742,14 +1745,14 @@ Model 2: log(m1) ~ log(tbill) + log(gdp)
 M1 + log(fit(M1))-fit(M2)  -209.35    26.7580 -7.8240  2.9e-13 ***
 M2 + fit(M1)-exp(fit(M2))     0.00     0.0003 -0.1603   0.8728    
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
 > cleanEx()
 
-detaching 'package:AER', 'package:survival', 'package:sandwich',
-  'package:car'
+detaching ‘package:AER’, ‘package:survival’, ‘package:sandwich’,
+  ‘package:car’, ‘package:carData’
 
 > nameEx("raintest")
 > ### * raintest
@@ -1795,14 +1798,14 @@ Rain = 25.76, df1 = 15, df2 = 13, p-value = 3.169e-07
 > x <- c(1:30)
 > y1 <- 1 + x + x^2 + rnorm(30)
 > y2 <- 1 + x + rnorm(30)
-> resettest(y1 ~ x , power=2, type="regressor")
+> resettest(y1 ~ x, power=2, type="regressor")
 
 	RESET test
 
 data:  y1 ~ x
 RESET = 153880, df1 = 1, df2 = 27, p-value < 2.2e-16
 
-> resettest(y2 ~ x , power=2, type="regressor")
+> resettest(y2 ~ x, power=2, type="regressor")
 
 	RESET test
 
@@ -1934,7 +1937,7 @@ Rain = 1.9521, df1 = 31, df2 = 26, p-value = 0.04274
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("valueofstocks")
 > ### * valueofstocks
@@ -2083,7 +2086,7 @@ Rain = 0.61074, df1 = 9, df2 = 3, p-value = 0.7512
 > 
 > cleanEx()
 
-detaching 'package:strucchange', 'package:sandwich'
+detaching ‘package:strucchange’, ‘package:sandwich’
 
 > nameEx("waldtest")
 > ### * waldtest
@@ -2125,7 +2128,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > anova(fm3, fm2)
 Analysis of Variance Table
 
@@ -2135,7 +2138,7 @@ Model 2: con ~ gnp + gnp1
 1     15  406.9                                  
 2     16 1141.8 -1   -734.93 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## as df = 1, the test is equivalent to the corresponding t test in
 > coeftest(fm3)
 
@@ -2147,7 +2150,7 @@ gnp          0.367170   0.048676  7.5432 1.763e-06 ***
 con1         1.044563   0.200682  5.2051 0.0001067 ***
 gnp1        -0.391718   0.110488 -3.5454 0.0029371 ** 
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 > 
 > ## various equivalent specifications of the two models
@@ -2160,7 +2163,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > waldtest(fm3, 2)
 Wald test
 
@@ -2170,7 +2173,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > waldtest(fm3, "con1")
 Wald test
 
@@ -2180,7 +2183,7 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > waldtest(fm3, . ~ . - con1)
 Wald test
 
@@ -2190,10 +2193,10 @@ Model 2: con ~ gnp + gnp1
 1     15                        
 2     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## comparing more than one model
-> ## (euqivalent to the encompassing test)
+> ## (equivalent to the encompassing test)
 > waldtest(fm1, fm3, fm2)
 Wald test
 
@@ -2205,7 +2208,7 @@ Model 3: con ~ gnp + gnp1
 2     15  1 12.569 0.0029371 ** 
 3     16 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > encomptest(fm1, fm2)
 Encompassing test
 
@@ -2216,7 +2219,7 @@ Model E: con ~ gnp + con1 + gnp1
 M1 vs. ME     15 -1 12.569 0.0029371 ** 
 M2 vs. ME     15 -1 27.093 0.0001067 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > ## using the asymptotic Chisq statistic
 > waldtest(fm3, fm2, test = "Chisq")
@@ -2228,7 +2231,7 @@ Model 2: con ~ gnp + gnp1
 1     15                         
 2     16 -1 27.093  1.939e-07 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > ## plugging in a HC estimator
 > if(require(sandwich)) waldtest(fm3, fm2, vcov = vcovHC)  
 Loading required package: sandwich
@@ -2240,7 +2243,7 @@ Model 2: con ~ gnp + gnp1
 1     15                      
 2     16 -1 9.7456 0.006998 **
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 > 
 > 
 > 
@@ -2248,7 +2251,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.924 0.068 2.044 0 0 
+Time elapsed:  4.79 0.06 4.864 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -8,7 +8,7 @@
 
 \usage{
 resettest(formula, power = 2:3, type = c("fitted", "regressor",
-  "princomp"), data = list())
+  "princomp"), data = list(), vcov = NULL, \dots)
 }
 
 \arguments{
@@ -24,6 +24,8 @@ resettest(formula, power = 2:3, type = c("fitted", "regressor",
  \item{data}{an optional data frame containing the variables in the model.
     By default the variables are taken from the environment which \code{resettest}
     is called from.}
+ \item{vcov, \dots}{optional arguments to be passed to \code{\link{waldtest}}
+    for carrying out the F test.}
 }
 
 \details{
@@ -56,8 +58,7 @@ data sets \code{\link{bondyield}}, \code{\link{currencysubstitution}},
 \references{
 
 J.B. Ramsey (1969),
-Tests for Specification Error in Classical Linear Least Squares Regression
-Analysis.
+Tests for Specification Errors in Classical Linear Least-Squares Regression Analysis.
 \emph{Journal of the Royal Statistical Society, Series B} \bold{31},
 350--371
 
@@ -72,8 +73,8 @@ W. Krämer & H. Sonnberger (1986),
 x <- c(1:30)
 y1 <- 1 + x + x^2 + rnorm(30)
 y2 <- 1 + x + rnorm(30)
-resettest(y1 ~ x , power=2, type="regressor")
-resettest(y2 ~ x , power=2, type="regressor")
+resettest(y1 ~ x, power=2, type="regressor")
+resettest(y2 ~ x, power=2, type="regressor")
 }
 
 \keyword{htest}
