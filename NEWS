@@ -1,3 +1,20 @@
+Changes in Version 0.9-37
+
+  o coeftest() gained a "df" attribute facilitating subsequent processing
+    of its output, e.g., for computing the corresponding confidence intervals.
+    Suggested by Alex Hayes in https://github.com/tidymodels/broom/issues/663.
+    
+  o Based on the new "df" attribute of "coeftest" objects, a method for
+    confint() is added. confint(coeftest(object, ...)) should match the output
+    of coefci(object, ...).
+
+  o Based on the new "df" attribute of "coeftest" objects, a method for
+    df.residual() is added. df.residual(coeftest(object, ...)) returns NULL
+    if a normal (rather than t) approximation was used in
+    coeftest(object, ...) even if df.residual(object) returned something
+    different.
+
+
 Changes in Version 0.9-36
 
   o resettest() gained a vcov and ... argument that - if present - are

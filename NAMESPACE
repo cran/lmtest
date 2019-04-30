@@ -42,6 +42,8 @@ S3method("coeftest", "mlm")
 S3method("coeftest", "survreg")
 S3method("coeftest", "breakpointsfull")
 S3method("print", "coeftest")
+S3method("df.residual", "coeftest")
+S3method("confint", "coeftest")
 
 S3method("grangertest", "default")
 S3method("grangertest", "formula")

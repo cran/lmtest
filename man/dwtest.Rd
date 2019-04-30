@@ -65,7 +65,7 @@ Testing for Serial Correlation in Least Squares Regression I.
 
 J. Durbin & G.S. Watson (1951),
 Testing for Serial Correlation in Least Squares Regression II.
-\emph{Biometrika} \bold{38}, 159--178.
+\emph{Biometrika} \bold{38}, 159--177.
 
 J. Durbin & G.S. Watson (1971),
 Testing for Serial Correlation in Least Squares Regression III.

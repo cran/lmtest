@@ -18,11 +18,7 @@ doesn't complete the downward part of the pattern due to a conception.
 }
 
 \source{
-The data set is taken from the Time Series Data Library at
-
-  \url{http://data.is/TSDLdemo}
-
-maintained by Rob Hyndman.
+The data set was taken from the Time Series Data Library, maintained by Rob Hyndman.
 }
 
 \examples{

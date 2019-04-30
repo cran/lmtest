@@ -1,6 +1,6 @@
 
-R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
-Copyright (C) 2018 The R Foundation for Statistical Computing
+R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -31,6 +31,7 @@ The following objects are masked from ‘package:base’:
 
 > 
 > base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("ChickEgg")
 > ### * ChickEgg
@@ -547,8 +548,9 @@ BP = 0.11809, df = 1, p-value = 0.7311
 > ### Name: coeftest
 > ### Title: Inference for Estimated Coefficients
 > ### Aliases: coeftest coefci coeftest.default coeftest.survreg coeftest.glm
-> ###   coeftest.mlm coeftest.breakpointsfull print.coeftest coefci.default
-> ###   coefci.survreg coefci.glm coefci.mlm
+> ###   coeftest.mlm coeftest.breakpointsfull print.coeftest confint.coeftest
+> ###   df.residual.coeftest coefci.default coefci.survreg coefci.glm
+> ###   coefci.mlm
 > ### Keywords: htest
 > 
 > ### ** Examples
@@ -579,7 +581,7 @@ Residual standard error: 2.373 on 156 degrees of freedom
 Multiple R-squared:  0.8985,	Adjusted R-squared:  0.8978 
 F-statistic:  1381 on 1 and 156 DF,  p-value: < 2.2e-16
 
-> coeftest(fm)
+> (ct <- coeftest(fm))
 
 t test of coefficients:
 
@@ -602,7 +604,11 @@ age           1.772730   0.047704  37.161 < 2.2e-16 ***
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 > 
-> ## corresponding confidence intervales
+> ## corresponding confidence intervals
+> confint(ct)
+                2.5 %    97.5 %
+(Intercept) -13.88169 -10.02504
+age           1.67850   1.86696
 > coefci(fm)
                 2.5 %    97.5 %
 (Intercept) -13.88169 -10.02504
@@ -615,9 +621,19 @@ age           1.67850   1.86696
 > 
 > if(require("sandwich")) {
 + ## a different covariance matrix can be also used:
-+ ## either supplied as a function
-+ coeftest(fm, df = Inf, vcov = vcovHC)
-+ ## or as a function with additional arguments
++ (ct <- coeftest(fm, df = Inf, vcov = vcovHC))
++ 
++ ## the corresponding confidence interval can be computed either as
++ confint(ct)
++ ## or based on the original model
++ coefci(fm, df = Inf, vcov = vcovHC)
++ 
++ ## note that the degrees of freedom _actually used_ can be extracted
++ df.residual(ct)
++ ## which differ here from
++ df.residual(fm)
++ 
++ ## vcov can also be supplied as a function with additional arguments
 + coeftest(fm, df = Inf, vcov = vcovHC, type = "HC0")
 + ## or as a matrix
 + coeftest(fm, df = Inf, vcov = vcovHC(fm, type = "HC0"))
@@ -1803,7 +1819,7 @@ Rain = 25.76, df1 = 15, df2 = 13, p-value = 3.169e-07
 	RESET test
 
 data:  y1 ~ x
-RESET = 153880, df1 = 1, df2 = 27, p-value < 2.2e-16
+RESET = 153881, df1 = 1, df2 = 27, p-value < 2.2e-16
 
 > resettest(y2 ~ x, power=2, type="regressor")
 
@@ -2249,9 +2265,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 > 
 > ### * <FOOTER>
 > ###
+> cleanEx()
+
+detaching ‘package:sandwich’
+
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.79 0.06 4.864 0 0 
+Time elapsed:  1.962 0.069 2.134 0 0 
 > grDevices::dev.off()
 null device 
           1 

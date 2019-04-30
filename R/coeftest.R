@@ -47,6 +47,7 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
   colnames(rval) <- cnames
   class(rval) <- "coeftest"
   attr(rval, "method") <- paste(mthd, "test of coefficients")
+  attr(rval, "df") <- df
   ##  dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
   return(rval)
 } 
@@ -121,3 +122,33 @@ print.coeftest <- function(x, ...)
   cat("\n")
   invisible(x)
 }
+
+df.residual.coeftest <- function(object, ...) {
+  df <- attr(object, "df")
+  if(df > 0) df else NULL
+}
+
+confint.coeftest <- function(object, parm = NULL, level = 0.95, ...)
+{
+  ## get estimates
+  est <- object[, 1L]
+  se <- object[, 2L]
+
+  ## process level
+  a <- (1 - level)/2
+  a <- c(a, 1 - a)
+  
+  ## get quantile from central limit theorem
+  df <- attr(object, "df")
+  fac <- if(is.finite(df) && df > 0) qt(a, df = df) else qnorm(a)
+
+  ## set up confidence intervals
+  ci <- cbind(est + fac[1] * se, est + fac[2] * se)
+  colnames(ci) <- paste(format(100 * a, trim = TRUE, scientific = FALSE, digits = 3L), "%")
+  
+  ## process parm
+  if(is.null(parm)) parm <- seq_along(est)
+  if(is.character(parm)) parm <- which(names(est) %in% parm)
+  ci <- ci[parm, , drop = FALSE]
+  return(ci)
+} 
