@@ -110,8 +110,9 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
     n <- nobs0(fm1)
 
     ## determine omitted variables
-    if(!all(tlab(fm0) %in% tlab(fm1))) stop("models are not nested")
+    if(!all(tlab(fm0) %in% tlab(fm1))) stop("nesting of models cannot be determined")
     ovar <- which(!(names(coef0(fm1)) %in% names(coef0(fm0))))
+    if(abs(q) != length(ovar)) stop("nesting of models cannot be determined")
 
     ## get covariance matrix estimate
     vc <- if(is.null(vfun)) vcov(fm1)
@@ -198,6 +199,18 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
 
 waldtest.lm <- function(object, ..., test = c("F", "Chisq"))
 {
+  ## aliased coefficients?
   if(!is.null(alias(object)$Complete)) stop("there are aliased coefficients in the model")
-  waldtest.default(object, ..., test = match.arg(test))
+
+  ## default reference model: either . ~ 1 or . ~ 0
+  ## otherwise just pass on to default
+  if(length(list(object, ...)) < 2L) {
+    if(attr(terms(object), "intercept") < 1L) {
+      waldtest.default(object, . ~ 0, test = match.arg(test))  
+    } else {
+      waldtest.default(object, . ~ 1, test = match.arg(test))      
+    }
+  } else {
+    waldtest.default(object, ..., test = match.arg(test))
+  }
 }

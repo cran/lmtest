@@ -3,11 +3,13 @@ coeftest <- function(x, vcov. = NULL, df = NULL, ...)
   UseMethod("coeftest")
 }
 
-coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
+coeftest.default <- function(x, vcov. = NULL, df = NULL, ..., save = FALSE)
 {
   ## use S4 methods if loaded
   coef0 <- if("stats4" %in% loadedNamespaces()) stats4::coef else coef
   vcov0 <- if("stats4" %in% loadedNamespaces()) stats4::vcov else vcov
+  nobs0 <- if("stats4" %in% loadedNamespaces()) stats4::nobs else nobs
+  logl0 <- if("stats4" %in% loadedNamespaces()) stats4::logLik else logLik
 
   ## extract coefficients and standard errors
   est <- coef0(x)
@@ -48,7 +50,14 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ...)
   class(rval) <- "coeftest"
   attr(rval, "method") <- paste(mthd, "test of coefficients")
   attr(rval, "df") <- df
-  ##  dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
+  
+  ## supplementary information for model summary
+  n <- try(nobs0(x), silent = TRUE)
+  attr(rval, "nobs") <- if(inherits(n, "try-error")) NULL else n
+  ll <- try(logl0(x), silent = TRUE)
+  attr(rval, "logLik") <- if(inherits(ll, "try-error")) NULL else ll
+  if(save) attr(rval, "object") <- x
+  
   return(rval)
 } 
 
@@ -79,7 +88,7 @@ coeftest.survreg <- function(x, vcov. = NULL, df = Inf, ...)
   coeftest.default(x, vcov. = v, df = df, ...)  
 } 
 
-coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
+coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ..., save = FALSE)
 {
   est <- coef(x, ...)
   if(is.null(df)) {
@@ -110,6 +119,12 @@ coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ...)
   class(rval) <- "coeftest"
   attr(rval, "method") <- paste(mthd, "test of coefficients")
   ##  dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
+
+  ## supplementary information for model summary
+  attr(rval, "nobs") <- x$nobs
+  attr(rval, "logLik") <- logLik(x, ...)
+  if(save) attr(rval, "object") <- x
+
   return(rval)
 } 
 
@@ -123,9 +138,22 @@ print.coeftest <- function(x, ...)
   invisible(x)
 }
 
+coef.coeftest <- function(object, ...) {
+  object[, 1L, drop = TRUE]
+}
+
 df.residual.coeftest <- function(object, ...) {
   df <- attr(object, "df")
   if(df > 0) df else NULL
+}
+
+nobs.coeftest <- function(object, ...) {
+  nobs <- attr(object, "nobs")
+  if(nobs >= 0) nobs else NULL
+}
+
+logLik.coeftest <- function(object, ...) {
+  attr(object, "logLik")
 }
 
 confint.coeftest <- function(object, parm = NULL, level = 0.95, ...)

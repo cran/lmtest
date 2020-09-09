@@ -8,7 +8,10 @@
 \alias{coeftest.breakpointsfull}
 \alias{print.coeftest}
 \alias{confint.coeftest}
+\alias{coef.coeftest}
 \alias{df.residual.coeftest}
+\alias{nobs.coeftest}
+\alias{logLik.coeftest}
 \alias{coefci.default}
 \alias{coefci.survreg}
 \alias{coefci.glm}
@@ -25,6 +28,8 @@
 
 \usage{
 coeftest(x, vcov. = NULL, df = NULL, \dots)
+
+\method{coeftest}{default}(x, vcov. = NULL, df = NULL, \dots, save = FALSE)
 
 coefci(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, \dots)
 }
@@ -43,6 +48,10 @@ coefci(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL, \dots)
     and performs a z test if this is \code{NULL}.}
   \item{\dots}{further arguments passed to the methods
     and to \code{vcov.} in the default method.}
+  \item{save}{logical. Should the object \code{x} itself be
+    saved as an attribute? (This may be useful for further
+    processing of \code{coeftest} objects, e.g., as part of
+    model summaries.)}
   \item{parm}{a specification of which parameters are to be given
     confidence intervals, either a vector of numbers or a vector
     of names.  If missing, all parameters are considered.}
@@ -70,23 +79,38 @@ are three possibilities:
 or \code{\link[sandwich]{vcovHAC}} from package \pkg{sandwich}.
 3. \code{vcov.} is set to \code{NULL}, then it is assumed that
 a \code{vcov} method exists, such that \code{vcov(x)} yields
-a covariance matrix. For illustrations see below.
+a covariance matrix. Illustrations are provided in the examples below.
 
 The degrees of freedom \code{df} determine whether a normal
 approximation is used or a t distribution with \code{df} degrees
-of freedoms is used. The default method uses \code{df.residual(x)}
-and if this is \code{NULL} a z test is performed. The method for
-\code{"glm"} objects always uses \code{df = Inf} (i.e., a z test).
+of freedom. The default method computes \code{df.residual(x)}
+and if this is \code{NULL}, \code{0}, or \code{Inf} a z test is performed.
+The method for \code{"glm"} objects always uses \code{df = Inf} (i.e., a z test).
 
 The corresponding Wald confidence intervals can be computed either
 by applying \code{coefci} to the original model or \code{\link[stats]{confint}}
 to the output of \code{coeftest}. See below for examples.
+
+Finally, \code{\link[stats]{nobs}} and \code{\link[stats]{logLik}}
+methods are provided which work, provided that there are such methods
+for the original object \code{x}. In that case, \code{"nobs"} and
+\code{"logLik"} attributes are stored in the \code{coeftest} output
+so that they can be still queried subsequently. If both methods are
+available, \code{\link[stats]{AIC}} and \code{\link[stats]{BIC}}
+can also be applied.
 }
 
 \value{
   \code{coeftest} returns an object of class \code{"coeftest"} which
   is essentially a coefficient matrix with columns containing the
   estimates, associated standard errors, test statistics and p values.
+  Attributes for a \code{"method"} label, and the \code{"df"} are
+  added along with \code{"nobs"} and \code{"logLik"} (provided that
+  suitable extractor methods \code{\link[stats]{nobs}} and
+  \code{\link[stats]{logLik}} are available). Optionally, the full
+  object \code{x} can be \code{save}d in an attribute \code{"object"}
+  to facilitate further model summaries based on the \code{coeftest}
+  result.
   
   \code{coefci} returns a matrix (or vector) with columns giving
   lower and upper confidence limits for each parameter. These will
@@ -112,6 +136,15 @@ confint(ct)
 coefci(fm)
 ## which in this simple case is equivalent to
 confint(fm)
+
+## extract further model information either from
+## the original model or from the coeftest output
+nobs(fm)
+nobs(ct)
+logLik(fm)
+logLik(ct)
+AIC(fm, ct)
+BIC(fm, ct)
 
 if(require("sandwich")) {
 ## a different covariance matrix can be also used:

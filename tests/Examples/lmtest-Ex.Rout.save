@@ -1,6 +1,6 @@
 
-R version 3.6.0 (2019-04-26) -- "Planting of a Tree"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R version 4.0.2 (2020-06-22) -- "Taking Off Again"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -549,8 +549,8 @@ BP = 0.11809, df = 1, p-value = 0.7311
 > ### Title: Inference for Estimated Coefficients
 > ### Aliases: coeftest coefci coeftest.default coeftest.survreg coeftest.glm
 > ###   coeftest.mlm coeftest.breakpointsfull print.coeftest confint.coeftest
-> ###   df.residual.coeftest coefci.default coefci.survreg coefci.glm
-> ###   coefci.mlm
+> ###   coef.coeftest df.residual.coeftest nobs.coeftest logLik.coeftest
+> ###   coefci.default coefci.survreg coefci.glm coefci.mlm
 > ### Keywords: htest
 > 
 > ### ** Examples
@@ -618,6 +618,25 @@ age           1.67850   1.86696
                 2.5 %    97.5 %
 (Intercept) -13.88169 -10.02504
 age           1.67850   1.86696
+> 
+> ## extract further model information either from
+> ## the original model or from the coeftest output
+> nobs(fm)
+[1] 158
+> nobs(ct)
+[1] 158
+> logLik(fm)
+'log Lik.' -359.7029 (df=3)
+> logLik(ct)
+'log Lik.' -359.7029 (df=3)
+> AIC(fm, ct)
+   df      AIC
+fm  3 725.4059
+ct  3 725.4059
+> BIC(fm, ct)
+   df      BIC
+fm  3 734.5937
+ct  3 734.5937
 > 
 > if(require("sandwich")) {
 + ## a different covariance matrix can be also used:
@@ -2271,7 +2290,7 @@ detaching ‘package:sandwich’
 
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.962 0.069 2.134 0 0 
+Time elapsed:  5.373 0.945 5.138 0.001 0.001 
 > grDevices::dev.off()
 null device 
           1 

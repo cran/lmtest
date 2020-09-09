@@ -1,3 +1,23 @@
+Changes in Version 0.9-38
+
+  o coeftest.default() now includes attributes for "nobs" and "logLik" provided
+    that nobs() and logLik() extractors are available. This is in order to
+    facilitate model summaries a la broom::glance for "coeftest" objects
+    (suggested by Grant McDermott). The attributes can be extracted again
+    from the coeftest object with nobs() and logLik(), respectively.
+    
+  o Optionally, the entire original model object x is saved as an attribute
+    "object" in coeftest(x, save = TRUE). Like nobs/logLik above, this should
+    also facilitate model summaries.
+
+  o waldtest.default() is stricter about detecting non-nestedness of models,
+    e.g., when under the alternative variables are added but the intercept
+    dropped.
+    
+  o waldtest.lm() now uses . ~ 0 as the default reference model if waldtest(object)
+    tests an object without intercept (suggested by Kevin Tappe).
+
+
 Changes in Version 0.9-37
 
   o coeftest() gained a "df" attribute facilitating subsequent processing
