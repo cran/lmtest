@@ -1,3 +1,15 @@
+Changes in Version 0.9-39
+
+  o Small improvements in handling of "df" attribute in coeftest() methods.
+
+  o In case update() is called within the default waldtest() method, it tries
+    harder to evaluate this in the calling environment (reported by Vincent
+    Arel-Bundock). This is still not guaranteed to find the right data but
+    should be more robust than the previous implementation. To avoid any such
+    issues it is recommended to call waldtest(object1, object2) and fitted
+    model objects (and not just update formulas).
+
+
 Changes in Version 0.9-38
 
   o coeftest.default() now includes attributes for "nobs" and "logLik" provided

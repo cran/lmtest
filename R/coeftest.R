@@ -121,6 +121,7 @@ coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ..., save = FAL
   ##  dQuote(class(x)[1]), "object", sQuote(deparse(substitute(x))))
 
   ## supplementary information for model summary
+  attr(rval, "df") <- df
   attr(rval, "nobs") <- x$nobs
   attr(rval, "logLik") <- logLik(x, ...)
   if(save) attr(rval, "object") <- x
@@ -168,6 +169,7 @@ confint.coeftest <- function(object, parm = NULL, level = 0.95, ...)
   
   ## get quantile from central limit theorem
   df <- attr(object, "df")
+  if(is.null(df)) df <- 0
   fac <- if(is.finite(df) && df > 0) qt(a, df = df) else qnorm(a)
 
   ## set up confidence intervals

@@ -1,10 +1,10 @@
-600b68ee7ec158520eff490ee8366118 *DESCRIPTION
+b227773cc513cced121759aaedf2493a *DESCRIPTION
 6a9d404ad3841fd7a9e24ec174ab8825 *NAMESPACE
-9f4ddaf2580b2986fb0f4da2411afc99 *NEWS
+cbb0daf0d1bac936b4726f8575704c55 *NEWS
 9ff9a6c78c64aa76b81e22a4203aa1b8 *R/bgtest.R
 62585b948e69c4ed781d539b9567ead0 *R/bptest.R
 bce4b5bd32acab5aad81f42c8bc1b476 *R/coefci.R
-f558b827b19a238d44c8bbff4118793b *R/coeftest.R
+f1c7518e1b016ad37113a59928e253cd *R/coeftest.R
 9ea3e3a0319980c4593ae8e6792f211e *R/coxtest.R
 97c93c5f1e8cd21a8a8c615e9b1b6e62 *R/dwtest.R
 addd70e4e5f45686fd1772d0b93068c4 *R/encomptest.R
@@ -17,9 +17,9 @@ e4f01792b2d185354ae87c2eac5b850f *R/jtest.R
 4adec0118dbfac8e34e9ecd17cce7446 *R/petest.R
 5e81b08e3651d4fb4ef2119c44827f70 *R/raintest.R
 1751e3a10faa14bf13e930a9a284da97 *R/resettest.R
-767985a9a24285bae75041b180478d89 *R/waldtest.R
+36bfebce4747fe1ea5396cfcba85bed7 *R/waldtest.R
 2cfe4e82355720f2017d2f934446fd02 *THANKS
-73f4864987c93f6ae48262c6c144a97f *build/vignette.rds
+7713e0be736313475e0c61514fa49b03 *build/vignette.rds
 503c8b05f05c7b3ef13a56dcee25edbd *data/ChickEgg.rda
 32b10429db695f7b5d558dc803971c3d *data/Mandible.rda
 982e3714326fc991ab547fa1ffe548ce *data/USDistLag.rda
@@ -40,7 +40,7 @@ e3c1017c2fda3fc54549b4ba120bdfed *data/ip.rda
 5ee321d65be6adaba0a58b11d1dc2902 *inst/CITATION
 e6ed82fb1fa5c1578e9c5e32fb9a11b0 *inst/doc/lmtest-intro.R
 fb1ceeddef0e299a6acd781fbd1f79a0 *inst/doc/lmtest-intro.Rnw
-4e8187dc558749ba7cc09b7846d55cb9 *inst/doc/lmtest-intro.pdf
+1ff5bc71c5d8bcfc41ebc123034bce5e *inst/doc/lmtest-intro.pdf
 7ba2ccada3351e9e5fad389b05388522 *man/ChickEgg.Rd
 678803c2480f56f9493e644b7c3bad0d *man/Mandible.Rd
 b8314e22acae846be20aedc29df8e13a *man/USDistLag.Rd

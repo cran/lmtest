@@ -90,7 +90,10 @@ waldtest.default <- function(object, ..., vcov = NULL, test = c("Chisq", "F"), n
       ## finally turn character into formula update specification       
       update <- as.formula(paste(". ~ . -", paste(update, collapse = " - ")))
     }
-    if(inherits(update, "formula")) update <- update0(fm, update)
+    if(inherits(update, "formula")) {
+      update <- update0(fm, update, evaluate = FALSE)
+      update <- eval(update, parent.frame(3))
+    }
     if(!inherits(update, cls)) stop(paste("original model was of class \"", cls,
       "\", updated model is of class \"", class(update)[1], "\"", sep = ""))
     return(update)
