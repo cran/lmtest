@@ -36,7 +36,7 @@ coeftest.default <- function(x, vcov. = NULL, df = NULL, ..., save = FALSE)
   }
   if(is.null(df)) df <- 0
 
-  if(is.finite(df) && df > 0) {
+  if(any(is.finite(df)) && all(df > 0)) {
     pval <- 2 * pt(abs(tval), df = df, lower.tail = FALSE)
     cnames <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
     mthd <- "t"
@@ -104,7 +104,7 @@ coeftest.breakpointsfull <- function(x, vcov. = NULL, df = NULL, ..., save = FAL
   se <- as.vector(sapply(seq_along(se), function(x) sqrt(diag(se[[x]]))))
   tval <- est/se
 
-  if(any(is.finite(df) && df > 0)) {
+  if(any(is.finite(df)) && all(df > 0)) {
     pval <- 2 * pt(abs(tval), df = df, lower.tail = FALSE)
     cnames <- c("Estimate", "Std. Error", "t value", "Pr(>|t|)")
     mthd <- "t"
@@ -170,7 +170,7 @@ confint.coeftest <- function(object, parm = NULL, level = 0.95, ...)
   ## get quantile from central limit theorem
   df <- attr(object, "df")
   if(is.null(df)) df <- 0
-  fac <- if(is.finite(df) && df > 0) qt(a, df = df) else qnorm(a)
+  fac <- if(any(is.finite(df)) && all(df > 0)) qt(a, df = df) else qnorm(a)
 
   ## set up confidence intervals
   ci <- cbind(est + fac[1] * se, est + fac[2] * se)

@@ -4,7 +4,7 @@
 \title{Breusch-Pagan Test}
 \description{Performs the Breusch-Pagan test against heteroskedasticity.}
 \usage{
-bptest(formula, varformula = NULL, studentize = TRUE, data = list())
+bptest(formula, varformula = NULL, studentize = TRUE, data = list(), weights = NULL)
 }
 \arguments{
   \item{formula}{a symbolic description for the model to be tested
@@ -17,6 +17,7 @@ bptest(formula, varformula = NULL, studentize = TRUE, data = list())
  \item{data}{an optional data frame containing the variables in the model.
 By default the variables are taken from the environment which \code{bptest} is
 called from.}
+  \item{weights}{an optional vector of weights to be used in the model.}
 }
 \details{The Breusch-Pagan test fits a linear regression model to the residuals
 of a linear regression model

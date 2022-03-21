@@ -34,7 +34,7 @@ coefci.default <- function(x, parm = NULL, level = 0.95, vcov. = NULL, df = NULL
     if(inherits(df, "try-error")) df <- NULL
   }
   if(is.null(df)) df <- 0
-  fac <- if(is.finite(df) && df > 0) qt(a, df = df) else qnorm(a)
+  fac <- if(any(is.finite(df)) && all(df > 0)) qt(a, df = df) else qnorm(a)
 
   ## set up confidence intervals
   ci <- cbind(est + fac[1] * se, est + fac[2] * se)

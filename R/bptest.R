@@ -1,5 +1,5 @@
 bptest <- function(formula, varformula = NULL, studentize = TRUE,
-  data = list())
+  data = list(), weights = NULL)
 {
   dname <- paste(deparse(substitute(formula)))
 
@@ -12,13 +12,20 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
 	 else model.response(model.frame(formula))
     Z <- if(is.null(varformula)) X
            else model.matrix(varformula, data = data)
+    wts <- weights(formula)
   } else {
-    mf <- model.frame(formula, data = data)
+    mf <- if(is.null(weights)) {
+      model.frame(formula, data = data)
+    } else {
+      model.frame(formula, weights = weights, data = data)
+    }
     y <- model.response(mf)
     X <- model.matrix(formula, data = data)
     Z <- if(is.null(varformula)) X
            else model.matrix(varformula, data = data)
-  }  
+    wts <- model.weights(mf)
+  }
+  if(is.null(wts)) wts <- rep.int(1, NROW(X))
 
   ## only use complete cases that are in both models
   if(!(all(c(row.names(X) %in% row.names(Z), row.names(Z) %in% row.names(X))))) {
@@ -26,29 +33,27 @@ bptest <- function(formula, varformula = NULL, studentize = TRUE,
     X <- X[allnames,]
     Z <- Z[allnames,]
     y <- y[allnames]
+    wts <- wts[row.names(X) %in% row.names(Z)]
   }
 
   ## need at least one intercept plus one regressor
-  if(ncol(Z) < 2) stop("the auxiliary variance regression requires at least an intercept and a regressor")
+  if(ncol(Z) < 2L) stop("the auxiliary variance regression requires at least an intercept and a regressor")
    
   k <- ncol(X)
-  n <- nrow(X)
+  n <- sum(wts > 0) ## nrow(X)
 
-  resi <- lm.fit(X,y)$residuals
-  sigma2 <- sum(resi^2)/n
+  resi <- lm.wfit(X, y, wts)$residuals
+  sigma2 <- sum(wts * resi^2)/n
 
-  if(studentize)
-  {
+  if(studentize) {
     w <- resi^2 - sigma2
-    aux <- lm.fit(Z, w)    
-    bp <- n * sum(aux$fitted.values^2)/sum(w^2)
+    aux <- lm.wfit(Z, w, wts)    
+    bp <- n * sum(wts * aux$fitted.values^2)/sum(w^2)
     method <- "studentized Breusch-Pagan test"
-  }
-  else
-  {
+  } else {
     f <- resi^2/sigma2 -1
-    aux <- lm.fit(Z, f)
-    bp <- 0.5 * sum(aux$fitted.values^2)
+    aux <- lm.wfit(Z, f, wts)
+    bp <- 0.5 * sum(wts * aux$fitted.values^2)
     method <- "Breusch-Pagan test"
   }
 
